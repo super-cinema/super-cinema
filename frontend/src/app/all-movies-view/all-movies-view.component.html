@@ -1,0 +1,30 @@
+<div class="add-movie">
+  <span>Add movie</span>
+</div>
+
+
+<div class="form-container">
+<form>
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="search movie" name="search">
+    <div class="input-group-btn">
+      <button type="button" class="btn btn-default btn-lg">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+  </div>
+</form>
+</div>
+
+<div class="movies-container">
+  <mat-list *ngFor="let movie of moviesList" class="list-group">
+    <div class="display-one-movie-container">
+      <mat-list-item class="list-group-item list-group-item-secondary">
+        <span>{{movie.title}}</span>
+      </mat-list-item>
+      <button class="btn btn-default btn-lg" id = "edit-button">Edit</button>
+      <button class="btn btn-default btn-lg" id = "delete-button">Cancel</button>
+      </div>
+  </mat-list>
+</div>
+
