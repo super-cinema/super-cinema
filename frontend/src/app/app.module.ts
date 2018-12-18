@@ -11,6 +11,7 @@ import {MatListModule, MatTableModule, MatPaginatorModule, MatSortModule} from '
 import { ScheduleScreeningComponent } from './schedule-screening/schedule-screening.component';
 import { ScheduleScreeningViewTableComponent } from './schedule-screening-view-table/schedule-screening-view-table.component';
 import { AddCrewComponent } from './add-crew/add-crew.component';
+import { AddMovieComponent } from './add-movie/add-movie.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { AddCrewComponent } from './add-crew/add-crew.component';
     AllMoviesViewComponent,
     ScheduleScreeningComponent,
     ScheduleScreeningViewTableComponent,
-    AddCrewComponent
+    AddCrewComponent,
+    ScheduleScreeningViewTableComponent,
+    AddMovieComponent
   ],
   imports: [
     BrowserModule,
