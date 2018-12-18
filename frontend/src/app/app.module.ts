@@ -10,6 +10,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatListModule, MatTableModule, MatPaginatorModule, MatSortModule} from '@angular/material';
 import { ScheduleScreeningComponent } from './schedule-screening/schedule-screening.component';
 import { ScheduleScreeningViewTableComponent } from './schedule-screening-view-table/schedule-screening-view-table.component';
+import { AddCrewComponent } from './add-crew/add-crew.component';
+import { AddMovieComponent } from './add-movie/add-movie.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,10 @@ import { ScheduleScreeningViewTableComponent } from './schedule-screening-view-t
     NavBarComponent,
     AllMoviesViewComponent,
     ScheduleScreeningComponent,
-    ScheduleScreeningViewTableComponent
+    ScheduleScreeningViewTableComponent,
+    AddCrewComponent,
+    ScheduleScreeningViewTableComponent,
+    AddMovieComponent
   ],
   imports: [
     BrowserModule,
