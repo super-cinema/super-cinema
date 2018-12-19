@@ -11,6 +11,6 @@ public class CrewDto {
     private String name;
     private String surname;
 
-    @JsonProperty("country")
+    @JsonProperty("crewRole")
     private CrewRoleDto crewRole;
 }

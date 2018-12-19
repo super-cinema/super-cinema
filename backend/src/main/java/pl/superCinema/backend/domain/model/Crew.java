@@ -16,8 +16,9 @@ public class Crew {
     private String name;
     private String surname;
 
+    @ElementCollection(targetClass = CrewRole.class)
     @Enumerated(EnumType.STRING)
-    private CrewRole crewRole;
+    private List<CrewRole> crewRoles;
 
 
     @ManyToMany(mappedBy = "directors")
