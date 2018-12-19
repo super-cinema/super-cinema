@@ -16,8 +16,9 @@ public class Seat {
 
     private String column;
     private Integer row;
-//
-//    @ManyToMany
-////    @JoinColumn(name = "CINEMA_HALL_ID")
-////    private CinemaHall cinemaHall;
+    private Integer seatNumnber;
+
+    @ManyToOne
+    @JoinColumn(name = "CINEMA_HALL_ID")
+    private CinemaHall cinemaHall;
 }

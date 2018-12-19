@@ -3,18 +3,21 @@ package pl.superCinema.backend.domain.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @Entity
-public class FilmShow {
+public class SeatAvailability {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
+
+    boolean isSeatTaken;
+
+    @ManyToOne
+    MovieShow movieShow;
 
 
 }

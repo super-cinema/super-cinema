@@ -19,8 +19,7 @@ public class Crew {
     @Enumerated(EnumType.STRING)
     private CrewRole crewRole;
 
-    //todo podzililem tutaj na gewiazdy i reyserow tak mial michal
-    //nie wiem czy tak ok
+
     @ManyToMany(mappedBy = "directors")
     List<Movie> directedMovies;
 

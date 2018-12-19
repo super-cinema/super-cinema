@@ -14,11 +14,11 @@ public class CinemaHall {
     @Id
     private Long id;
 
-    @ManyToMany(mappedBy = "cinemaHalls")
-    List<Movie> movies;
+    @OneToMany(mappedBy = "cinemaHall")
+    private List<Seat> seats;
 
-//    @OneToMany(mappedBy = "cinemaHall")
-//    private List<Seat> seats;
+    @ManyToMany(mappedBy = "cinemaHalls")
+    List<MovieShow> movieShows;
 
 
 

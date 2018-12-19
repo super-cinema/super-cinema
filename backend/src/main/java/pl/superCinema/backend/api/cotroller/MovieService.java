@@ -2,7 +2,7 @@ package pl.superCinema.backend.api.cotroller;
 
 import lombok.AllArgsConstructor;
 import pl.superCinema.backend.api.dto.MovieDto;
-import pl.superCinema.backend.domain.port.CinemaRepository;
+import pl.superCinema.backend.domain.model.CinemaRepository;
 import pl.superCinema.backend.domain.model.Movie;
 
 @AllArgsConstructor
