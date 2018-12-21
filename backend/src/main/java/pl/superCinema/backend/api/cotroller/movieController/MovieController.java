@@ -1,4 +1,4 @@
-package pl.superCinema.backend.api.cotroller;
+package pl.superCinema.backend.api.cotroller.movieController;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,11 +12,11 @@ import pl.superCinema.backend.api.dto.MovieDto;
 @AllArgsConstructor
 public class MovieController {
 
-    private MovieService movieService;
+    private MovieFacade movieFacade;
 
     @PostMapping("/movies")
     public ResponseEntity addMovie(@RequestBody MovieDto movieDto){
-        MovieDto result = movieService.addMovie(movieDto);
+        MovieDto result = movieFacade.addMovie(movieDto);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 }

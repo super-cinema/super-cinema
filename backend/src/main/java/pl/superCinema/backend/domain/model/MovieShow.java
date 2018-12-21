@@ -18,6 +18,8 @@ public class MovieShow {
     private LocalDate startMovieShow;
     private LocalDate endMovieShow;
 
+    @OneToOne(mappedBy = "movieShow")
+    private Movie movie;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "FILM_SHOWS_AND_CINEMA_HALLS",
@@ -25,8 +27,7 @@ public class MovieShow {
             inverseJoinColumns = {@JoinColumn(name = "CINEMA_HALL_ID")})
     List<CinemaHall> cinemaHalls;
 
-    @OneToOne(mappedBy = "movieShow")
-    private Movie movie;
+
 
     @OneToMany(mappedBy = "movieShow")
     List<SeatAvailability> seatsAvailability;

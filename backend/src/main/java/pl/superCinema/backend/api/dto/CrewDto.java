@@ -4,13 +4,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class CrewDto {
-
+    private Long id;
     private String name;
     private String surname;
 
-    @JsonProperty("crewRole")
-    private CrewRoleDto crewRole;
+    //    @JsonProperty("crewRole")
+    private List<CrewRoleDto> crewRoleDtos;
 }
