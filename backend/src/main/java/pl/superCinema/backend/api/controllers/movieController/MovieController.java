@@ -1,4 +1,4 @@
-package pl.superCinema.backend.api.controllers;
+package pl.superCinema.backend.api.controllers.movieController;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/movie")
 @CrossOrigin(origins = "*")
-
 public class MovieController {
 
     @Autowired

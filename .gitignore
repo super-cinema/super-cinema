@@ -24,7 +24,7 @@ Thumbs.db
 *.rar
 
 # INTELIJ IDEA #
-*.idea
+/.idea
 *.iws
 *.iml
 *.ipr

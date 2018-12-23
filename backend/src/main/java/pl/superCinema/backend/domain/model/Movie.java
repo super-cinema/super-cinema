@@ -26,15 +26,15 @@ public class Movie {
     @JoinTable(name = "MOVIE_DIRECTORS",
             joinColumns = {@JoinColumn(name = "MOVIE_ID")},
             inverseJoinColumns = {@JoinColumn(name = "CREW_ID")})
-    List<Crew> directors;
+    private List<Crew> directors;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "MOVIE_CAST",
             joinColumns = {@JoinColumn(name = "MOVIE_ID")},
             inverseJoinColumns = {@JoinColumn(name = "STAR_ID")})
-    List<Crew> cast;
+    private List<Crew> cast;
 
     @OneToOne
-    MovieShow movieShow;
+    private MovieShow movieShow;
 
 }

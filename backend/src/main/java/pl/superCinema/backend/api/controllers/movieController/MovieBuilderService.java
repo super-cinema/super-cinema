@@ -1,4 +1,4 @@
-package pl.superCinema.backend.api.controllers;
+package pl.superCinema.backend.api.controllers.movieController;
 
 
 import lombok.NoArgsConstructor;

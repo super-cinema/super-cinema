@@ -12,6 +12,10 @@ import { ScheduleScreeningComponent } from './schedule-screening/schedule-screen
 import { ScheduleScreeningViewTableComponent } from './schedule-screening-view-table/schedule-screening-view-table.component';
 import { AddCrewComponent } from './add-crew/add-crew.component';
 import { AddMovieComponent } from './add-movie/add-movie.component';
+import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+import {InterceptorModule} from "./interceptor.module";
+
 
 @NgModule({
   declarations: [
@@ -32,7 +36,10 @@ import { AddMovieComponent } from './add-movie/add-movie.component';
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    FormsModule,
+    HttpClientModule,
+    InterceptorModule
   ],
   exports: [
     MatListModule

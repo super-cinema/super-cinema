@@ -1,4 +1,4 @@
-package pl.superCinema.backend.api.controllers;
+package pl.superCinema.backend.api.controllers.movieController;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

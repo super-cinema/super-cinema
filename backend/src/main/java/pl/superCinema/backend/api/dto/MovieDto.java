@@ -22,8 +22,8 @@ public class MovieDto {
 
     @JsonProperty("types")
     private List<TypeDto> types;
-    List<Crew> directors;
-    List<Crew> cast;
-    MovieShow movieShow;
+    private List<Crew> directors;
+    private List<Crew> cast;
+    private MovieShow movieShow;
 
 }

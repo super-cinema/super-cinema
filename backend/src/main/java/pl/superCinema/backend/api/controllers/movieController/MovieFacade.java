@@ -1,6 +1,7 @@
-package pl.superCinema.backend.api.controllers;
+package pl.superCinema.backend.api.controllers.movieController;
 
 import lombok.AllArgsConstructor;
+import pl.superCinema.backend.api.controllers.movieController.MovieBuilderService;
 import pl.superCinema.backend.api.dto.MovieDto;
 import pl.superCinema.backend.domain.exceptions.EntityNotFoundException;
 import pl.superCinema.backend.domain.model.Movie;
@@ -70,7 +71,7 @@ public class MovieFacade {
 
     public List<MovieDto> getAllMovies() {
         List<Movie> allMovies = movieRepository.findAll();
-        ArrayList<MovieDto> allMoviesDto = new ArrayList<>();
+        List<MovieDto> allMoviesDto = new ArrayList<>();
         if(!allMovies.isEmpty()){
             for(Movie movie : allMovies) {
                 allMoviesDto.add(movieBuilderService.dtoFromEntity(movie));
