@@ -1,3 +1,6 @@
+<div id="header">
+  <h3>Add movie</h3>
+</div>
 <form #addMovieForm = "ngForm" (ngSubmit) = "addMovie(addMovieForm)" >
   <div class="form-group row">
     <label for="title" class="col-sm-3 col-form-label">Title</label>
@@ -7,7 +10,7 @@
   </div>
   <div class="form-group row">
     <label for="input-directors" class="col-sm-3 col-form-label">Directors</label>
-    <div class="col-sm-8">
+    <div class="col-sm-8" id = "div-directors">
       <input ngModel name = "directors" type="text" class="form-control" id="input-directors">
     </div>
   </div>
