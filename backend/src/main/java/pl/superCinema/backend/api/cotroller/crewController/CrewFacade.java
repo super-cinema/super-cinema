@@ -31,9 +31,8 @@ public class CrewFacade {
             return crewBuilder.crewToCrewDto(crew.get());
         } else return null;
     }
-
-    //todo update method for Crew
-//    public CrewDto updateCrew(Long id){
+//
+//    public CrewDto updateCrew(Long id, CrewDto crewDto){
 //        if (crewRepository.existsById(id)){
 //            Optional<Crew> crew = crewRepository.findById(id);
 //

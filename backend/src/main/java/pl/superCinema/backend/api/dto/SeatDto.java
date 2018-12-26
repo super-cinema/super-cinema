@@ -7,10 +7,9 @@ import lombok.Setter;
 @Setter
 public class SeatDto {
     private Long id;
-    private String column;
-    private Integer row;
+    private String seatColumn;
+    private Integer seatRow;
     private Integer seatNumnber;
     private CinemaHallDto cinemaHallDto;
-
 
 }

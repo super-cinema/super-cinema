@@ -14,8 +14,8 @@ public class Seat {
     @Id
     private Long id;
 
-    private String column;
-    private Integer row;
+    private String seatColumn;
+    private Integer seatRow;
     private Integer seatNumnber;
 
     @ManyToOne
