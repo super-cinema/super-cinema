@@ -15,6 +15,7 @@ import { AddMovieComponent } from './add-movie/add-movie.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {InterceptorModule} from "./interceptor.module";
+import { EditMovieComponent } from './edit-movie/edit-movie.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {InterceptorModule} from "./interceptor.module";
     ScheduleScreeningViewTableComponent,
     AddCrewComponent,
     ScheduleScreeningViewTableComponent,
-    AddMovieComponent
+    AddMovieComponent,
+    EditMovieComponent
   ],
   imports: [
     BrowserModule,
