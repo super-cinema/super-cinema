@@ -29,9 +29,19 @@ public class MovieFacade {
         return  movieBuilderService.dtoFromEntity(movie);
     }
 
+    public MovieDto getMovieById(Long id) throws EntityNotFoundException {
+        Movie movie = getMovieEntityById(id);
+        MovieDto movieDto = movieBuilderService.dtoFromEntity(movie);
+        return movieDto;
+    }
+
+    private Movie getMovieEntityById(Long id) {
+        return movieRepository.findById(id).orElseThrow(
+                    () -> new EntityNotFoundException("Movie with id: " + id + " not found"));
+    }
+
     public MovieDto saveEditedMovie(Long id, MovieDto movieDto) throws EntityNotFoundException {
-        Movie movie = movieRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Movie with id: " + id + " not found"));
+        Movie movie = getMovieEntityById(id);
         movie = editMovie(movie, movieDto);
         movieRepository.save(movie);
         return movieBuilderService.dtoFromEntity(movie);

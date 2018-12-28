@@ -2,8 +2,12 @@ package pl.superCinema.backend.api.controllers.movieController;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.superCinema.backend.api.dto.MovieDto;
+import pl.superCinema.backend.domain.errors.ApiError;
+import pl.superCinema.backend.domain.exceptions.EntityNotFoundException;
 
 import java.util.List;
 
@@ -28,8 +32,23 @@ public class MovieController {
 
     @GetMapping
     @RequestMapping(params = "title")
-    public MovieDto getMovie(@RequestParam String title) {
+    public MovieDto getMovieByTitle(@RequestParam String title) {
         return movieFacade.getMovieByTitle(title);
+    }
+
+    @GetMapping
+    @RequestMapping(params = "movieId")
+    public ResponseEntity findMovieById(@RequestParam Long movieId){
+        MovieDto movieById;
+        try{
+            movieById = movieFacade.getMovieById(movieId);
+        } catch (EntityNotFoundException e){
+            ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, e.getMessage(), e.getClass().getSimpleName());
+            return new ResponseEntity(apiError, HttpStatus.NOT_FOUND);
+        }
+
+        ResponseEntity movieDtoResponseEntity = new ResponseEntity<>(movieById, HttpStatus.OK);
+        return movieDtoResponseEntity;
     }
 
     @PutMapping

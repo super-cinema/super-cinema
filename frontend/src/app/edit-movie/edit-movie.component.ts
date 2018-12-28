@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-edit-movie',
@@ -21,9 +23,34 @@ export class EditMovieComponent implements OnInit {
     {value: "WESTERNS", name: "western", "checked": false}
   ]
 
-  constructor() { }
+  private movie: Movie;
+
+
+
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
-  }
+    this.route.params.subscribe(params => {
+      this.movie = new Movie;
+      this.movie.id = params['id'];
+      this.httpClient.get()
+
+
+
+  })}
+
 
 }
+
+export class Movie {
+  id;
+  title: string;
+  duration;
+  productionCountry: string;
+  productionYear: string;
+  directors: string;
+  cast: string;
+  movieShow: string;
+  types: string[] = [];
+}
+
