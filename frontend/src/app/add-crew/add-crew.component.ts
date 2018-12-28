@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {any} from "codelyzer/util/function";
+
 
 @Component({
   selector: 'app-add-crew',
@@ -48,5 +48,30 @@ export class AddCrewComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  ////////////////////////////////
+  // crew: any = {};
+  // sub: Subscription;
+  //
+  // constructor(private route: ActivatedRoute,
+  //             private router: Router,
+  //             private crewService: CrewService)
+  // {}
+  //
+  // ngOnInit(): void {
+  //   this.sub = this.route.params.subscribe(params => {
+  //     const id = params['id'];
+  //     if (id) {
+  //       this.crewService.get(id).subscribe((car: any) => {
+  //         if (car) {
+  //           this.crew = car;
+  //           this.crew.href = car._links.self.href;
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
+  // ngOnDestroy() {
+  //   this.sub.unsubscribe();
+  // }
+  
 }

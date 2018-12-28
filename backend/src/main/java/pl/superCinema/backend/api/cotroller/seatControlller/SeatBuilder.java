@@ -13,8 +13,8 @@ public class SeatBuilder {
     public Seat seatDtoToSeat(SeatDto seatDto) {
         Seat seat = new Seat();
         seat.setId(seatDto.getId());
-        seat.setColumn(seatDto.getColumn());
-        seat.setRow(seatDto.getRow());
+        seat.setSeatColumn(seatDto.getSeatColumn());
+        seat.setSeatRow(seatDto.getSeatRow());
         seat.setSeatNumnber(seatDto.getSeatNumnber());
         seat.setCinemaHall(cinemaHallBuilder.cinemaHallDtoToCinemaHall(seatDto.getCinemaHallDto()));
 
@@ -24,8 +24,8 @@ public class SeatBuilder {
     public SeatDto seatToSeatDto(Seat seat) {
         SeatDto seatDto = new SeatDto();
         seatDto.setId(seat.getId());
-        seatDto.setColumn(seat.getColumn());
-        seatDto.setRow(seat.getRow());
+        seatDto.setSeatColumn(seat.getSeatColumn());
+        seatDto.setSeatRow(seat.getSeatRow());
         seatDto.setSeatNumnber(seat.getSeatNumnber());
         seatDto.setCinemaHallDto(cinemaHallBuilder.cinemaHallToCinemaHallDto(seat.getCinemaHall()));
 

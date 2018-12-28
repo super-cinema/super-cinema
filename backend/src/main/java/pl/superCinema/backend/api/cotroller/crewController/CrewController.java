@@ -8,6 +8,7 @@ import pl.superCinema.backend.api.dto.CrewDto;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin("*")
 public class CrewController {
 
    private CrewFacade crewFacade;
