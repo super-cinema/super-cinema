@@ -33,7 +33,20 @@ export class EditMovieComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.movie = new Movie;
       this.movie.id = params['id'];
-      this.httpClient.get()
+      this.httpClient.get("http://localhost:8080/movie?movieId=" + this.movie.id)
+        .subscribe(
+          (data: any) => {
+            console.log(data);
+            this.movie.title = data.title;
+            this.movie.duration = data.duration;
+            this.movie.productionCountry = data.productionCountry;
+            this.movie.productionYear = data.productionYear;
+            this.movie.cast = data.cast;
+            this.movie.directors = data.cast;
+            this.movie.movieShow = data.movieShow;
+            this.movieTypes = data.movieTypes;
+
+      })
 
 
 
