@@ -10,13 +10,13 @@ import javax.persistence.*;
 @Entity
 public class Seat {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Id
     private Long id;
 
-    private String column;
-    private Integer row;
-    private Integer seatNumnber;
+    private String seatColumn;
+    private Integer seatRow;
+    private Integer seatNumber;
 
     @ManyToOne
     @JoinColumn(name = "CINEMA_HALL_ID")
