@@ -10,18 +10,18 @@ import {NgForm} from "@angular/forms";
 })
 export class EditMovieComponent implements OnInit {
 
-  movieTypes = [
-    {value: "COMEDY", name: "comedy", "checked": false},
-    {value: "HORROR", name: "horror", "checked": false},
-    {value: "SF", name: "science - fiction", "checked": false},
-    {value: "ACTION", name: "action", "checked": false},
-    {value: "THRILLER", name: "thriller", "checked": false},
-    {value: "DRAMA", name: "drama", "checked": false},
-    {value: "CRIME", name: "crime", "checked": false},
-    {value: "FANTASY", name: "fantasy", "checked": false},
-    {value: "MUSICAL", name: "musical", "checked": false},
-    {value: "ANIMATION", name: "animation", "checked": false},
-    {value: "WESTERNS", name: "western", "checked": false}
+  movieTypesArray = [
+    {value: "COMEDY", name: "comedy", checked: false},
+    {value: "HORROR", name: "horror", checked: false},
+    {value: "SF", name: "science - fiction", checked: false},
+    {value: "ACTION", name: "action", checked: false},
+    {value: "THRILLER", name: "thriller", checked: false},
+    {value: "DRAMA", name: "drama", checked: false},
+    {value: "CRIME", name: "crime", checked: false},
+    {value: "FANTASY", name: "fantasy", checked: false},
+    {value: "MUSICAL", name: "musical", checked: false},
+    {value: "ANIMATION", name: "animation", checked: false},
+    {value: "WESTERNS", name: "western", checked: false}
   ]
 
   private movie: Movie;
@@ -53,6 +53,8 @@ export class EditMovieComponent implements OnInit {
 
   }
 
+
+
   wasTypeSelected(movieType: { value: string; name: string; checked: boolean }) {
     if(this.movie.types.includes(movieType.value)) {
       movieType.checked = true;
@@ -62,11 +64,39 @@ export class EditMovieComponent implements OnInit {
     return false;
   }
 
-  checkMovieType(movieType, event) {
-    movieType.checked = !movieType.checked
+  checkMovieType(i, event) {
+    this.movieTypesArray[i].checked = !this.movieTypesArray[i].checked;
+    if(this.movieTypesArray[i].checked){
+      this.movie.types.push(this.movieTypesArray[i].value);
+    } else {
+      let indexOf = this.movie.types.indexOf(this.movieTypesArray[i].value);
+      this.movie.types.splice(indexOf, 1);
+    }
   }
 
 
+  saveChanges(editMovieForm: HTMLFormElement) {
+    let checkedMovieTypes = this.movieTypesArray.filter(type => type.checked == true).map(type => type.value);
+    this.httpClient.put("http://localhost:8080/movie?id=" + this.movie.id, {
+      "title" : this.movie.title,
+      "duration" : this.movie.duration,
+      "productionCountry" : this.movie.productionCountry,
+      "productionYear" : this.movie.productionYear,
+      "types" : checkedMovieTypes,
+      "directors" : null,
+      "cast" : null,
+      "movieShow" :null
+    })
+      .subscribe(
+        (data: any) => {
+          console.log(":)", data);
+        },
+        (error) => {
+          console.log(":(", error);
+        }
+
+      )
+  }
 }
 
 export class Movie {
