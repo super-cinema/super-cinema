@@ -27,7 +27,8 @@
       <div class="col-sm-8">
         <div *ngFor="let movieType of movieTypes" >
           <label>
-            <input type="checkbox" name="movieTypes" value="{{movieType.value}}" (change)="checkMovieType(movieType, $event)">
+            <input type="checkbox" name="movieTypes" value="{{movieType.value}}" (change)="checkMovieType(movieType, $event)"
+                   [checked] = "wasTypeSelected(movieType)">
             {{movieType.name}}
           </label>
         </div>
