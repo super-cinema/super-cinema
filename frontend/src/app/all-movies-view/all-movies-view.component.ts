@@ -31,7 +31,23 @@ export class AllMoviesViewComponent implements OnInit {
     return false;
   }
 
-  deleteMovie() {
-    this.dialogService.openConfirmDialog();
+  deleteMovie(id, title) {
+    console.log(id)
+    let msg: string = "Do you want delete " + title + " movie?";
+    this.dialogService.openConfirmDialog(msg)
+      .afterClosed()
+      .subscribe(resp =>
+        {
+          if(resp) {
+            this.httpClient.delete("http://localhost:8080/movie?idToDelete=" + id)
+              .subscribe(data => {
+                console.log(":)", data);
+                this.ngOnInit();
+              }),(error => {
+                console.log(":(", error);
+            })
+          }
+        }
+      )
   }
 }
