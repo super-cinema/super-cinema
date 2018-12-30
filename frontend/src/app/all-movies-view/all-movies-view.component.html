@@ -22,8 +22,8 @@
       <mat-list-item class="list-group-item list-group-item-secondary">
         <span>{{movie.title}}</span>
       </mat-list-item>
-      <a routerLink="/movie/{{movie.id}}/edit"><button class="btn btn-default btn-lg" id = "edit-button">Edit</button></a>
-      <button class="btn btn-default btn-lg" id = "delete-button">Cancel</button>
+      <button routerLink="/movie/{{movie.id}}/edit" class="btn btn-default btn-lg" id = "edit-button">Edit</button>
+      <button class="btn btn-default btn-lg" id = "delete-button">Delete</button>
       </div>
   </mat-list>
 </div>

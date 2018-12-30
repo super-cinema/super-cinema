@@ -34,33 +34,21 @@ export class EditMovieComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.movie = new Movie;
       this.movie.id = params['id'];
-        }
-      )
-    this.httpClient.get("http://localhost:8080/movie?movieId=" + this.movie.id)
-      .subscribe(
-        (data: any) => {
-          console.log(data);
-          this.movie.title = data.title;
-          this.movie.duration = data.duration;
-          this.movie.productionCountry = data.productionCountry;
-          this.movie.productionYear = data.productionYear;
-          this.movie.cast = data.cast;
-          this.movie.directors = data.cast;
-          this.movie.movieShow = data.movieShow;
-          this.movie.types = data.types;
-        })
-
-
+    })
+    this.getMovieData();
   }
 
 
 
   wasTypeSelected(movieType: { value: string; name: string; checked: boolean }) {
+
     if(this.movie.types.includes(movieType.value)) {
+      console.log("return true ", movieType)
       movieType.checked = true;
       return true;
     }
     movieType.checked = false;
+    console.log("return false", movieType)
     return false;
   }
 
@@ -96,6 +84,22 @@ export class EditMovieComponent implements OnInit {
         }
 
       )
+  }
+
+  private getMovieData() {
+    this.httpClient.get("http://localhost:8080/movie?movieId=" + this.movie.id)
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          this.movie.title = data.title;
+          this.movie.duration = data.duration;
+          this.movie.productionCountry = data.productionCountry;
+          this.movie.productionYear = data.productionYear;
+          this.movie.cast = data.cast;
+          this.movie.directors = data.cast;
+          this.movie.movieShow = data.movieShow;
+          this.movie.types = data.types;
+        })
   }
 }
 

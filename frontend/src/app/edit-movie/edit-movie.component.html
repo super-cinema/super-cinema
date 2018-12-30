@@ -54,8 +54,8 @@
   </div>
 <!-- TODO button's size-->
   <div class="button-container">
-    <a routerLink="/allMoviesView"><button class="btn btn-primary mb-2">Back</button></a>
-    <button type="submit" class="btn btn-primary mb-3" (click)="saveChanges(editMovieForm)">Save</button>
-    <button type="reset" class="btn btn-primary mb-3">Cancel</button>
+    <button routerLink="/allMoviesView" class="btn btn-primary mb-2">Back</button>
+    <button type="submit" class="btn btn-primary mb-2" (click)="saveChanges()">Save</button>
+    <button id="cancelButton" type="reset" class="btn btn-primary mb-2" (click)="ngOnInit()">Cancel</button>
   </div>
 </form>
