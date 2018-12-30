@@ -18,6 +18,7 @@ import { EditMovieComponent } from './edit-movie/edit-movie.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { MatListModule, MatTableModule, MatPaginatorModule, MatSortModule} from '@angular/material';
 import { MatDialogModule } from "@angular/material";
+import {MatSnackBarModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -44,11 +45,13 @@ import { MatDialogModule } from "@angular/material";
     FormsModule,
     HttpClientModule,
     InterceptorModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   exports: [
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

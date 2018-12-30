@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {DialogService} from "../share/dialog.service";
+import {NotificationService} from "../share/notification.service";
+
 
 
 @Component({
@@ -13,7 +15,8 @@ export class AllMoviesViewComponent implements OnInit {
   moviesList = []
 
   constructor(private httpClient: HttpClient,
-              private dialogService: DialogService) { }
+              private dialogService: DialogService,
+              private notificationService: NotificationService) { }
 
   ngOnInit() {
     this.httpClient.get('http://localhost:8080/movie')
@@ -41,11 +44,13 @@ export class AllMoviesViewComponent implements OnInit {
           if(resp) {
             this.httpClient.delete("http://localhost:8080/movie?idToDelete=" + id)
               .subscribe(data => {
-                console.log(":)", data);
                 this.ngOnInit();
+                this.notificationService.success('Deleted ' + title + ' movie successfully');
               }),(error => {
-                console.log(":(", error);
+                this.notificationService.warn('Deleting ' + title + ' movie failed')
             })
+
+
           }
         }
       )
