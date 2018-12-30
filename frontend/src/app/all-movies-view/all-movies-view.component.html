@@ -22,8 +22,9 @@
       <mat-list-item class="list-group-item list-group-item-secondary">
         <span>{{movie.title}}</span>
       </mat-list-item>
+      <!--TODO letters in buttons should change size-->
       <button routerLink="/movie/{{movie.id}}/edit" class="btn btn-default btn-lg" id = "edit-button">Edit</button>
-      <button class="btn btn-default btn-lg" id = "delete-button">Delete</button>
+      <button class="btn btn-default btn-lg" id = "delete-button" (click)="deleteMovie()">Delete</button>
       </div>
   </mat-list>
 </div>

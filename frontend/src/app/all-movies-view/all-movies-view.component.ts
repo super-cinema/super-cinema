@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {DialogService} from "../share/dialog.service";
 
 
 @Component({
@@ -11,7 +12,8 @@ export class AllMoviesViewComponent implements OnInit {
 
   moviesList = []
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private dialogService: DialogService) { }
 
   ngOnInit() {
     this.httpClient.get('http://localhost:8080/movie')
@@ -27,5 +29,9 @@ export class AllMoviesViewComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  deleteMovie() {
+    this.dialogService.openConfirmDialog();
   }
 }
