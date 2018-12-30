@@ -8,5 +8,15 @@ body{
 }
 
 .notification{
+  color: black;
+  top: 100px !important;
   background-color: #85CDBC;
+}
+
+simple-snack-bar{
+  justify-content: center !important;
+}
+
+snack-bar-container{
+  margin-top: 100px !important;
 }
