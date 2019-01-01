@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AllMoviesViewComponent} from './all-movies-view/all-movies-view.component';
 import {ScheduleScreeningComponent} from './schedule-screening/schedule-screening.component';
-import {AddCrewComponent} from './add-crew/add-crew.component';
+import {AddCrewComponent} from './crew/add-crew/add-crew.component';
 import {AddMovieComponent} from './add-movie/add-movie.component';
 
 const routes: Routes = [

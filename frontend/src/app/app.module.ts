@@ -7,12 +7,14 @@ import {AppComponent} from './app.component';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
 import {AllMoviesViewComponent} from './all-movies-view/all-movies-view.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatListModule, MatTableModule, MatPaginatorModule, MatSortModule} from '@angular/material';
+import {MatListModule, MatPaginatorModule, MatSortModule, MatTableModule} from '@angular/material';
 import {ScheduleScreeningComponent} from './schedule-screening/schedule-screening.component';
 import {ScheduleScreeningViewTableComponent} from './schedule-screening-view-table/schedule-screening-view-table.component';
-import {AddCrewComponent} from './add-crew/add-crew.component';
+import {AddCrewComponent} from './crew/add-crew/add-crew.component';
 import {AddMovieComponent} from './add-movie/add-movie.component';
 import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
+import {InterceptorModule} from './interceptor.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import {HttpClientModule} from '@angular/common/http';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    HttpClientModule
+    FormsModule,
+    HttpClientModule,
+    InterceptorModule
   ],
   exports: [
     MatListModule
