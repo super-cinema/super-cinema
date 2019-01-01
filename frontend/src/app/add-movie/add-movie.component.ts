@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 
@@ -9,12 +9,8 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AddMovieComponent implements OnInit {
 
-
-
-  ngOnInit() {
+  constructor(private httpClient: HttpClient) {
   }
-
-  constructor(private httpClient: HttpClient) { }
 
   movieTypes = [
     {value: "COMEDY", name: "comedy", "checked": false},
@@ -24,28 +20,32 @@ export class AddMovieComponent implements OnInit {
     {value: "THRILLER", name: "thriller", "checked": false},
     {value: "DRAMA", name: "drama", "checked": false},
     {value: "CRIME", name: "crime", "checked": false},
-    {value: "FANTASY", name: "fantasy", "checked": false},
+    {value: "FANTASY", name: 'fantasy', "checked": false},
     {value: "MUSICAL", name: "musical", "checked": false},
     {value: "ANIMATION", name: "animation", "checked": false},
     {value: "WESTERNS", name: "western", "checked": false}
-    ]
+  ]
+
+
+  ngOnInit() {
+  }
 
   checkMovieType(movieType, event) {
-    movieType.checked = !movieType.checked
+    movieType.checked = !movieType.checked;
   }
 
   addMovie(addMovieForm: NgForm) {
-    let checkedMovieTypes = this.movieTypes.filter(type => type.checked == true).map(type => type.value)
+    let checkedMovieTypes = this.movieTypes.filter(type => type.checked === true).map(type => type.value)
     console.log(checkedMovieTypes);
-    this.httpClient.post("http://localhost:8080/movie",  {
-      "title" : addMovieForm.value.title,
-      "duration" : addMovieForm.value.duration,
-      "productionCountry" : addMovieForm.value.productionCountry,
-      "productionYear" : addMovieForm.value.productionYear,
-      "types" : checkedMovieTypes,
-      "directors" : null,
-      "cast" : null,
-      "movieShow" :null
+    this.httpClient.post("http://localhost:8080/movie", {
+      "title": addMovieForm.value.title,
+      "duration": addMovieForm.value.duration,
+      "productionCountry": addMovieForm.value.productionCountry,
+      "productionYear": addMovieForm.value.productionYear,
+      "types": checkedMovieTypes,
+      "directors": null,
+      "cast": null,
+      "movieShow": null
     })
       .subscribe(
         (data: any) => {
