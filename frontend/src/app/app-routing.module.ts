@@ -4,12 +4,14 @@ import {AllMoviesViewComponent} from './all-movies-view/all-movies-view.componen
 import {ScheduleScreeningComponent} from './schedule-screening/schedule-screening.component';
 import {AddCrewComponent} from './add-crew/add-crew.component';
 import {AddMovieComponent} from './add-movie/add-movie.component';
+import {EditMovieComponent} from "./edit-movie/edit-movie.component";
 
 const routes: Routes = [
   {path: 'allMoviesView', component: AllMoviesViewComponent},
   {path: 'scheduleScreening',  component: ScheduleScreeningComponent},
   {path: 'addCrew', component: AddCrewComponent},
-  {path: 'addMovie', component: AddMovieComponent}
+  {path: 'addMovie', component: AddMovieComponent},
+  {path: 'movie/:id/edit', component: EditMovieComponent}
 ];
 
 @NgModule({
