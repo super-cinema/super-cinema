@@ -16,6 +16,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {InterceptorModule} from './interceptor.module';
 import { AllCrewViewComponent } from './crew/all-crew-view/all-crew-view.component';
+import {EditCrewComponent} from './crew/edit-crew/edit-crew.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AllCrewViewComponent } from './crew/all-crew-view/all-crew-view.compone
     ScheduleScreeningViewTableComponent,
     AddMovieComponent,
     AllCrewViewComponent,
+    EditCrewComponent
   ],
   imports: [
     BrowserModule,

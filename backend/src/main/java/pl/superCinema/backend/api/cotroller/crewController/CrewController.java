@@ -6,13 +6,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.superCinema.backend.api.dto.CrewDto;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/crew")
 @CrossOrigin(origins = "*")
 public class CrewController {
 
-   private CrewFacade crewFacade;
+    private CrewFacade crewFacade;
 
     @GetMapping(params = "id")
     public ResponseEntity getMovies(@RequestParam Long id) {
@@ -20,19 +22,27 @@ public class CrewController {
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
+    @GetMapping
+    public List<CrewDto> getAllCrew() {
+        return crewFacade.getAllCrew();
+    }
+
     @PostMapping
-    public ResponseEntity addCrew(@RequestBody CrewDto crewDto){
+    public ResponseEntity addCrew(@RequestBody CrewDto crewDto) {
         CrewDto result = crewFacade.addCrew(crewDto);
-        return new ResponseEntity(result,HttpStatus.OK);
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
     @DeleteMapping(params = "id")
-    public ResponseEntity deleteCrew(@RequestParam Long id){
+    public ResponseEntity deleteCrew(@RequestParam Long id) {
         CrewDto result = crewFacade.deleteCrew(id);
-        return new ResponseEntity(result,HttpStatus.OK);
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
-    //todo putMapping for Crew
-//   @PutMapping("")
+    @PutMapping
+    @RequestMapping(params = "id")
+    public CrewDto editMovie(@RequestParam Long id, @RequestBody CrewDto crewDto) {
+        return crewFacade.updateCrew(id, crewDto);
+    }
 
 }

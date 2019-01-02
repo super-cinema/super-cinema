@@ -1,28 +1,27 @@
 <div id="header">
-  <h3>Add Crew</h3>
+  <h3>Edit Crew</h3>
 </div>
-<form #editCrewForm="ngForm" (ngSubmit)="addCrew(addCrewForm)">
-
+<form #editCrewForm="ngForm">
   <div class="form-group row">
     <label for="name" class="col-sm-3 col-form-label">Name</label>
     <div class="col-sm-10">
-      <input ngModel name="name" type="text" class="form-control" id="name">
+      <input [(ngModel)]="crew.name" name = "name" type="text" class="form-control" id="name">
     </div>
   </div>
   <div class="form-group row">
     <label for="surname" class="col-sm-2 col-form-label">Surname</label>
     <div class="col-sm-10">
-      <input ngModel name="surname" type="text" class="form-control" id="surname">
+      <input [(ngModel)] ="crew.surname"  name = "surname" type="text" class="form-control" id="surname">
     </div>
   </div>
   <fieldset class="form-group">
     <div class="row">
       <legend class="col-form-label col-sm-3 pt-0">Crew Role</legend>
-      <!-- TODO display inline/table ??-->
+
       <div class="col-sm-10">
-        <div *ngFor="let role of crewRole" >
+        <div *ngFor="let role of crewRole; let i = index;" >
           <label>
-            <input type="checkbox" name="crewRole" value="{{crewRole.values()}}" (change)="checkCrewRole(crewRole, $event)">
+            <input type="checkbox" name="crewRole" [checked] = "wasTypeSelected(role)" (change)="checkCrewRole(i, $event)">
             {{role.name}}
           </label>
         </div>
@@ -30,8 +29,8 @@
     </div>
   </fieldset>
   <div class="button-container">
-    <button mat-raised-button type="submit" class="btn btn-primary mb-2">Save</button>
+    <button mat-raised-button type="submit" class="btn btn-primary mb-2" (click)="saveChanges()">Save</button>
     <button type="reset" class="btn btn-primary mb-2">Reset</button>
-    <button type="button" class="btn btn-primary mb-2" routerLink="">Return</button>
+    <button type="button" class="btn btn-primary mb-2" routerLink="/addCrew/allCrewView">Return</button>
   </div>
 </form>
