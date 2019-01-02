@@ -28,6 +28,9 @@ export class AllMoviesViewComponent implements OnInit {
     }
 
   displaySearchedMovie(movie: any, findMovieForm: HTMLFormElement) {
+    if(movie.title == null) {
+      movie.title = '';
+    }
     if(movie.title.toUpperCase().includes(findMovieForm.value.search.toUpperCase())){
       return true;
     }
@@ -55,4 +58,6 @@ export class AllMoviesViewComponent implements OnInit {
         }
       )
   }
+
+
 }
