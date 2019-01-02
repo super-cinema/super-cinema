@@ -43,7 +43,7 @@ import {InterceptorModule} from './interceptor.module';
   exports: [
     MatListModule
   ],
-  providers: [HttpClientModule],
+  providers: [HttpClientModule, InterceptorModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {

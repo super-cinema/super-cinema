@@ -28,7 +28,7 @@ export class AddCrewComponent implements OnInit {
     this.httpClient.post('http://localhost:8080/crew', {
       'name': addCrewForm.value.name,
       'surname': addCrewForm.value.surname,
-      'role': checkedCrewRole,
+      'crewRoleDtos': checkedCrewRole,
     })
       .subscribe(
         (data: any) => {

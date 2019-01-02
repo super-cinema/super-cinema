@@ -8,8 +8,8 @@ import pl.superCinema.backend.api.dto.CrewDto;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/crew")
-@CrossOrigin(origins = "http://localhost:4200")
+//@RequestMapping("/crew")
+@CrossOrigin(origins = "*")
 public class CrewController {
 
    private CrewFacade crewFacade;
