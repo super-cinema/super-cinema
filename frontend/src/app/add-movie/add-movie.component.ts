@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
+import {NotificationService} from "../share/notification.service";
 
 @Component({
   selector: 'app-add-movie',
@@ -14,7 +15,8 @@ export class AddMovieComponent implements OnInit {
   ngOnInit() {
   }
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private notification: NotificationService) { }
 
   movieTypes = [
     {value: "COMEDY", name: "comedy", "checked": false},
@@ -36,7 +38,18 @@ export class AddMovieComponent implements OnInit {
 
   addMovie(addMovieForm: NgForm) {
     let checkedMovieTypes = this.movieTypes.filter(type => type.checked == true).map(type => type.value)
-    console.log(checkedMovieTypes);
+    if(addMovieForm.value.title == '' || addMovieForm.value.title == null) {
+      this.notification.warn("Please give title.")
+      return;
+    }
+    if(addMovieForm.value.duration == '' || addMovieForm.value.duration == null ){
+      this.notification.warn("Please give movie duration.");
+      return;
+    }
+    if(Number.isNaN(Number(addMovieForm.value.duration))) {
+      this.notification.warn("Duration must be given as a number")
+      return;
+    }
     this.httpClient.post("http://localhost:8080/movie",  {
       "title" : addMovieForm.value.title,
       "duration" : addMovieForm.value.duration,
@@ -49,10 +62,11 @@ export class AddMovieComponent implements OnInit {
     })
       .subscribe(
         (data: any) => {
-          console.log(':)');
+          this.notification.success("Added " + addMovieForm.value.title + " movie successfully ")
           addMovieForm.reset();
         }, (error1) => {
-          console.log(':(');
+          this.notification.warn("bad request");
+          this.notification.warn(error1.error.message);
         }
       );
   }

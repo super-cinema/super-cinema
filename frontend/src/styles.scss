@@ -10,7 +10,13 @@ body{
 .notification{
   color: black;
   top: 100px !important;
+}
+
+.success {
   background-color: #85CDBC;
+}
+.warn{
+  background-color: #E38F8F;
 }
 
 simple-snack-bar{
