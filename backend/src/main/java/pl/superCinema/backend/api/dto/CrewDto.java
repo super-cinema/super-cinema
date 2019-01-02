@@ -13,6 +13,5 @@ public class CrewDto {
     private String name;
     private String surname;
 
-    //    @JsonProperty("crewRole")
     private List<CrewRoleDto> crewRoleDtos;
 }

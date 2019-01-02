@@ -1,4 +1,4 @@
-package pl.superCinema.backend.api.cotroller.crewController;
+package pl.superCinema.backend.api;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
