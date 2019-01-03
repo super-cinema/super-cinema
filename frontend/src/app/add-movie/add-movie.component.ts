@@ -30,7 +30,14 @@ export class AddMovieComponent implements OnInit {
     {value: "MUSICAL", name: "musical", "checked": false},
     {value: "ANIMATION", name: "animation", "checked": false},
     {value: "WESTERNS", name: "western", "checked": false}
-    ]
+    ];
+
+  directors = [
+    {name: "name"},
+    {name: "name"},
+    {name: "name"}
+  ];
+  crew = [];
 
   checkMovieType(movieType, event) {
     movieType.checked = !movieType.checked
