@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FilmShowDto {
+public class MovieShowDto {
 
 
 
