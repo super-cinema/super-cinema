@@ -3,10 +3,6 @@ package pl.superCinema.backend.api.dto;
 import lombok.Getter;
 import lombok.Setter;
 import pl.superCinema.backend.domain.model.MovieShow;
-import pl.superCinema.backend.domain.model.Seat;
-
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import java.util.List;
 
 @Getter
@@ -14,9 +10,9 @@ import java.util.List;
 public class CinemaHallDto {
 
     private Long id;
+    private List<SeatDto> seats;
 
-    //TODO to DTO classes
-    private List<Seat> seats;
+    //TODO when MovieShowDto will be implemented
     private List<MovieShow> movieShows;
 
     

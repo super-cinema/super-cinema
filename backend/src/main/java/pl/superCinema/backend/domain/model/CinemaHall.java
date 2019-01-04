@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
-@JsonIgnoreProperties(value= {"movieShows"})
+@JsonIgnoreProperties(value= {"seats"})
 public class CinemaHall {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

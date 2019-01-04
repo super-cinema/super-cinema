@@ -20,12 +20,10 @@ public class SeatBuilderService {
         seat.setSeatColumn(seatDto.getSeatColumn());
         seat.setSeatRow(seatDto.getSeatRow());
         seat.setSeatNumber(seatDto.getSeatNumber());
-
         CinemaHallDto cinemaHall = seatDto.getCinemaHall();
         if(cinemaHall != null) {
             seat.setCinemaHall(cinemaHallBuilderService.entityFromDto(seatDto.getCinemaHall()));
         }
-
         return seat;
     }
 
@@ -39,8 +37,6 @@ public class SeatBuilderService {
         if(cinemaHall != null) {
             seatDto.setCinemaHall(cinemaHallBuilderService.dtoFromEntity(seat.getCinemaHall()));
         }
-
-
         return seatDto;
     }
 }
