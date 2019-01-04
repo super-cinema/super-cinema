@@ -22,6 +22,8 @@ public class MovieDto {
 
     @JsonProperty("types")
     private List<TypeDto> types;
+
+    //TODO change into DTO classes when implementation will be ready
     private List<Crew> directors;
     private List<Crew> cast;
     private MovieShow movieShow;

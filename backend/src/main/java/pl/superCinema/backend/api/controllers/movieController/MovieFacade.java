@@ -1,9 +1,8 @@
 package pl.superCinema.backend.api.controllers.movieController;
 
 import lombok.AllArgsConstructor;
-import pl.superCinema.backend.api.controllers.movieController.MovieBuilderService;
 import pl.superCinema.backend.api.dto.MovieDto;
-import pl.superCinema.backend.domain.exceptions.EntityNotFoundException;
+import pl.superCinema.backend.domain.exceptions.EntityCouldNotBeFoundException;
 import pl.superCinema.backend.domain.model.Movie;
 import pl.superCinema.backend.domain.model.Type;
 import pl.superCinema.backend.domain.repository.MovieRepository;
@@ -24,12 +23,12 @@ public class MovieFacade {
         return movieBuilderService.dtoFromEntity(movie);
     }
 
-    public MovieDto getMovieByTitle(String title) throws EntityNotFoundException {
+    public MovieDto getMovieByTitle(String title) throws EntityCouldNotBeFoundException {
         Movie movie = findMovieEntity(title);
         return  movieBuilderService.dtoFromEntity(movie);
     }
 
-    public MovieDto getMovieById(Long id) throws EntityNotFoundException {
+    public MovieDto getMovieById(Long id) throws EntityCouldNotBeFoundException {
         Movie movie = getMovieEntityById(id);
         MovieDto movieDto = movieBuilderService.dtoFromEntity(movie);
         return movieDto;
@@ -37,10 +36,10 @@ public class MovieFacade {
 
     private Movie getMovieEntityById(Long id) {
         return movieRepository.findById(id).orElseThrow(
-                    () -> new EntityNotFoundException("Movie with id: " + id + " not found"));
+                    () -> new EntityCouldNotBeFoundException("Movie with id: " + id + " not found"));
     }
 
-    public MovieDto saveEditedMovie(Long id, MovieDto movieDto) throws EntityNotFoundException {
+    public MovieDto saveEditedMovie(Long id, MovieDto movieDto) throws EntityCouldNotBeFoundException {
         Movie movie = getMovieEntityById(id);
         movie = editMovie(movie, movieDto);
         movieRepository.save(movie);
@@ -74,9 +73,9 @@ public class MovieFacade {
 
     }
 
-    private Movie findMovieEntity(String title) throws EntityNotFoundException {
+    private Movie findMovieEntity(String title) throws EntityCouldNotBeFoundException {
         return movieRepository.findByTitle(title).orElseThrow(
-                    () -> new EntityNotFoundException("Movie " + title + " not found"));
+                    () -> new EntityCouldNotBeFoundException("Movie " + title + " not found"));
     }
 
     public List<MovieDto> getAllMovies() {

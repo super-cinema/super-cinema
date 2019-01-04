@@ -2,7 +2,7 @@ package pl.superCinema.backend.api.controllers.cinemaHallController;
 
 import lombok.AllArgsConstructor;
 import pl.superCinema.backend.api.dto.CinemaHallDto;
-import pl.superCinema.backend.domain.exceptions.EntityNotFoundException;
+import pl.superCinema.backend.domain.exceptions.EntityCouldNotBeFoundException;
 import pl.superCinema.backend.domain.model.CinemaHall;
 import pl.superCinema.backend.domain.repository.CinemaHallRepository;
 
@@ -31,16 +31,13 @@ public class CinemaHallFacade {
         return cinemaHallBuilderService.dtoFromEntity(cinemaHallSaved);
     }
 
-    public CinemaHallDto deleteCInemaHallById(Long id){
-        CinemaHall cinemaHallEntity = findCinemaHallEntity(id);
-        cinemaHallRepository.delete(cinemaHallEntity);
-        CinemaHallDto cinemaHallDto = cinemaHallBuilderService.dtoFromEntity(cinemaHallEntity);
-        return cinemaHallDto;
+    public void deleteCInemaHallById(Long id){
+        cinemaHallRepository.deleteById(id);
     }
 
     private CinemaHall findCinemaHallEntity(Long id) {
         CinemaHall cinemaHall = cinemaHallRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("cinemaHall by id: " + id + " not found")
+                () -> new EntityCouldNotBeFoundException("cinemaHall by id: " + id + " not found")
         );
         return cinemaHall;
     }

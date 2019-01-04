@@ -50,6 +50,7 @@ public class MovieBuilderService {
                 .collect(Collectors.toList());
         movieDto.setTypes(typeDtos);
 
+        //TODO change when implemantation of theses classes will be ready
         movieDto.setDirectors(movie.getDirectors());
         movieDto.setCast(movie.getCast());
         movieDto.setMovieShow(movie.getMovieShow());

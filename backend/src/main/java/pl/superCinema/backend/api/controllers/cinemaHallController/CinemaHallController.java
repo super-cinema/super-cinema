@@ -59,13 +59,13 @@ public class CinemaHallController {
     @DeleteMapping
     @RequestMapping(params = "idToDelete")
     public ResponseEntity deleteCinemaHall(@RequestParam Long idToDelete){
-        CinemaHallDto cinemaHallDtoEdited;
+
         try{
-            cinemaHallDtoEdited = cinemaHallFacade.deleteCInemaHallById(idToDelete);
+            cinemaHallFacade.deleteCInemaHallById(idToDelete);
         } catch (Exception e) {
             ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
             return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity(cinemaHallDtoEdited, HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

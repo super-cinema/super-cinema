@@ -14,6 +14,8 @@ import java.util.List;
 public class CinemaHallDto {
 
     private Long id;
+
+    //TODO to DTO classes
     private List<Seat> seats;
     private List<MovieShow> movieShows;
 

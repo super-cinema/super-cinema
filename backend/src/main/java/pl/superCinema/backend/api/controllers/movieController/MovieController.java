@@ -7,8 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.superCinema.backend.api.dto.MovieDto;
 import pl.superCinema.backend.domain.errors.ApiError;
-import pl.superCinema.backend.domain.exceptions.EntityNotFoundException;
-import pl.superCinema.backend.domain.model.Movie;
+import pl.superCinema.backend.domain.exceptions.EntityCouldNotBeFoundException;
 
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class MovieController {
         MovieDto movieById;
         try{
             movieById = movieFacade.getMovieById(movieId);
-        } catch (EntityNotFoundException e){
+        } catch (EntityCouldNotBeFoundException e){
             ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, e.getMessage(), e.getClass().getSimpleName());
             return new ResponseEntity(apiError, HttpStatus.NOT_FOUND);
         }
