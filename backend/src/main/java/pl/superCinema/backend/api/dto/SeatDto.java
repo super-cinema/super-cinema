@@ -15,7 +15,4 @@ public class SeatDto {
     private String seatColumn;
     private Integer seatRow;
     private Integer seatNumber;
-
-    private CinemaHallDto cinemaHall;
-
 }

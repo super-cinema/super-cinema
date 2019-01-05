@@ -21,17 +21,6 @@ public class CinemaHallBuilderService {
     public CinemaHall entityFromDto(CinemaHallDto cinemaHallDto) {
         CinemaHall cinemaHall = new CinemaHall();
         cinemaHall.setId(cinemaHallDto.getId());
-        List<SeatDto> seatsDto = cinemaHallDto.getSeats();
-        if(seatsDto != null) {
-            List<Seat> seats = seatsDto.stream()
-                    .map(seat -> seatBuilderService.entityFromDto(seat))
-                    .collect(Collectors.toList());
-            cinemaHall.setSeats(seats);
-        }
-
-
-
-
         //TODO change implementation when DTO classes will be created
         cinemaHall.setMovieShows(cinemaHallDto.getMovieShows());
         return cinemaHall;

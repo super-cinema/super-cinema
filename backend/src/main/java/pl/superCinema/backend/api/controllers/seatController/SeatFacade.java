@@ -1,8 +1,6 @@
 package pl.superCinema.backend.api.controllers.seatController;
 
 import lombok.AllArgsConstructor;
-import pl.superCinema.backend.api.controllers.cinemaHallController.CinemaHallBuilderService;
-import pl.superCinema.backend.api.dto.CinemaHallDto;
 import pl.superCinema.backend.api.dto.SeatDto;
 import pl.superCinema.backend.domain.exceptions.EntityCouldNotBeFoundException;
 import pl.superCinema.backend.domain.model.Seat;
@@ -15,7 +13,6 @@ import java.util.stream.Collectors;
 public class SeatFacade {
     private SeatRepository seatRepository;
     private SeatBuilderService seatBuilderService;
-    private CinemaHallBuilderService cinemaHallBuilderService;
 
     public SeatDto saveSeat(SeatDto seatDto) {
         Seat seat = seatBuilderService.entityFromDto(seatDto);
@@ -50,10 +47,6 @@ public class SeatFacade {
         Seat seat = seatRepository.findById(id).orElseThrow(
                 () -> new EntityCouldNotBeFoundException("Seat by id: " + id + " couldn't be found")
         );
-        CinemaHallDto cinemaHall = seatDto.getCinemaHall();
-        if(cinemaHall != null) {
-            seat.setCinemaHall(cinemaHallBuilderService.entityFromDto(cinemaHall));
-        }
         Seat seatSaved = seatRepository.save(seat);
         return seatBuilderService.dtoFromEntity(seatSaved);
     }
