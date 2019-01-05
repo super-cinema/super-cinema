@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.superCinema.backend.api.dto.MovieDto;
 import pl.superCinema.backend.domain.errors.ApiError;
 import pl.superCinema.backend.domain.exceptions.EntityNotFoundException;
+import pl.superCinema.backend.domain.model.Movie;
 
 import java.util.List;
 
@@ -21,8 +22,15 @@ public class MovieController {
     private MovieFacade movieFacade;
 
     @PostMapping
-    public MovieDto saveMovie(@RequestBody MovieDto movieDto) {
-        return movieFacade.saveMovie(movieDto);
+    public ResponseEntity saveMovie(@RequestBody MovieDto movieDto) {
+        MovieDto movieDtoAdded;
+        try {
+            movieDtoAdded = movieFacade.saveMovie(movieDto);
+        } catch (Exception e) {
+            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
+            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(movieDtoAdded, HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -47,8 +55,7 @@ public class MovieController {
             return new ResponseEntity(apiError, HttpStatus.NOT_FOUND);
         }
 
-        ResponseEntity movieDtoResponseEntity = new ResponseEntity<>(movieById, HttpStatus.OK);
-        return movieDtoResponseEntity;
+        return new ResponseEntity<>(movieById, HttpStatus.OK);
     }
 
     @PutMapping
@@ -61,6 +68,20 @@ public class MovieController {
     @RequestMapping(params = "titleToDelete")
     public MovieDto deleteMovie(@RequestParam String titleToDelete) {
         return movieFacade.deleteMovieByTitle(titleToDelete);
+    }
+
+    @DeleteMapping
+    @RequestMapping(params = "idToDelete")
+    public ResponseEntity deleteMovie(@RequestParam Long idToDelete){
+        try{
+            movieFacade.deleteMovie(idToDelete);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, e.getMessage(), e.getClass().getSimpleName());
+            return new ResponseEntity(apiError, HttpStatus.NOT_FOUND);
+        }
+
+
     }
 
 }

@@ -1,0 +1,28 @@
+.contentContainer {
+  height: 100%;
+  .messageContainer{
+    height: 60%;
+
+    p{
+      text-align: center;
+
+    }
+  }
+  .buttonsContainer{
+    height: 40%;
+    display: flex;
+    button{
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 5px;
+      height: 80%;
+      width: 70px;
+    }
+    #confirm-button{
+      background-color: #85CDBC;
+    }
+    #cancel-button{
+      background-color: #E38F8F;
+    }
+  }
+}

@@ -89,4 +89,9 @@ public class MovieFacade {
         }
         return allMoviesDto;
     }
+
+    public void deleteMovie(Long id) {
+        movieRepository.deleteById(id);
+
+    }
 }

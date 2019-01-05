@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {NgForm} from "@angular/forms";
+import {NotificationService} from "../share/notification.service";
 
 @Component({
   selector: 'app-edit-movie',
@@ -28,7 +28,7 @@ export class EditMovieComponent implements OnInit {
 
 
 
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute) { }
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private notification: NotificationService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -43,12 +43,10 @@ export class EditMovieComponent implements OnInit {
   wasTypeSelected(movieType: { value: string; name: string; checked: boolean }) {
 
     if(this.movie.types.includes(movieType.value)) {
-      console.log("return true ", movieType)
       movieType.checked = true;
       return true;
     }
     movieType.checked = false;
-    console.log("return false", movieType)
     return false;
   }
 
@@ -65,6 +63,18 @@ export class EditMovieComponent implements OnInit {
 
   saveChanges(editMovieForm: HTMLFormElement) {
     let checkedMovieTypes = this.movieTypesArray.filter(type => type.checked == true).map(type => type.value);
+    if(this.movie.title == '' || this.movie.title == null) {
+      this.notification.warn("Please give title.")
+      return;
+    }
+    if(this.movie.duration == '' || this.movie.duration == null ){
+      this.notification.warn("Please give movie duration.");
+      return;
+    }
+    if(Number.isNaN(Number(this.movie.duration))) {
+      this.notification.warn("Duration must be given as a number")
+      return;
+    }
     this.httpClient.put("http://localhost:8080/movie?id=" + this.movie.id, {
       "title" : this.movie.title,
       "duration" : this.movie.duration,
@@ -77,10 +87,10 @@ export class EditMovieComponent implements OnInit {
     })
       .subscribe(
         (data: any) => {
-          console.log(":)", data);
+          this.notification.success("Edited " + this.movie.title + " movie succesfully" );
         },
         (error) => {
-          console.log(":(", error);
+          this.notification.warn(error.error.message);
         }
 
       )

@@ -13,7 +13,9 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
+    @Column(nullable = false)
     private String title;
+    @Column(nullable = false)
     private Integer duration;
     private String productionCountry;
     private Integer productionYear;
