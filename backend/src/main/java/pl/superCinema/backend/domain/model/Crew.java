@@ -16,7 +16,7 @@ public class Crew {
     private String name;
     private String surname;
 
-    @ElementCollection(targetClass = CrewRole.class)
+    @ElementCollection(fetch = FetchType.EAGER, targetClass = CrewRole.class)
     @Enumerated(EnumType.STRING)
     private List<CrewRole> crewRoles;
 

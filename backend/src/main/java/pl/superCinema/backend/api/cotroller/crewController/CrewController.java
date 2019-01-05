@@ -34,9 +34,9 @@ public class CrewController {
     }
 
     @DeleteMapping(params = "id")
-    public ResponseEntity deleteCrew(@RequestParam Long id) {
-        CrewDto result = crewFacade.deleteCrew(id);
-        return new ResponseEntity(result, HttpStatus.OK);
+    public CrewDto deleteCrew(@RequestParam Long id) {
+       return crewFacade.deleteCrew(id);
+
     }
 
     @PutMapping

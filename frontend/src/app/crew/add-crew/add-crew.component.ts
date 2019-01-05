@@ -29,15 +29,14 @@ export class AddCrewComponent implements OnInit {
       'name': addCrewForm.value.name,
       'surname': addCrewForm.value.surname,
       'crewRoleDtos': checkedCrewRole,
-    })
-      .subscribe(
-        (data: any) => {
-          console.log(':)');
-          addCrewForm.reset();
-        }, (error1) => {
-          console.log(':(');
-        }
-      );
+    }).subscribe(
+      (data: any) => {
+        console.log('ok');
+        addCrewForm.reset();
+      }, (error1) => {
+        console.log('bad');
+      }
+    );
   }
 
   ngOnInit(): void {
