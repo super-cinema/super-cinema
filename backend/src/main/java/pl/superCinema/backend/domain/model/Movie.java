@@ -20,6 +20,9 @@ public class Movie {
     private String productionCountry;
     private Integer productionYear;
 
+    @OneToOne
+    MovieShow movieShow;
+
     @ElementCollection(targetClass = Type.class)
     @Enumerated(EnumType.STRING)
     private List<Type> types;

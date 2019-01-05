@@ -1,0 +1,27 @@
+form{
+  width: 40%;
+  margin: 100px auto 20px;
+
+  input{
+    width: 80%;
+  }
+
+  .button-container{
+    display: flex;
+
+    button{
+      background-color: #85CDBC;
+      width: 20%;
+      height: 2%;
+      margin-top: 10px;
+      margin-right: auto;
+      margin-left: auto;
+      text-align: center;
+      padding: 2px 2px 2px 2px;
+      border: none;
+      color: black;
+    }
+  }
+
+
+}
