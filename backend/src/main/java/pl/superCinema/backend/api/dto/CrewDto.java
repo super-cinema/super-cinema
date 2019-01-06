@@ -13,5 +13,5 @@ public class CrewDto {
     private String name;
     private String surname;
 
-    private List<CrewRoleDto> crewRoleDtos;
+    private List<CrewRoleDto> crewRoles;
 }

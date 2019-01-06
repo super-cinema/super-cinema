@@ -21,8 +21,8 @@ public class MovieDto {
     private List<TypeDto> types;
 
     //TODO change into DTO classes when implementation will be ready
-    private List<Crew> directors;
-    private List<Crew> cast;
+    private List<CrewDto> directors;
+    private List<CrewDto> cast;
     private MovieShow movieShow;
 
 }

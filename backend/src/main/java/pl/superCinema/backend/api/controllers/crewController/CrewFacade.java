@@ -64,7 +64,7 @@ public class CrewFacade {
     private Crew editCrew(Crew crew, CrewDto crewDto) {
         crew.setName(crewDto.getName());
         crew.setSurname(crewDto.getSurname());
-        List<CrewRole> crewRoles = crewDto.getCrewRoleDtos()
+        List<CrewRole> crewRoles = crewDto.getCrewRoles()
                 .stream()
                 .map(x -> CrewRole.valueOf(x.name()))
                 .collect(Collectors.toList());
