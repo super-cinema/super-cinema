@@ -29,13 +29,13 @@ public class CinemaHallFacade {
         if(seatsDtos != null){
             seats = seatsDtos.stream()
                     .map(seatDto -> {
-                        Seat seat = seatBuilder.entityFromDto(seatDto);
+                        Seat seat = seatBuilder.dtoToEntity(seatDto);
                             return seatRepository.save(seat);
                     })
                     .collect(Collectors.toList());
         }
 
-        CinemaHall cinemaHall = cinemaHallBuilder.entityFromDto(cinemaHallDto);
+        CinemaHall cinemaHall = cinemaHallBuilder.dtoToEntity(cinemaHallDto);
         cinemaHall.setSeats(seats);
         CinemaHall cinemaHallSaved = cinemaHallRepository.save(cinemaHall);
         seats.stream()
@@ -49,19 +49,19 @@ public class CinemaHallFacade {
                 .collect(Collectors.toList());
         cinemaHallSaved.setSeats(seats);
         CinemaHall save = cinemaHallRepository.save(cinemaHallSaved);
-        return cinemaHallBuilder.dtoFromEntity(save);
+        return cinemaHallBuilder.entityToDto(save);
     }
 
     protected CinemaHallDto getCinemaHallById(Long id){
         CinemaHall cinemaHallEntity = findCinemaHallEntity(id);
-        return cinemaHallBuilder.dtoFromEntity(cinemaHallEntity);
+        return cinemaHallBuilder.entityToDto(cinemaHallEntity);
     }
 
     protected CinemaHallDto editCinemaHallById(Long id, CinemaHallDto cinemaHallDto){
         CinemaHall cinemaHallEntity = findCinemaHallEntity(id);
         List<Seat> seats = cinemaHallDto.getSeats()
                 .stream()
-                .map(seatDto -> seatBuilder.entityFromDto(seatDto))
+                .map(seatDto -> seatBuilder.dtoToEntity(seatDto))
                 .collect(Collectors.toList());
         if(seats != null){
             cinemaHallEntity.setSeats(seats);
@@ -71,7 +71,7 @@ public class CinemaHallFacade {
         }
 
         CinemaHall cinemaHallSaved = cinemaHallRepository.save(cinemaHallEntity);
-        return cinemaHallBuilder.dtoFromEntity(cinemaHallSaved);
+        return cinemaHallBuilder.entityToDto(cinemaHallSaved);
     }
 
     protected void deleteCInemaHallById(Long id){

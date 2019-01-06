@@ -20,52 +20,49 @@ public class MovieShowBuilder {
     private CinemaHallBuilder cinemaHallBuilder;
     private SeatAvailabilityBuilder seatAvailabilityBuilder;
 
-    public MovieShow movieShowDtoToMovieShow(MovieShowDto movieShowDto) {
-        MovieShow movieShow = new MovieShow();
-        movieShow.setId(movieShowDto.getId());
-        movieShow.setStartMovieShow(movieShowDto.getStartMovieShow());
-        movieShow.setEndMovieShow(movieShowDto.getEndMovieShow());
-        movieShow.setMovie(movieBuilder.entityFromDto(movieShowDto.getMovieDto()));
-
-        List<CinemaHall> cinemaHalls = movieShowDto.getCinemaHallDtos()
-                .stream()
-                .map(x -> cinemaHallBuilder.entityFromDto(x))
-                .collect(Collectors.toList());
-        movieShow.setCinemaHalls(cinemaHalls);
-
-        List<SeatAvailability> seatAvailabilities = movieShowDto.getSeatAvailabilityDtos()
-                .stream()
-                .map(x -> seatAvailabilityBuilder.seatAvailabilityDtoToSeatAvailability(x))
-                .collect(Collectors.toList());
-        movieShow.setSeatsAvailability(seatAvailabilities);
-
-        return movieShow;
-    }
-
-
-    public MovieShowDto movieShowToMovieShowDto(MovieShow movieShow) {
+    public MovieShowDto entityToDto(MovieShow movieShow) {
         MovieShowDto movieShowDto = new MovieShowDto();
 
         movieShowDto.setId(movieShow.getId());
         movieShowDto.setStartMovieShow(movieShow.getStartMovieShow());
         movieShowDto.setEndMovieShow(movieShow.getEndMovieShow());
-        movieShowDto.setMovieDto(movieBuilder.dtoFromEntity(movieShow.getMovie()));
+        movieShowDto.setMovieDto(movieBuilder.entityToDto(movieShow.getMovie()));
 
         List<CinemaHallDto> cinemaHallDtos = movieShow.getCinemaHalls()
                 .stream()
-                .map(x -> cinemaHallBuilder.dtoFromEntity(x))
+                .map(x -> cinemaHallBuilder.entityToDto(x))
                 .collect(Collectors.toList());
         movieShowDto.setCinemaHallDtos(cinemaHallDtos);
 
         List<SeatAvailabilityDto> seatAvailabilityDtos = movieShow.getSeatsAvailability()
                 .stream()
-                .map(x -> seatAvailabilityBuilder.seatAvailabilityToSeatAvailabilityDto(x))
+                .map(x -> seatAvailabilityBuilder.entityToDto(x))
                 .collect(Collectors.toList());
         movieShowDto.setSeatAvailabilityDtos(seatAvailabilityDtos);
 
         return movieShowDto;
-
     }
 
+    public MovieShow dtoToEntity(MovieShowDto movieShowDto) {
+        MovieShow movieShow = new MovieShow();
+        movieShow.setId(movieShowDto.getId());
+        movieShow.setStartMovieShow(movieShowDto.getStartMovieShow());
+        movieShow.setEndMovieShow(movieShowDto.getEndMovieShow());
+        movieShow.setMovie(movieBuilder.dtoToEntity(movieShowDto.getMovieDto()));
+
+        List<CinemaHall> cinemaHalls = movieShowDto.getCinemaHallDtos()
+                .stream()
+                .map(x -> cinemaHallBuilder.dtoToEntity(x))
+                .collect(Collectors.toList());
+        movieShow.setCinemaHalls(cinemaHalls);
+
+        List<SeatAvailability> seatAvailabilities = movieShowDto.getSeatAvailabilityDtos()
+                .stream()
+                .map(x -> seatAvailabilityBuilder.dtoToEntity(x))
+                .collect(Collectors.toList());
+        movieShow.setSeatsAvailability(seatAvailabilities);
+
+        return movieShow;
+    }
 
 }

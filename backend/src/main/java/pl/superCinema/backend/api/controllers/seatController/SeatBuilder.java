@@ -7,7 +7,16 @@ import pl.superCinema.backend.domain.model.Seat;
 @NoArgsConstructor
 public class SeatBuilder {
 
-    public Seat entityFromDto(SeatDto seatDto) {
+    public SeatDto entityToDto(Seat seat) {
+        SeatDto seatDto = new SeatDto();
+        seatDto.setId(seat.getId());
+        seatDto.setSeatColumn(seat.getSeatColumn());
+        seatDto.setSeatRow(seat.getSeatRow());
+        seatDto.setSeatNumber(seat.getSeatNumber());
+        return seatDto;
+    }
+
+    public Seat dtoToEntity(SeatDto seatDto) {
         Seat seat = new Seat();
         seat.setId(seatDto.getId());
         seat.setSeatColumn(seatDto.getSeatColumn());
@@ -17,12 +26,4 @@ public class SeatBuilder {
         return seat;
     }
 
-    public SeatDto dtoFromEntity(Seat seat) {
-        SeatDto seatDto = new SeatDto();
-        seatDto.setId(seat.getId());
-        seatDto.setSeatColumn(seat.getSeatColumn());
-        seatDto.setSeatRow(seat.getSeatRow());
-        seatDto.setSeatNumber(seat.getSeatNumber());
-        return seatDto;
-    }
 }

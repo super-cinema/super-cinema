@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'addMovie', component: AddMovieComponent},
   {path: 'movie/:id/edit', component: EditMovieComponent},
   {path: 'addMovie', component: AddMovieComponent},
-  {path: 'addCrew/allCrewView', component: AllCrewViewComponent},
+  {path: 'allCrewView', component: AllCrewViewComponent},
   {path: 'crew/:id/edit', component: EditCrewComponent }
 ];
 

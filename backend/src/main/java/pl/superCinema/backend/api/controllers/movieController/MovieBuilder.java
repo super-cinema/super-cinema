@@ -13,28 +13,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class MovieBuilder {
 
-    public Movie entityFromDto(MovieDto movieDto){
-
-        Movie movie = new Movie();
-        movie.setId(movieDto.getId());
-        movie.setTitle(movieDto.getTitle());
-        movie.setDuration(movieDto.getDuration());
-        movie.setProductionCountry(movieDto.getProductionCountry());
-        movie.setProductionYear(movieDto.getProductionYear());
-        //set types
-        List<Type> typeList = movieDto.getTypes()
-                .stream()
-                .map(type -> Type.valueOf(type.name()))
-                .collect(Collectors.toList());
-        movie.setTypes(typeList);
-        movie.setDirectors(movieDto.getDirectors());
-        movie.setCast(movieDto.getCast());
-        movie.setMovieShow(movieDto.getMovieShow());
-
-        return movie;
-    }
-
-    public MovieDto dtoFromEntity(Movie movie) {
+    public MovieDto entityToDto(Movie movie) {
 
         MovieDto movieDto = new MovieDto();
         movieDto.setId(movie.getId());
@@ -56,7 +35,29 @@ public class MovieBuilder {
         movieDto.setMovieShow(movie.getMovieShow());
 
         return movieDto;
-
     }
+
+    public Movie dtoToEntity(MovieDto movieDto){
+
+        Movie movie = new Movie();
+        movie.setId(movieDto.getId());
+        movie.setTitle(movieDto.getTitle());
+        movie.setDuration(movieDto.getDuration());
+        movie.setProductionCountry(movieDto.getProductionCountry());
+        movie.setProductionYear(movieDto.getProductionYear());
+        //set types
+        List<Type> typeList = movieDto.getTypes()
+                .stream()
+                .map(type -> Type.valueOf(type.name()))
+                .collect(Collectors.toList());
+        movie.setTypes(typeList);
+        movie.setDirectors(movieDto.getDirectors());
+        movie.setCast(movieDto.getCast());
+        movie.setMovieShow(movieDto.getMovieShow());
+
+        return movie;
+    }
+
+
 
 }

@@ -15,23 +15,23 @@ public class SeatFacade {
     private SeatBuilder seatBuilder;
 
     public SeatDto saveSeat(SeatDto seatDto) {
-        Seat seat = seatBuilder.entityFromDto(seatDto);
+        Seat seat = seatBuilder.dtoToEntity(seatDto);
         Seat savedSeat= seatRepository.save(seat);
-        return seatBuilder.dtoFromEntity(savedSeat);
+        return seatBuilder.entityToDto(savedSeat);
     }
 
     public SeatDto getSeatById(Long id){
         Seat seat = seatRepository.findById(id).orElseThrow(
                 () -> new EntityCouldNotBeFoundException("Seat by id: " + id + " couldn't be found")
         );
-        return seatBuilder.dtoFromEntity(seat);
+        return seatBuilder.entityToDto(seat);
     }
 
     public List<SeatDto> getAllSeats(){
 
         return  seatRepository.findAll()
                 .stream()
-                .map(seat -> seatBuilder.dtoFromEntity(seat))
+                .map(seat -> seatBuilder.entityToDto(seat))
                 .collect(Collectors.toList());
     }
 
@@ -39,7 +39,7 @@ public class SeatFacade {
         Seat seat = seatRepository.findBySeatNumber(number).orElseThrow(
                 () -> new EntityCouldNotBeFoundException("Seat by number: " + number + "couldn't be found")
         );
-        return seatBuilder.dtoFromEntity(seat);
+        return seatBuilder.entityToDto(seat);
     }
 
     public SeatDto editSeatById(Long id, SeatDto seatDto){
@@ -48,7 +48,7 @@ public class SeatFacade {
                 () -> new EntityCouldNotBeFoundException("Seat by id: " + id + " couldn't be found")
         );
         Seat seatSaved = seatRepository.save(seat);
-        return seatBuilder.dtoFromEntity(seatSaved);
+        return seatBuilder.entityToDto(seatSaved);
     }
 
     public void deleteSeatById(Long id){

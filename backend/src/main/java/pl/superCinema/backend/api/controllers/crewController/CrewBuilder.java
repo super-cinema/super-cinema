@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class CrewBuilder {
 
-    public CrewDto crewToCrewDto(Crew crew) {
+    public CrewDto entityToDto(Crew crew) {
         CrewDto crewDto = new CrewDto();
         crewDto.setId(crew.getId());
         crewDto.setName(crew.getName());
@@ -23,7 +23,7 @@ public class CrewBuilder {
         return crewDto;
     }
 
-    public Crew crewDtoToCrew(CrewDto crewDto){
+    public Crew dtoToEntity(CrewDto crewDto){
         Crew crew = new Crew();
         crew.setId(crewDto.getId());
         crew.setName(crewDto.getName());

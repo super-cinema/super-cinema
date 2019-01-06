@@ -9,21 +9,22 @@ import pl.superCinema.backend.domain.model.SeatAvailability;
 public class SeatAvailabilityBuilder {
     private MovieShowBuilder movieShowBuilder;
 
-    public SeatAvailability seatAvailabilityDtoToSeatAvailability(SeatAvailabilityDto seatAvailabilityDto) {
+    public SeatAvailabilityDto entityToDto(SeatAvailability seatAvailability) {
+        SeatAvailabilityDto seatAvailabilityDto = new SeatAvailabilityDto();
+        seatAvailabilityDto.setId(seatAvailability.getId());
+        seatAvailabilityDto.setSeatTaken(seatAvailability.isSeatTaken());
+        seatAvailabilityDto.setMovieShowDto(movieShowBuilder.entityToDto(seatAvailability.getMovieShow()));
+
+        return seatAvailabilityDto;
+    }
+
+    public SeatAvailability dtoToEntity(SeatAvailabilityDto seatAvailabilityDto) {
         SeatAvailability seatAvailability = new SeatAvailability();
         seatAvailability.setId(seatAvailabilityDto.getId());
         seatAvailability.setSeatTaken(seatAvailabilityDto.isSeatTaken());
-        seatAvailability.setMovieShow(movieShowBuilder.movieShowDtoToMovieShow(seatAvailabilityDto.getMovieShowDto()));
+        seatAvailability.setMovieShow(movieShowBuilder.dtoToEntity(seatAvailabilityDto.getMovieShowDto()));
 
         return seatAvailability;
     }
 
-    public SeatAvailabilityDto seatAvailabilityToSeatAvailabilityDto(SeatAvailability seatAvailability) {
-        SeatAvailabilityDto seatAvailabilityDto = new SeatAvailabilityDto();
-        seatAvailabilityDto.setId(seatAvailability.getId());
-        seatAvailabilityDto.setSeatTaken(seatAvailability.isSeatTaken());
-        seatAvailabilityDto.setMovieShowDto(movieShowBuilder.movieShowToMovieShowDto(seatAvailability.getMovieShow()));
-
-        return seatAvailabilityDto;
-    }
 }

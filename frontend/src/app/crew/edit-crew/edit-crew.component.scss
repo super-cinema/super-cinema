@@ -1,18 +1,19 @@
-form{
+form {
   width: 40%;
   margin: 100px auto 20px;
 
-  input{
+  input {
     width: 80%;
   }
 
   .button-container{
     display: flex;
+    height: 80px;
 
     button{
       background-color: #85CDBC;
-      width: 20%;
-      height: 2%;
+      width: 25%;
+      height: 60%;
       margin-top: 10px;
       margin-right: auto;
       margin-left: auto;
@@ -23,5 +24,11 @@ form{
     }
   }
 
+  button {
+    background-color: #85CDBC;
+    border: none;
+    color: black;
+    margin-left: 15px;
+  }
 
 }

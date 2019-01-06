@@ -18,19 +18,19 @@ public class MovieFacade {
     private MovieBuilder movieBuilder;
 
     public MovieDto saveMovie(MovieDto movieDto) {
-        Movie movie = movieBuilder.entityFromDto(movieDto);
+        Movie movie = movieBuilder.dtoToEntity(movieDto);
         movieRepository.save(movie);
-        return movieBuilder.dtoFromEntity(movie);
+        return movieBuilder.entityToDto(movie);
     }
 
     public MovieDto getMovieByTitle(String title) throws EntityCouldNotBeFoundException {
         Movie movie = findMovieEntity(title);
-        return  movieBuilder.dtoFromEntity(movie);
+        return  movieBuilder.entityToDto(movie);
     }
 
     public MovieDto getMovieById(Long id) throws EntityCouldNotBeFoundException {
         Movie movie = getMovieEntityById(id);
-        MovieDto movieDto = movieBuilder.dtoFromEntity(movie);
+        MovieDto movieDto = movieBuilder.entityToDto(movie);
         return movieDto;
     }
 
@@ -43,7 +43,7 @@ public class MovieFacade {
         Movie movie = getMovieEntityById(id);
         movie = editMovie(movie, movieDto);
         movieRepository.save(movie);
-        return movieBuilder.dtoFromEntity(movie);
+        return movieBuilder.entityToDto(movie);
     }
 
     private Movie editMovie(Movie movie, MovieDto movieDto) {
@@ -67,7 +67,7 @@ public class MovieFacade {
 
     public MovieDto deleteMovieByTitle(String title) {
         Movie movie = findMovieEntity(title);
-        MovieDto movieDto = movieBuilder.dtoFromEntity(movie);
+        MovieDto movieDto = movieBuilder.entityToDto(movie);
         movieRepository.delete(movie);
         return movieDto;
 
@@ -83,7 +83,7 @@ public class MovieFacade {
         List<MovieDto> allMoviesDto = new ArrayList<>();
         if(!allMovies.isEmpty()){
             for(Movie movie : allMovies) {
-                allMoviesDto.add(movieBuilder.dtoFromEntity(movie));
+                allMoviesDto.add(movieBuilder.entityToDto(movie));
             }
         }
         return allMoviesDto;

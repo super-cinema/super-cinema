@@ -17,22 +17,14 @@ public class CinemaHallBuilder {
 
     private SeatBuilder seatBuilder;
 
-    public CinemaHall entityFromDto(CinemaHallDto cinemaHallDto) {
-        CinemaHall cinemaHall = new CinemaHall();
-        cinemaHall.setId(cinemaHallDto.getId());
-        //TODO change implementation when DTO classes will be created
-        cinemaHall.setMovieShows(cinemaHallDto.getMovieShows());
-        return cinemaHall;
-    }
-
-    public CinemaHallDto dtoFromEntity(CinemaHall cinemaHall) {
+    public CinemaHallDto entityToDto(CinemaHall cinemaHall) {
         CinemaHallDto cinemaHallDto = new CinemaHallDto();
         cinemaHallDto.setId(cinemaHall.getId());
 
         List<Seat> seats = cinemaHall.getSeats();
         if(seats != null) {
             List<SeatDto> seatDtos = seats.stream()
-                    .map(seat -> seatBuilder.dtoFromEntity(seat))
+                    .map(seat -> seatBuilder.entityToDto(seat))
                     .collect(Collectors.toList());
             cinemaHallDto.setSeats(seatDtos);
         }
@@ -40,5 +32,13 @@ public class CinemaHallBuilder {
         //TODO change implementation when DTO classes will be created
         cinemaHallDto.setMovieShows(cinemaHall.getMovieShows());
         return cinemaHallDto;
+    }
+
+    public CinemaHall dtoToEntity(CinemaHallDto cinemaHallDto) {
+        CinemaHall cinemaHall = new CinemaHall();
+        cinemaHall.setId(cinemaHallDto.getId());
+        //TODO change implementation when DTO classes will be created
+        cinemaHall.setMovieShows(cinemaHallDto.getMovieShows());
+        return cinemaHall;
     }
 }
