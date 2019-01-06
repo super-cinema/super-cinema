@@ -11,7 +11,6 @@ import pl.superCinema.backend.domain.errors.ApiError;
 @RequestMapping("/seat")
 public class SeatController {
 
-    @Autowired
     private SeatFacade seatFacade;
 
     @PostMapping

@@ -1,5 +1,6 @@
 package pl.superCinema.backend.api.controllers.cinemaHallController;
 
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.superCinema.backend.api.controllers.seatController.SeatBuilder;
@@ -11,10 +12,9 @@ import pl.superCinema.backend.domain.model.Seat;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@NoArgsConstructor
+@AllArgsConstructor
 public class CinemaHallBuilder {
 
-    @Autowired
     private SeatBuilder seatBuilder;
 
     public CinemaHall entityFromDto(CinemaHallDto cinemaHallDto) {

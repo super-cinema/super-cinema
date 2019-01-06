@@ -17,7 +17,6 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class MovieController {
 
-    @Autowired
     private MovieFacade movieFacade;
 
     @PostMapping

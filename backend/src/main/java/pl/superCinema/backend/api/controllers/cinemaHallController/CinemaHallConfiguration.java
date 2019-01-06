@@ -16,8 +16,8 @@ public class CinemaHallConfiguration {
     }
 
     @Bean
-    CinemaHallBuilder cinemaHallBuilderService(){
-        return new CinemaHallBuilder();
+    CinemaHallBuilder cinemaHallBuilderService(SeatBuilder seatBuilder){
+        return new CinemaHallBuilder(seatBuilder);
     }
 
 }

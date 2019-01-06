@@ -15,7 +15,6 @@ import pl.superCinema.backend.domain.model.CinemaHall;
 @RequestMapping("/cinemaHall")
 public class CinemaHallController {
 
-    @Autowired
     CinemaHallFacade cinemaHallFacade;
 
     @PostMapping
