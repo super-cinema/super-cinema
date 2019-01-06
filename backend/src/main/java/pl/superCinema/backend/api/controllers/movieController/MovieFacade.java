@@ -1,14 +1,19 @@
 package pl.superCinema.backend.api.controllers.movieController;
 
 import lombok.AllArgsConstructor;
+import pl.superCinema.backend.api.controllers.crewController.CrewBuilder;
+import pl.superCinema.backend.api.dto.CrewDto;
 import pl.superCinema.backend.api.dto.MovieDto;
 import pl.superCinema.backend.domain.exceptions.EntityCouldNotBeFoundException;
+import pl.superCinema.backend.domain.model.Crew;
 import pl.superCinema.backend.domain.model.Movie;
 import pl.superCinema.backend.domain.model.Type;
+import pl.superCinema.backend.domain.repository.CrewRepository;
 import pl.superCinema.backend.domain.repository.MovieRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -16,10 +21,32 @@ public class MovieFacade {
 
     private MovieRepository movieRepository;
     private MovieBuilder movieBuilder;
+    private CrewBuilder crewBuilder;
+    private CrewRepository crewRepository;
 
     public MovieDto saveMovie(MovieDto movieDto) {
         Movie movie = movieBuilder.entityFromDto(movieDto);
-        movieRepository.save(movie);
+        try {
+            movieRepository.save(movie);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        List<Crew> directors = movie.getDirectors();
+        if(directors != null){
+            directors.stream()
+                    .forEach(director -> {
+                        Optional<Crew> directorFound = crewRepository.findById(director.getId());
+                        if(directorFound.isPresent()){
+                            Crew directorEntity = directorFound.get();
+                            List<Movie> directedMovies = directorEntity.getDirectedMovies();
+                            if(!directedMovies.contains(movie)){
+                                directedMovies.add(movie);
+                                directorEntity.setDirectedMovies(directedMovies);
+                            }
+                            crewRepository.save(directorEntity);
+                        }
+                    });
+        }
         return movieBuilder.dtoFromEntity(movie);
     }
 
@@ -58,8 +85,22 @@ public class MovieFacade {
                 .collect(Collectors.toList());
         movie.setTypes(typeList);
 
-        movie.setDirectors(movieDto.getDirectors());
-        movie.setCast(movieDto.getCast());
+        //set actors
+        if(movieDto.getCast() != null) {
+            List<Crew> crewList = movieDto.getCast()
+                    .stream()
+                    .map(actor -> crewBuilder.crewDtoToCrew(actor))
+                    .collect(Collectors.toList());
+            movie.setCast(crewList);
+        }
+        //set directors
+        if(movieDto.getDirectors() != null) {
+            List<Crew> directors = movieDto.getDirectors()
+                    .stream()
+                    .map(director -> crewBuilder.crewDtoToCrew(director))
+                    .collect(Collectors.toList());
+            movie.setDirectors(directors);
+        }
         movie.setMovieShow(movieDto.getMovieShow());
 
         return movie;

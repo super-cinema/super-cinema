@@ -19,16 +19,18 @@ public class CrewBuilder {
                 .stream()
                 .map(x -> CrewRoleDto.valueOf(x.name()))
                 .collect(Collectors.toList());
-        crewDto.setCrewRoleDtos(crewRoleDtos);
+        crewDto.setCrewRoles(crewRoleDtos);
         return crewDto;
     }
 
     public Crew crewDtoToCrew(CrewDto crewDto){
         Crew crew = new Crew();
-        crew.setId(crewDto.getId());
+        if(crewDto != null){
+            crew.setId(crewDto.getId());
+        }
         crew.setName(crewDto.getName());
         crew.setSurname(crewDto.getSurname());
-        List<CrewRole> crewRoles = crewDto.getCrewRoleDtos()
+        List<CrewRole> crewRoles = crewDto.getCrewRoles()
                 .stream()
                 .map(x -> CrewRole.valueOf(x.name()))
                 .collect(Collectors.toList());

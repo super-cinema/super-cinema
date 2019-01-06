@@ -20,8 +20,8 @@
       <div class="col-sm-10">
         <div *ngFor="let role of crewRoles">
           <label>
-            <input type="checkbox" name="crewRole" value="{{crewRoles.values()}}"
-                   (change)="checkCrewRole(crewRoles, $event)">
+            <input type="checkbox" name="crewRole" value="{{role.value}}"
+                   (change)="checkCrewRole(role, $event)">
             {{role.name}}
           </label>
         </div>

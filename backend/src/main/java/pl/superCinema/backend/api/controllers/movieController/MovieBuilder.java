@@ -1,17 +1,23 @@
 package pl.superCinema.backend.api.controllers.movieController;
 
 
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import pl.superCinema.backend.api.controllers.crewController.CrewBuilder;
+import pl.superCinema.backend.api.dto.CrewDto;
 import pl.superCinema.backend.api.dto.TypeDto;
 import pl.superCinema.backend.api.dto.MovieDto;
+import pl.superCinema.backend.domain.model.Crew;
 import pl.superCinema.backend.domain.model.Movie;
 import pl.superCinema.backend.domain.model.Type;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@NoArgsConstructor
+@AllArgsConstructor
 public class MovieBuilder {
+
+    CrewBuilder crewBuilder;
 
     public Movie entityFromDto(MovieDto movieDto){
 
@@ -27,9 +33,25 @@ public class MovieBuilder {
                 .map(type -> Type.valueOf(type.name()))
                 .collect(Collectors.toList());
         movie.setTypes(typeList);
-        movie.setDirectors(movieDto.getDirectors());
-        movie.setCast(movieDto.getCast());
-        movie.setMovieShow(movieDto.getMovieShow());
+        //set actors
+        if(movieDto.getCast() != null) {
+            List<Crew> crewList = movieDto.getCast()
+                    .stream()
+                    .map(actor -> crewBuilder.crewDtoToCrew(actor))
+                    .collect(Collectors.toList());
+            movie.setCast(crewList);
+        }
+        //set directors
+        if(movieDto.getDirectors() != null) {
+            List<Crew> directors = movieDto.getDirectors()
+                    .stream()
+                    .map(director -> crewBuilder.crewDtoToCrew(director))
+                    .collect(Collectors.toList());
+            movie.setDirectors(directors);
+        }
+        if(movieDto.getMovieShow() != null) {
+            movie.setMovieShow(movieDto.getMovieShow());
+        }
 
         return movie;
     }
@@ -49,10 +71,22 @@ public class MovieBuilder {
                 .map(type -> TypeDto.valueOf(type.name()))
                 .collect(Collectors.toList());
         movieDto.setTypes(typeDtos);
+        //set actors
+        if(movie.getCast() != null) {
+            List<CrewDto> actorsDtoList = movie.getCast()
+                    .stream()
+                    .map(actor -> crewBuilder.crewToCrewDto(actor))
+                    .collect(Collectors.toList());
+            movieDto.setCast(actorsDtoList);
+        }
+        //set directors
+        if(movie.getDirectors() != null) {
+            List<CrewDto> collect = movie.getDirectors()
+                    .stream()
+                    .map(director -> crewBuilder.crewToCrewDto(director))
+                    .collect(Collectors.toList());
+        }
 
-        //TODO change when implemantation of theses classes will be ready
-        movieDto.setDirectors(movie.getDirectors());
-        movieDto.setCast(movie.getCast());
         movieDto.setMovieShow(movie.getMovieShow());
 
         return movieDto;
