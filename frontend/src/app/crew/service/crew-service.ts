@@ -14,7 +14,7 @@ export class HttpServiceDb {
   readonly URL_DB = 'http://localhost:8080';
   readonly param = new HttpParams().set('/crew', 'sdsd' );
 
-  getTask(): Observable<Array<Crew>> {
+  getCrew(): Observable<Array<Crew>> {
     return this.httpDB.get<Array<Crew>>(this.URL_DB, {params: this.param});
 
   }

@@ -39,7 +39,6 @@ public class Movie {
             inverseJoinColumns = {@JoinColumn(name = "STAR_ID")})
     private List<Crew> cast;
 
-    @OneToOne
-    private MovieShow movieShow;
+
 
 }

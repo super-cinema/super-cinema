@@ -13,7 +13,7 @@ export class AddCrewComponent implements OnInit {
   constructor(private httpClient: HttpClient) {
   }
 
-  crewRole = [
+  crewRoles = [
     {value: 'ACTOR', name: 'actor', 'checked': false},
     {value: 'DIRECTOR', name: 'director', 'checked': false}
   ];
@@ -23,8 +23,7 @@ export class AddCrewComponent implements OnInit {
   }
 
   addCrew(addCrewForm: NgForm) {
-    const checkedCrewRole = this.crewRole.filter(type => type.checked === true).map(type => type.value);
-
+    const checkedCrewRole = this.crewRoles.filter(type => type.checked === true).map(type => type.value);
     this.httpClient.post('http://localhost:8080/crew', {
       'name': addCrewForm.value.name,
       'surname': addCrewForm.value.surname,

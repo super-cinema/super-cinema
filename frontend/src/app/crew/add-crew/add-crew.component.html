@@ -18,10 +18,10 @@
     <div class="row">
       <legend class="col-form-label col-sm-3 pt-0">Crew Role</legend>
       <div class="col-sm-10">
-        <div *ngFor="let role of crewRole">
+        <div *ngFor="let role of crewRoles">
           <label>
-            <input type="checkbox" name="crewRole" value="{{crewRole.values()}}"
-                   (change)="checkCrewRole(crewRole, $event)">
+            <input type="checkbox" name="crewRole" value="{{crewRoles.values()}}"
+                   (change)="checkCrewRole(crewRoles, $event)">
             {{role.name}}
           </label>
         </div>

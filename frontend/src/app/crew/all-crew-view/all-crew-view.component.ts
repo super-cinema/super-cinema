@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {NotificationService} from '../../utils/notification.service';
-import {DialogService} from '../../utils/dialog.service';
+import {NotificationService} from '../../share/notification.service';
+import {DialogService} from '../../share/dialog.service';
 
 @Component({
   selector: 'app-all-crew-view',
@@ -40,7 +40,7 @@ export class AllCrewViewComponent implements OnInit {
               .subscribe(data => {
                 this.ngOnInit();
                 this.notificationService.success('Deleted ' + name + ' ' + surname + ' person successfully');
-              })(error => {
+              }), (error => {
                 this.notificationService.warn('Deleting ' + name + ' ' + surname + ' person failed');
                 console.log(error);
               });
@@ -48,4 +48,5 @@ export class AllCrewViewComponent implements OnInit {
         }
       );
   }
+  
 }
