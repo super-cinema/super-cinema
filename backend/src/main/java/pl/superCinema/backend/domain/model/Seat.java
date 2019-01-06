@@ -16,7 +16,7 @@ public class Seat {
 
     private String seatColumn;
     private Integer seatRow;
-    private Integer seatNumnber;
+    private Integer seatNumber;
 
     @ManyToOne
     @JoinColumn(name = "CINEMA_HALL_ID")

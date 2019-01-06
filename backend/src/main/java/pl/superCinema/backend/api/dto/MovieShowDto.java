@@ -15,5 +15,4 @@ public class MovieShowDto {
     private MovieDto movieDto;
     private List<CinemaHallDto> cinemaHallDtos;
     private List<SeatAvailabilityDto> seatAvailabilityDtos;
-
 }
