@@ -2,6 +2,7 @@ package pl.superCinema.backend.api.controllers.movieController;
 
 import lombok.AllArgsConstructor;
 import pl.superCinema.backend.api.controllers.crewController.CrewBuilder;
+import pl.superCinema.backend.api.controllers.crewController.CrewFacade;
 import pl.superCinema.backend.api.dto.CrewDto;
 import pl.superCinema.backend.api.dto.MovieDto;
 import pl.superCinema.backend.domain.exceptions.EntityCouldNotBeFoundException;
@@ -23,7 +24,8 @@ public class MovieFacade {
     private MovieRepository movieRepository;
     private MovieBuilder movieBuilder;
     private CrewBuilder crewBuilder;
-    private CrewRepository crewRepository;
+    private CrewFacade crewFacade;
+
 
     public MovieDto saveMovie(MovieDto movieDto) {
         Movie movie = movieBuilder.entityFromDto(movieDto);
@@ -32,41 +34,10 @@ public class MovieFacade {
         } catch (Exception e) {
             System.out.println(e);
         }
-        //set directors this movie
         List<Crew> directors = movie.getDirectors();
-        if (directors != null) {
-            directors.stream()
-                    .forEach(director -> {
-                        crewRepository.findById(director.getId()).ifPresent(
-                                directorFounded -> {
-                                    List<Movie> directedMovies = directorFounded.getDirectedMovies();
-                                    if (!directedMovies.contains(movie)) {
-                                        directedMovies.add(movie);
-                                        directorFounded.setDirectedMovies(directedMovies);
-                                        crewRepository.save(directorFounded);
-                                    }
-                                }
-                        );
-                    });
-        }
-        //set actors this movie
+        crewFacade.assignMovieToCrew(directors, movie);
         List<Crew> cast = movie.getCast();
-        if(cast != null){
-            cast.stream()
-                    .forEach(actor -> {
-                        crewRepository.findById(actor.getId()).ifPresent(
-                                actorFounded -> {
-                                    List<Movie> starredMovies = actorFounded.getStarredMovies();
-                                    if(!starredMovies.contains(movie)){
-                                        starredMovies.add(movie);
-                                        actorFounded.setStarredMovies(starredMovies);
-                                        crewRepository.save(actorFounded);
-                                    }
-                                }
-                        );
-                    });
-        }
-
+        crewFacade.assignMovieToCrew(cast, movie);
         return movieBuilder.dtoFromEntity(movie);
     }
 
