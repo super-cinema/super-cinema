@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import pl.superCinema.backend.api.dto.CrewDto;
 import pl.superCinema.backend.domain.model.Crew;
 import pl.superCinema.backend.domain.model.CrewRole;
+import pl.superCinema.backend.domain.model.Movie;
 import pl.superCinema.backend.domain.repository.CrewRepository;
 
 import javax.persistence.EntityNotFoundException;
@@ -64,12 +65,32 @@ public class CrewFacade {
     private Crew editCrew(Crew crew, CrewDto crewDto) {
         crew.setName(crewDto.getName());
         crew.setSurname(crewDto.getSurname());
-        List<CrewRole> crewRoles = crewDto.getCrewRoleDtos()
+        List<CrewRole> crewRoles = crewDto.getCrewRoles()
                 .stream()
                 .map(x -> CrewRole.valueOf(x.name()))
                 .collect(Collectors.toList());
         crew.setCrewRoles(crewRoles);
 
         return crew;
+    }
+
+    public void assignMovieToCrew(List<Crew> crewList, Movie movie) {
+        if (crewList == null) {
+            return;
+        }
+
+        crewList.stream()
+                .forEach(director -> {
+                    crewRepository.findById(director.getId()).ifPresent(
+                            directorFounded -> {
+                                List<Movie> directedMovies = directorFounded.getDirectedMovies();
+                                if (!directedMovies.contains(movie)) {
+                                    directedMovies.add(movie);
+                                    directorFounded.setDirectedMovies(directedMovies);
+                                    crewRepository.save(directorFounded);
+                                }
+                            }
+                    );
+                });
     }
 }

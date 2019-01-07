@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -27,18 +29,39 @@ public class Movie {
     @Enumerated(EnumType.STRING)
     private List<Type> types;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "MOVIE_DIRECTORS",
             joinColumns = {@JoinColumn(name = "MOVIE_ID")},
             inverseJoinColumns = {@JoinColumn(name = "CREW_ID")})
     private List<Crew> directors;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "MOVIE_CAST",
             joinColumns = {@JoinColumn(name = "MOVIE_ID")},
             inverseJoinColumns = {@JoinColumn(name = "STAR_ID")})
     private List<Crew> cast;
 
 
-
+    @Override
+    public String toString() {
+        String directorsToString = "[]";
+        if(directors != null){
+            directorsToString =  directors.stream().map(director -> director.getName()).collect(Collectors.joining(",", "{", "}"));
+        }
+        String castToString = "[]";
+        if(cast != null){
+            castToString = cast.stream().map(actor -> actor.getName()).collect(Collectors.joining(",", "{", "}"));
+        }
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", duration=" + duration +
+                ", productionCountry='" + productionCountry + '\'' +
+                ", productionYear=" + productionYear +
+                ", movieShow=" + movieShow +
+                ", types=" + types +
+                ", directors=" + directorsToString +
+                ", cast=" + castToString +
+                '}';
+    }
 }

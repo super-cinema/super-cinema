@@ -1,14 +1,18 @@
 package pl.superCinema.backend.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
 @Entity
+@JsonIgnoreProperties(value = { "directedMovies" })
 public class Crew {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -26,4 +30,25 @@ public class Crew {
 
     @ManyToMany(mappedBy = "cast")
     List<Movie> starredMovies;
+
+    @Override
+    public String toString() {
+        String directedMoviesString = "[]";
+        if(directedMovies != null) {
+            directedMoviesString = directedMovies.stream().map(directedMovie -> directedMovie.getTitle()).collect(Collectors.joining(",", "{", "}"));
+        }
+        String starredMoviesString = "[]";
+        if(starredMovies != null) {
+            starredMoviesString = starredMovies.stream().map(starredMovie -> starredMovie.getTitle()).collect(Collectors.joining(",", "{", "}"));
+
+        }
+        return "Crew{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", crewRoles=" + crewRoles +
+                ", directedMovies:" + directedMoviesString +
+                ", starredMovies" + starredMoviesString +
+                '}';
+    }
 }
