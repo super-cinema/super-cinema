@@ -16,9 +16,12 @@
 </div>
 
 <div class="crew-container">
-  <mat-list *ngFor="let crew of crewList" class="list-group" >
+  <mat-list *ngFor="let crew of crewList; let i = index" class="list-group" >
     <div class="display-one-movie-container" *ngIf="displaySearchedCrew(crew, findCrewForm)">
       <mat-list-item class="list-group-item list-group-item-secondary">
+
+        <input type="checkbox" (change)="addActor(crew, $event)">
+
         <span>{{crew.surname}} {{crew.name}}</span>
       </mat-list-item>
       <button routerLink="/crew/{{crew.id}}/edit" class="btn btn-default btn-lg" id = "edit-button">Edit</button>

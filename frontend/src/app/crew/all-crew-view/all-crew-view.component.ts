@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
 import {DialogService} from '../../share/dialog.service';
+import {Crew} from "../model-crew/crew";
 
 @Component({
   selector: 'app-all-crew-view',
@@ -11,7 +12,8 @@ import {DialogService} from '../../share/dialog.service';
 export class AllCrewViewComponent implements OnInit {
 
   crewList = [];
-
+  actorList = [];
+  private crew: Crew;
   constructor(private httpClient: HttpClient,
               private dialogService: DialogService,
               private notificationService: NotificationService) {
@@ -24,6 +26,21 @@ export class AllCrewViewComponent implements OnInit {
           this.crewList = data;
         }
       );
+  }
+
+  addActor(crew: Crew, $event) {
+    this.actorList.push(crew);
+    console.log(this.actorList);
+  }
+
+  checkCrewRole(i, event) {
+    this.crewList[i].checked = !this.crewList[i].checked;
+    if (this.crewList[i].checked) {
+      this.crew.crewRoles.push(this.crewList[i].value);
+    } else {
+      const indexOf = this.crew.crewRoles.indexOf(this.crewList[i].value);
+      this.crew.crewRoles.splice(indexOf, 1);
+    }
   }
 
   displaySearchedCrew(crew: any, findCrewForm: HTMLFormElement) {
@@ -41,12 +58,12 @@ export class AllCrewViewComponent implements OnInit {
                 this.ngOnInit();
                 this.notificationService.success('Deleted ' + name + ' ' + surname + ' person successfully');
               }), (error => {
-                this.notificationService.warn('Deleting ' + name + ' ' + surname + ' person failed');
-                console.log(error);
-              });
+              this.notificationService.warn('Deleting ' + name + ' ' + surname + ' person failed');
+              console.log(error);
+            });
           }
         }
       );
   }
-  
+
 }

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NgForm} from '@angular/forms';
+import {NotificationService} from '../../share/notification.service';
 
 
 @Component({
@@ -10,7 +11,8 @@ import {NgForm} from '@angular/forms';
 })
 export class AddCrewComponent implements OnInit {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private notification: NotificationService) {
   }
 
   crewRoles = [
@@ -23,8 +25,16 @@ export class AddCrewComponent implements OnInit {
   }
 
   addCrew(addCrewForm: NgForm) {
-    const checkedCrewRole = this.crewRoles.filter(type => type.checked == true).map(type => type.value);
-    console.log(checkedCrewRole)
+    const checkedCrewRole = this.crewRoles.filter(type => type.checked === true).map(type => type.value);
+    if (addCrewForm.value.name === '' || addCrewForm.value.name == null) {
+      this.notification.warn('Please give name.');
+      return;
+    }
+    if (addCrewForm.value.surname === '' || addCrewForm.value.surname == null) {
+      this.notification.warn('Please give surname.');
+      return;
+    }
+    console.log(checkedCrewRole);
     this.httpClient.post('http://localhost:8080/crew', {
       'name': addCrewForm.value.name,
       'surname': addCrewForm.value.surname,

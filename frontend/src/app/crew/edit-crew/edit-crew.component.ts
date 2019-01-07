@@ -2,6 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Crew} from '../model-crew/crew';
+import {NotificationService} from '../../share/notification.service';
 
 @Component({
   selector: 'app-edit-crew',
@@ -18,7 +19,8 @@ export class EditCrewComponent implements OnInit {
   private crew: Crew;
 
 
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute) {
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute,
+              private notification: NotificationService) {
   }
 
   ngOnInit() {
@@ -31,32 +33,37 @@ export class EditCrewComponent implements OnInit {
 
 
   wasTypeSelected(crewRole: { value: string; name: string; checked: boolean }) {
-
-    if (this.crew.crewRoleDtos.includes(crewRole.value)) {
+    if (this.crew.crewRoles.includes(crewRole.value)) {
       crewRole.checked = true;
       return true;
     }
-    crewRole.checked = false;
-    return false;
   }
 
   checkCrewRole(i, event) {
     this.crewRole[i].checked = !this.crewRole[i].checked;
     if (this.crewRole[i].checked) {
-      this.crew.crewRoleDtos.push(this.crewRole[i].value);
+      this.crew.crewRoles.push(this.crewRole[i].value);
     } else {
-      const indexOf = this.crew.crewRoleDtos.indexOf(this.crewRole[i].value);
-      this.crew.crewRoleDtos.splice(indexOf, 1);
+      const indexOf = this.crew.crewRoles.indexOf(this.crewRole[i].value);
+      this.crew.crewRoles.splice(indexOf, 1);
     }
   }
 
 
-  saveChanges(editMovieForm: HTMLFormElement) {
-    const checkedMovieTypes = this.crewRole.filter(type => type.checked === true).map(type => type.value);
+  saveChanges(editCrewForm: HTMLFormElement) {
+    const checkedCrewRoles = this.crewRole.filter(type => type.checked === true).map(type => type.value);
+    if (editCrewForm.value.name === '' || editCrewForm.value.name == null) {
+      this.notification.warn('Please give name.');
+      return;
+    }
+    if (editCrewForm.value.surname === '' || editCrewForm.value.surname == null) {
+      this.notification.warn('Please give surname.');
+      return;
+    }
     this.httpClient.put('http://localhost:8080/crew?id=' + this.crew.id, {
       'name': this.crew.name,
       'surname': this.crew.surname,
-      'crewRoleDtos': checkedMovieTypes,
+      'crewRoles': checkedCrewRoles,
     })
       .subscribe(
         (data: any) => {
@@ -75,7 +82,7 @@ export class EditCrewComponent implements OnInit {
           console.log(data);
           this.crew.name = data.name;
           this.crew.surname = data.surname;
-          this.crew.crewRoleDtos = data.crewRoleDtos;
+          this.crew.crewRoles = data.crewRoles;
         });
   }
 }

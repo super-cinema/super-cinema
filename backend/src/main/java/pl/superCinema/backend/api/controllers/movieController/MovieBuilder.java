@@ -19,7 +19,7 @@ public class MovieBuilder {
 
     CrewBuilder crewBuilder;
 
-    public Movie entityFromDto(MovieDto movieDto){
+    public Movie dtoToEntity(MovieDto movieDto){
 
         Movie movie = new Movie();
         movie.setId(movieDto.getId());
@@ -37,7 +37,7 @@ public class MovieBuilder {
         if(movieDto.getCast() != null) {
             List<Crew> crewList = movieDto.getCast()
                     .stream()
-                    .map(actor -> crewBuilder.crewDtoToCrew(actor))
+                    .map(actor -> crewBuilder.dtoToEntity(actor))
                     .collect(Collectors.toList());
             movie.setCast(crewList);
         }
@@ -45,7 +45,7 @@ public class MovieBuilder {
         if(movieDto.getDirectors() != null) {
             List<Crew> directors = movieDto.getDirectors()
                     .stream()
-                    .map(director -> crewBuilder.crewDtoToCrew(director))
+                    .map(director -> crewBuilder.dtoToEntity(director))
                     .collect(Collectors.toList());
             movie.setDirectors(directors);
         }
@@ -56,7 +56,7 @@ public class MovieBuilder {
         return movie;
     }
 
-    public MovieDto dtoFromEntity(Movie movie) {
+    public MovieDto entityToDto(Movie movie) {
 
         MovieDto movieDto = new MovieDto();
         movieDto.setId(movie.getId());
@@ -75,7 +75,7 @@ public class MovieBuilder {
         if(movie.getCast() != null) {
             List<CrewDto> actorsDtoList = movie.getCast()
                     .stream()
-                    .map(actor -> crewBuilder.crewToCrewDto(actor))
+                    .map(actor -> crewBuilder.entityToDto(actor))
                     .collect(Collectors.toList());
             movieDto.setCast(actorsDtoList);
         }
@@ -83,7 +83,7 @@ public class MovieBuilder {
         if(movie.getDirectors() != null) {
             List<CrewDto> collect = movie.getDirectors()
                     .stream()
-                    .map(director -> crewBuilder.crewToCrewDto(director))
+                    .map(director -> crewBuilder.entityToDto(director))
                     .collect(Collectors.toList());
         }
 

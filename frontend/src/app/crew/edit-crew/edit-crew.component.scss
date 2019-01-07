@@ -1,21 +1,34 @@
+#header {
+  text-align: center;
+  width: 100%;
+  margin-top: 50px;
+
+  h3 {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 form {
   width: 40%;
-  margin: 100px auto 20px;
+  margin: 50px auto 20px;
 
-  input {
-    width: 80%;
+  #div-directors {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .button-container{
+  .button-container {
     display: flex;
-    height: 80px;
+    height: 100px;
 
-    button{
+    button {
       background-color: #85CDBC;
       width: 25%;
       height: 60%;
       margin-top: 10px;
-      margin-right: auto;
+      margin-right: 20px;
       margin-left: auto;
       text-align: center;
       padding: 2px 2px 2px 2px;
