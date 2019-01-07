@@ -1,5 +1,6 @@
 package pl.superCinema.backend.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
+@JsonIgnoreProperties(value = { "directedMovies" })
 public class Crew {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -26,4 +28,16 @@ public class Crew {
 
     @ManyToMany(mappedBy = "cast")
     List<Movie> starredMovies;
+
+    @Override
+    public String toString() {
+        return "Crew{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", crewRoles=" + crewRoles +
+
+
+                '}';
+    }
 }

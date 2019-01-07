@@ -27,7 +27,7 @@ public class Movie {
     @Enumerated(EnumType.STRING)
     private List<Type> types;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "MOVIE_DIRECTORS",
             joinColumns = {@JoinColumn(name = "MOVIE_ID")},
             inverseJoinColumns = {@JoinColumn(name = "CREW_ID")})
@@ -40,5 +40,18 @@ public class Movie {
     private List<Crew> cast;
 
 
-
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", duration=" + duration +
+                ", productionCountry='" + productionCountry + '\'' +
+                ", productionYear=" + productionYear +
+                ", movieShow=" + movieShow +
+                ", types=" + types +
+                ", directors=" + directors.stream().map(director -> director.getName()).toString() +
+                ", cast=" + cast +
+                '}';
+    }
 }

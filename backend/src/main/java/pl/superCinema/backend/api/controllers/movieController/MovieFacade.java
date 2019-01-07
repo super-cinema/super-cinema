@@ -35,16 +35,16 @@ public class MovieFacade {
         if(directors != null){
             directors.stream()
                     .forEach(director -> {
-                        Optional<Crew> directorFound = crewRepository.findById(director.getId());
-                        if(directorFound.isPresent()){
-                            Crew directorEntity = directorFound.get();
-                            List<Movie> directedMovies = directorEntity.getDirectedMovies();
-                            if(!directedMovies.contains(movie)){
-                                directedMovies.add(movie);
-                                directorEntity.setDirectedMovies(directedMovies);
-                            }
-                            crewRepository.save(directorEntity);
-                        }
+                        crewRepository.findById(director.getId()).ifPresent(
+                                directorFounded -> {
+                                    List<Movie> directedMovies = directorFounded.getDirectedMovies();
+                                    if(!directedMovies.contains(movie)){
+                                        directedMovies.add(movie);
+                                        directorFounded.setDirectedMovies(directedMovies);
+                                        crewRepository.save(directorFounded);
+                                    }
+                                }
+                        );
                     });
         }
         return movieBuilder.dtoFromEntity(movie);

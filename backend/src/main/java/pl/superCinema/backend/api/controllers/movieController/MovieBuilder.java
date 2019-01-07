@@ -81,10 +81,11 @@ public class MovieBuilder {
         }
         //set directors
         if(movie.getDirectors() != null) {
-            List<CrewDto> collect = movie.getDirectors()
+            List<CrewDto> directorsDto = movie.getDirectors()
                     .stream()
                     .map(director -> crewBuilder.crewToCrewDto(director))
                     .collect(Collectors.toList());
+            movieDto.setDirectors(directorsDto);
         }
 
         movieDto.setMovieShow(movie.getMovieShow());
