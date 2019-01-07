@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
 import {DialogService} from '../../share/dialog.service';
-import {Crew} from "../model-crew/crew";
+import {Crew} from '../models/model-crew/crew';
 
 @Component({
   selector: 'app-all-crew-view',

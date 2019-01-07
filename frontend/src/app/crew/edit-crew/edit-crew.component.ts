@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Crew} from '../model-crew/crew';
+import {Crew} from '../models/model-crew/crew';
 import {NotificationService} from '../../share/notification.service';
 
 @Component({

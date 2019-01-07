@@ -26,6 +26,9 @@ import {AllCrewViewComponent} from './crew/all-crew-view/all-crew-view.component
 import {EditCrewComponent} from './crew/edit-crew/edit-crew.component';
 import {ConfirmDialogComponent} from './share/confirm-dialog/confirm-dialog.component';
 import {EditMovieComponent} from './movie/edit-movie/edit-movie.component';
+import {TransformPipe} from './share/transform.pipe';
+import {HttpServiceCrew} from './crew/servic-crew/http-service-crew';
+import {CrewService} from './crew/servic-crew/crew-service';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,7 @@ import {EditMovieComponent} from './movie/edit-movie/edit-movie.component';
     ConfirmDialogComponent,
     AllCrewViewComponent,
     EditCrewComponent,
+    TransformPipe
   ],
   imports: [
     BrowserModule,
@@ -59,9 +63,10 @@ import {EditMovieComponent} from './movie/edit-movie/edit-movie.component';
   exports: [
     MatListModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    TransformPipe
   ],
-  providers: [],
+  providers: [CrewService, HttpServiceCrew],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialogComponent]
 })
