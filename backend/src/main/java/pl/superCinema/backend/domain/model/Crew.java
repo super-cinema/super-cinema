@@ -31,13 +31,21 @@ public class Crew {
 
     @Override
     public String toString() {
+        String directedMoviesString = "[]";
+        if(directedMovies != null) {
+            directedMoviesString = directedMovies.stream().map(directedMovie -> directedMovie.getTitle()).toString();
+        }
+        String starredMoviesString = "[]";
+        if(starredMovies != null) {
+            starredMoviesString = starredMovies.stream().map(starredMovie -> starredMovie.getTitle()).toString();
+        }
         return "Crew{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", crewRoles=" + crewRoles +
-
-
+                "directedMovies:" + directedMoviesString +
+                "starredMovies" + starredMoviesString +
                 '}';
     }
 }

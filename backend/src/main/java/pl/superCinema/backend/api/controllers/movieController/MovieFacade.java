@@ -6,6 +6,7 @@ import pl.superCinema.backend.api.dto.CrewDto;
 import pl.superCinema.backend.api.dto.MovieDto;
 import pl.superCinema.backend.domain.exceptions.EntityCouldNotBeFoundException;
 import pl.superCinema.backend.domain.model.Crew;
+import pl.superCinema.backend.domain.model.CrewRole;
 import pl.superCinema.backend.domain.model.Movie;
 import pl.superCinema.backend.domain.model.Type;
 import pl.superCinema.backend.domain.repository.CrewRepository;
@@ -31,14 +32,15 @@ public class MovieFacade {
         } catch (Exception e) {
             System.out.println(e);
         }
+        //set directors this movie
         List<Crew> directors = movie.getDirectors();
-        if(directors != null){
+        if (directors != null) {
             directors.stream()
                     .forEach(director -> {
                         crewRepository.findById(director.getId()).ifPresent(
                                 directorFounded -> {
                                     List<Movie> directedMovies = directorFounded.getDirectedMovies();
-                                    if(!directedMovies.contains(movie)){
+                                    if (!directedMovies.contains(movie)) {
                                         directedMovies.add(movie);
                                         directorFounded.setDirectedMovies(directedMovies);
                                         crewRepository.save(directorFounded);
@@ -47,6 +49,24 @@ public class MovieFacade {
                         );
                     });
         }
+        //set actors this movie
+        List<Crew> cast = movie.getCast();
+        if(cast != null){
+            cast.stream()
+                    .forEach(actor -> {
+                        crewRepository.findById(actor.getId()).ifPresent(
+                                actorFounded -> {
+                                    List<Movie> starredMovies = actorFounded.getStarredMovies();
+                                    if(!starredMovies.contains(movie)){
+                                        starredMovies.add(movie);
+                                        actorFounded.setStarredMovies(starredMovies);
+                                        crewRepository.save(actorFounded);
+                                    }
+                                }
+                        );
+                    });
+        }
+
         return movieBuilder.dtoFromEntity(movie);
     }
 

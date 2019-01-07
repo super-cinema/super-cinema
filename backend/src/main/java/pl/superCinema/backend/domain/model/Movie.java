@@ -33,7 +33,7 @@ public class Movie {
             inverseJoinColumns = {@JoinColumn(name = "CREW_ID")})
     private List<Crew> directors;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "MOVIE_CAST",
             joinColumns = {@JoinColumn(name = "MOVIE_ID")},
             inverseJoinColumns = {@JoinColumn(name = "STAR_ID")})
@@ -42,6 +42,14 @@ public class Movie {
 
     @Override
     public String toString() {
+        String directorsToString = "[]";
+        if(directors != null){
+            directorsToString =  directors.stream().map(director -> director.getName()).toString();
+        }
+        String castToString = "[]";
+        if(cast != null){
+            castToString = cast.stream().map(actor -> actor.getName()).toString();
+        }
         return "Movie{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
@@ -50,8 +58,8 @@ public class Movie {
                 ", productionYear=" + productionYear +
                 ", movieShow=" + movieShow +
                 ", types=" + types +
-                ", directors=" + directors.stream().map(director -> director.getName()).toString() +
-                ", cast=" + cast +
+                ", directors=" + directorsToString +
+                ", cast=" + castToString +
                 '}';
     }
 }
