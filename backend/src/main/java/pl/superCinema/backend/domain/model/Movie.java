@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -44,11 +46,11 @@ public class Movie {
     public String toString() {
         String directorsToString = "[]";
         if(directors != null){
-            directorsToString =  directors.stream().map(director -> director.getName()).toString();
+            directorsToString =  directors.stream().map(director -> director.getName()).collect(Collectors.joining(",", "{", "}"));
         }
         String castToString = "[]";
         if(cast != null){
-            castToString = cast.stream().map(actor -> actor.getName()).toString();
+            castToString = cast.stream().map(actor -> actor.getName()).collect(Collectors.joining(",", "{", "}"));
         }
         return "Movie{" +
                 "id=" + id +
