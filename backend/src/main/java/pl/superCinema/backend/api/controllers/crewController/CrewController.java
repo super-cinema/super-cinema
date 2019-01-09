@@ -12,6 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/crew")
 @CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "http://localhost:4200")
+
 public class CrewController {
 
     private CrewFacade crewFacade;

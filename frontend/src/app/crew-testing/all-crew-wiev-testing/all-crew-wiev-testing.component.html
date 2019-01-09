@@ -1,0 +1,25 @@
+<div class="add-Crew">
+  <a routerLink="/addCrewTest"><span>Add crew</span></a>
+</div>
+
+<div class="form-container">
+  <form #findCrewForm="ngForm">
+    <div class="input-group">
+      <input ngModel type="text" class="form-control" placeholder="search crew" name="search" id="search">
+      <div class="input-group-btn">
+        <button class="btn btn-default btn-lg">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+  <mat-list *ngFor="let crew of crewList" class="list-group">
+    <div *ngIf="displaySearchedCrew(crew, findCrewForm)">
+    <app-crew-detail-test [crew]="crew"></app-crew-detail-test>
+    </div>
+  </mat-list>
+
+
+

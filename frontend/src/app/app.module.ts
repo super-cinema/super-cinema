@@ -20,15 +20,17 @@ import {ScheduleScreeningViewTableComponent} from './schedule/schedule-screening
 import {AddCrewComponent} from './crew/add-crew/add-crew.component';
 import {AddMovieComponent} from './movie/add-movie/add-movie.component';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InterceptorModule} from './interceptor.module';
 import {AllCrewViewComponent} from './crew/all-crew-view/all-crew-view.component';
 import {EditCrewComponent} from './crew/edit-crew/edit-crew.component';
 import {ConfirmDialogComponent} from './share/confirm-dialog/confirm-dialog.component';
 import {EditMovieComponent} from './movie/edit-movie/edit-movie.component';
 import {TransformPipe} from './share/transform.pipe';
-import {HttpServiceCrew} from './crew/servic-crew/http-service-crew';
 import {CrewService} from './crew/servic-crew/crew-service';
+import { AddCrewTestComponent } from './crew-testing/add-crew-test/add-crew-test.component';
+import { AllCrewWievTestingComponent } from './crew-testing/all-crew-wiev-testing/all-crew-wiev-testing.component';
+import { CrewDetailTestComponent } from './crew-testing/crew-detail-test/crew-detail-test.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,10 @@ import {CrewService} from './crew/servic-crew/crew-service';
     ConfirmDialogComponent,
     AllCrewViewComponent,
     EditCrewComponent,
-    TransformPipe
+    TransformPipe,
+    AddCrewTestComponent,
+    AllCrewWievTestingComponent,
+    CrewDetailTestComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,9 @@ import {CrewService} from './crew/servic-crew/crew-service';
     HttpClientModule,
     InterceptorModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     MatListModule,
@@ -66,7 +73,7 @@ import {CrewService} from './crew/servic-crew/crew-service';
     MatSnackBarModule,
     TransformPipe
   ],
-  providers: [CrewService, HttpServiceCrew],
+  providers: [CrewService],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialogComponent]
 })

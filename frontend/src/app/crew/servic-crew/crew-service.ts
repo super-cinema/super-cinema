@@ -1,38 +1,42 @@
-import {BehaviorSubject, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {Crew} from '../models/model-crew/crew';
-import {HttpServiceCrew} from './http-service-crew';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CrewService {
 
-  taskListObs = new BehaviorSubject<Array<Crew>>([]);
+  readonly baseUrl = 'http://localhost:8080/crew';
 
-  constructor(private httpService: HttpServiceCrew) {
-    this.httpService.getCrew().subscribe(list => {
-      this.taskListObs.next(list);
-      // tym spoosbem pobierzemy sb wszystkie dane do observable subjecta
-    });
+
+  constructor(private http: HttpClient) {
   }
 
-
-  addCrew(crew: Crew) {
-    const list = this.taskListObs.getValue();
-    list.push(crew);
-    this.taskListObs.next(list);
+  getCrew(id: number): Observable<Object> {
+    return this.http.get(this.baseUrl + '?id=' + id);
   }
 
-  removeCrew(crew: Crew) {
-    const taskListDB = this.taskListObs.getValue().filter(e => e !== crew);
-    this.taskListObs.next(taskListDB);
+  createCrew(crew: Crew): Observable<Object> {
+    return this.http.post(this.baseUrl, crew);
+  }
+
+  updateCrew(id: number, value: any): Observable<Object> {
+    return this.http.put(this.baseUrl + '?id=' + id, value);
+  }
+
+  deleteCrew(id: number): Observable<any> {
+    return this.http.delete(this.baseUrl + '?id=' + id);
   }
 
   getCrewList(): Observable<Array<Crew>> {
-    return this.taskListObs.asObservable();
+    return this.http.get<Array<Crew>>(this.baseUrl);
   }
 
-  saveTasksInDB() {
-    this.httpService.saveCrew(this.taskListObs.getValue());
+  deleteAll(): Observable<any> {
+    return this.http.delete(`${this.baseUrl}` + `/delete`, {responseType: 'text'});
   }
+
 
 }

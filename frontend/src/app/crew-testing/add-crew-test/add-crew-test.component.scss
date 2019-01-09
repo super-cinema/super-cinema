@@ -1,0 +1,47 @@
+#header {
+  text-align: center;
+  width: 100%;
+  margin-top: 50px;
+
+  h3 {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+form {
+  width: 40%;
+  margin: 50px auto 20px;
+
+  #div-directors {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .button-container {
+    display: flex;
+    height: 100px;
+
+    button {
+      background-color: #85CDBC;
+      width: 25%;
+      height: 60%;
+      margin-top: 10px;
+      margin-right: 20px;
+      margin-left: auto;
+      text-align: center;
+      padding: 2px 2px 2px 2px;
+      border: none;
+      color: black;
+    }
+  }
+
+  button {
+    background-color: #85CDBC;
+    border: none;
+    color: black;
+    margin-left: 15px;
+  }
+
+}

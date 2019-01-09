@@ -1,7 +1,9 @@
 import {Crew} from '../../crew/models/model-crew/crew';
 import {Deserializable} from '../../crew/models/model-crew/deserializable';
 
-export class Movie implements Deserializable {
+export class Movie
+  // implements Deserializable
+{
   id;
   title: string;
   duration;
@@ -12,9 +14,9 @@ export class Movie implements Deserializable {
   movieShow: string;
   types: string[] = [];
 
-  deserialize(input: any): Movie {
-    Object.assign(this, input);
-    this.directors = new Crew().deserialize(input.directors);
-    return this;
-  }
+  // deserialize(input: any): Movie {
+  //   Object.assign(this, input);
+  //   this.directors = new Crew().deserialize(input.directors);
+  //   return this;
+  // }
 }

@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
 import {DialogService} from '../../share/dialog.service';
 import {Crew} from '../models/model-crew/crew';
+import {CrewService} from '../servic-crew/crew-service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-all-crew-view',
@@ -11,21 +13,21 @@ import {Crew} from '../models/model-crew/crew';
 })
 export class AllCrewViewComponent implements OnInit {
 
-  crewList = [];
+  crewList: Observable<Array<Crew>>;
+
   actorList = [];
   private crew: Crew;
+
   constructor(private httpClient: HttpClient,
               private dialogService: DialogService,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private crewService: CrewService) {
   }
 
   ngOnInit() {
-    this.httpClient.get('http://localhost:8080/crew')
-      .subscribe(
-        (data: any) => {
-          this.crewList = data;
-        }
-      );
+    this.crewService.getCrewList().subscribe((data: any) => {
+      this.crewList = data;
+    });
   }
 
   addActor(crew: Crew, $event) {
