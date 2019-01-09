@@ -30,42 +30,25 @@ export class AllCrewViewComponent implements OnInit {
     });
   }
 
-  addActor(crew: Crew, $event) {
-    this.actorList.push(crew);
-    console.log(this.actorList);
-  }
-
-  checkCrewRole(i, event) {
-    this.crewList[i].checked = !this.crewList[i].checked;
-    if (this.crewList[i].checked) {
-      this.crew.crewRoles.push(this.crewList[i].value);
-    } else {
-      const indexOf = this.crew.crewRoles.indexOf(this.crewList[i].value);
-      this.crew.crewRoles.splice(indexOf, 1);
-    }
-  }
-
   displaySearchedCrew(crew: any, findCrewForm: HTMLFormElement) {
     return crew.surname.toUpperCase().includes(findCrewForm.value.search.toUpperCase());
   }
 
-  deleteCrew(id, name, surname) {
-    const msg: string = 'Do you want delete ' + name + ' ' + surname;
+  deleteAllCrew() {
+    const msg = 'Are you sure you want delete the entire crew?  ';
     this.dialogService.openConfirmDialog(msg)
       .afterClosed()
       .subscribe(resp => {
-          if (resp) {
-            this.httpClient.delete('http://localhost:8080/crew?id=' + id)
-              .subscribe(data => {
+        if (resp) {
+          this.crewService.deleteAll()
+            .subscribe(
+              data => {
+                console.log(data);
                 this.ngOnInit();
-                this.notificationService.success('Deleted ' + name + ' ' + surname + ' person successfully');
-              }), (error => {
-              this.notificationService.warn('Deleting ' + name + ' ' + surname + ' person failed');
-              console.log(error);
-            });
-          }
-        }
-      );
-  }
+              },
+              error => console.log('ERROR: ' + error));
 
+        }
+      });
+  }
 }

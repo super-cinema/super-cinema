@@ -3,9 +3,9 @@
 </div>
 
 <div class="form-container">
-  <form #findCrewForm = "ngForm" >
+  <form #findCrewForm="ngForm">
     <div class="input-group">
-      <input ngModel type="text" class="form-control" placeholder="search crew" name="search" id ="search">
+      <input ngModel type="text" class="form-control" placeholder="search crew" name="search" id="search">
       <div class="input-group-btn">
         <button class="btn btn-default btn-lg">
           <i class="fa fa-search"></i>
@@ -15,18 +15,15 @@
   </form>
 </div>
 
-<div class="crew-container">
-  <mat-list *ngFor="let crew of crewList " class="list-group" >
-    <div class="display-one-movie-container" *ngIf="displaySearchedCrew(crew, findCrewForm)">
-      <mat-list-item class="list-group-item list-group-item-secondary">
+<mat-list *ngFor="let crew of crewList" class="list-group">
+  <div *ngIf="displaySearchedCrew(crew, findCrewForm)">
+    <app-crew-detail [crew]="crew"></app-crew-detail>
+  </div>
+</mat-list>
 
-        <!--<input type="checkbox" (change)="addActor(crew, $event)">-->
-
-        <span>{{crew.surname | transform}} {{crew.name | transform}} {{crew.crewRoles}}</span>
-      </mat-list-item>
-      <button routerLink="/crew/{{crew.id}}/edit" class="btn btn-default btn-lg" id = "edit-button">Edit</button>
-      <button class="btn btn-default btn-lg" id = "delete-button" (click)="deleteCrew(crew.id, crew.name, crew.surname)">Delete</button>
-    </div>
-  </mat-list>
+<div class="add-Crew">
+<button class="btn btn-default btn-lg" id = "delete-button" (click)="deleteAllCrew()">Delete all crew</button>
 </div>
+
+
 

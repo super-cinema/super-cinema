@@ -7,8 +7,6 @@ import {AddMovieComponent} from './movie/add-movie/add-movie.component';
 import {EditMovieComponent} from './movie/edit-movie/edit-movie.component';
 import {AllCrewViewComponent} from './crew/all-crew-view/all-crew-view.component';
 import {EditCrewComponent} from './crew/edit-crew/edit-crew.component';
-import {AddCrewTestComponent} from './crew-testing/add-crew-test/add-crew-test.component';
-import {AllCrewWievTestingComponent} from './crew-testing/all-crew-wiev-testing/all-crew-wiev-testing.component';
 
 const routes: Routes = [
   {path: 'allMoviesView', component: AllMoviesViewComponent},
@@ -19,8 +17,6 @@ const routes: Routes = [
   {path: 'crew/:id/edit', component: EditCrewComponent },
   {path: 'addCrew', component: AddCrewComponent},
 
-  {path: 'addCrewTest', component: AddCrewTestComponent },
-  {path: 'allCrewViewTest', component: AllCrewWievTestingComponent },
 
 ];
 

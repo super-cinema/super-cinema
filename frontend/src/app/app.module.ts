@@ -28,9 +28,7 @@ import {ConfirmDialogComponent} from './share/confirm-dialog/confirm-dialog.comp
 import {EditMovieComponent} from './movie/edit-movie/edit-movie.component';
 import {TransformPipe} from './share/transform.pipe';
 import {CrewService} from './crew/servic-crew/crew-service';
-import { AddCrewTestComponent } from './crew-testing/add-crew-test/add-crew-test.component';
-import { AllCrewWievTestingComponent } from './crew-testing/all-crew-wiev-testing/all-crew-wiev-testing.component';
-import { CrewDetailTestComponent } from './crew-testing/crew-detail-test/crew-detail-test.component';
+import {CrewDetailComponent} from './crew/crew-detail/crew-detail.component';
 
 @NgModule({
   declarations: [
@@ -46,9 +44,7 @@ import { CrewDetailTestComponent } from './crew-testing/crew-detail-test/crew-de
     AllCrewViewComponent,
     EditCrewComponent,
     TransformPipe,
-    AddCrewTestComponent,
-    AllCrewWievTestingComponent,
-    CrewDetailTestComponent
+    CrewDetailComponent
   ],
   imports: [
     BrowserModule,
