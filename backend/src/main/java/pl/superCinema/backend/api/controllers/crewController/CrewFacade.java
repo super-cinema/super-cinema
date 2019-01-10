@@ -74,20 +74,29 @@ public class CrewFacade {
         return crew;
     }
 
-    public void assignMovieToCrew(List<Crew> crewList, Movie movie) {
+    public void assignMovieToCrew(List<Crew> crewList, Movie movie, CrewRole crewRole) {
         if (crewList == null) {
             return;
         }
-
+        List<Crew> directors = movie.getDirectors();
+        List<Crew> actors = movie.getCast();
         crewList.stream()
                 .forEach(director -> {
                     crewRepository.findById(director.getId()).ifPresent(
-                            directorFounded -> {
-                                List<Movie> directedMovies = directorFounded.getDirectedMovies();
+                            crewFounded -> {
+                                if(crewRole.name().equals("DIRECTOR")){
+                                    directors.add(crewFounded);
+                                    movie.setDirectors(directors);
+                                }
+                                if(crewRole.name().equals("ACTOR")){
+                                    actors.add(crewFounded);
+                                    movie.setCast(actors);
+                                }
+                                List<Movie> directedMovies = crewFounded.getDirectedMovies();
                                 if (!directedMovies.contains(movie)) {
                                     directedMovies.add(movie);
-                                    directorFounded.setDirectedMovies(directedMovies);
-                                    crewRepository.save(directorFounded);
+                                    crewFounded.setDirectedMovies(directedMovies);
+                                    crewRepository.save(crewFounded);
                                 }
                             }
                     );

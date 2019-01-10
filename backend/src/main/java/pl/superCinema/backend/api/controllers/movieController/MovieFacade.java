@@ -35,9 +35,11 @@ public class MovieFacade {
             System.out.println(e);
         }
         List<Crew> directors = movie.getDirectors();
-        crewFacade.assignMovieToCrew(directors, movie);
+        crewFacade.assignMovieToCrew(directors, movie, CrewRole.DIRECTOR);
+        movieRepository.save(movie);
         List<Crew> cast = movie.getCast();
-        crewFacade.assignMovieToCrew(cast, movie);
+        crewFacade.assignMovieToCrew(cast, movie, CrewRole.ACTOR);
+        movieRepository.save(movie);
         return movieBuilder.dtoFromEntity(movie);
     }
 

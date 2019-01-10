@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class MovieBuilder {
 
-    CrewBuilder crewBuilder;
+    private CrewBuilder crewBuilder;
 
     public Movie entityFromDto(MovieDto movieDto){
 
@@ -28,11 +28,13 @@ public class MovieBuilder {
         movie.setProductionCountry(movieDto.getProductionCountry());
         movie.setProductionYear(movieDto.getProductionYear());
         //set types
-        List<Type> typeList = movieDto.getTypes()
-                .stream()
-                .map(type -> Type.valueOf(type.name()))
-                .collect(Collectors.toList());
-        movie.setTypes(typeList);
+        if (movieDto.getTypes() != null){
+            List<Type> typeList = movieDto.getTypes()
+                    .stream()
+                    .map(type -> Type.valueOf(type.name()))
+                    .collect(Collectors.toList());
+            movie.setTypes(typeList);
+        }
         //set actors
         if(movieDto.getCast() != null) {
             List<Crew> crewList = movieDto.getCast()
@@ -66,11 +68,13 @@ public class MovieBuilder {
         movieDto.setProductionYear(movie.getProductionYear());
 
         //set types
-        List<TypeDto> typeDtos = movie.getTypes()
-                .stream()
-                .map(type -> TypeDto.valueOf(type.name()))
-                .collect(Collectors.toList());
-        movieDto.setTypes(typeDtos);
+        if(movie.getTypes() != null) {
+            List<TypeDto> typeDtos = movie.getTypes()
+                    .stream()
+                    .map(type -> TypeDto.valueOf(type.name()))
+                    .collect(Collectors.toList());
+            movieDto.setTypes(typeDtos);
+        }
         //set actors
         if(movie.getCast() != null) {
             List<CrewDto> actorsDtoList = movie.getCast()

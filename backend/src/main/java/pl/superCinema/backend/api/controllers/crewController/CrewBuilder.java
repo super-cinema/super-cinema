@@ -15,11 +15,13 @@ public class CrewBuilder {
         crewDto.setId(crew.getId());
         crewDto.setName(crew.getName());
         crewDto.setSurname(crew.getSurname());
-        List<CrewRoleDto> crewRoleDtos = crew.getCrewRoles()
-                .stream()
-                .map(x -> CrewRoleDto.valueOf(x.name()))
-                .collect(Collectors.toList());
-        crewDto.setCrewRoles(crewRoleDtos);
+        if(crew.getCrewRoles() != null) {
+            List<CrewRoleDto> crewRoleDtos = crew.getCrewRoles()
+                    .stream()
+                    .map(x -> CrewRoleDto.valueOf(x.name()))
+                    .collect(Collectors.toList());
+            crewDto.setCrewRoles(crewRoleDtos);
+        }
         return crewDto;
     }
 
@@ -30,11 +32,13 @@ public class CrewBuilder {
         }
         crew.setName(crewDto.getName());
         crew.setSurname(crewDto.getSurname());
-        List<CrewRole> crewRoles = crewDto.getCrewRoles()
-                .stream()
-                .map(x -> CrewRole.valueOf(x.name()))
-                .collect(Collectors.toList());
-        crew.setCrewRoles(crewRoles);
+        if(crewDto.getCrewRoles() != null) {
+            List<CrewRole> crewRoles = crewDto.getCrewRoles()
+                    .stream()
+                    .map(x -> CrewRole.valueOf(x.name()))
+                    .collect(Collectors.toList());
+            crew.setCrewRoles(crewRoles);
+        }
         return crew;
     }
 }
