@@ -6,8 +6,8 @@ export class Movie {
   duration;
   productionCountry: string;
   productionYear: string;
-  directors: Crew;
-  cast: string;
+  directors: Crew[];
+  cast: Crew[];
   movieShow: string;
   types: string[] = [];
 }

@@ -42,15 +42,6 @@ export class CrewDetailComponent implements OnInit {
       });
   }
 
-  updateCrew() {
-    this.crewService.updateCrew(Number(this.crew.id),
-      {name: this.crew.name, age: this.crew.surname})
-      .subscribe(
-        data => {
-          console.log(data);
-          this.crew = data as Crew;
-        },
-        error => console.log(error));
-  }
+
 
 }
