@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
 import {DialogService} from '../../share/dialog.service';
@@ -14,9 +14,6 @@ import {Observable} from 'rxjs';
 export class AllCrewViewComponent implements OnInit {
 
   crewList: Observable<Array<Crew>>;
-
-  actorList = [];
-  private crew: Crew;
 
   constructor(private httpClient: HttpClient,
               private dialogService: DialogService,

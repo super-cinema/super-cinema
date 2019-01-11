@@ -1,26 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import {NgForm} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
-import {NotificationService} from "../../share/notification.service";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {NotificationService} from '../../share/notification.service';
+import {AllCrewViewComponent} from '../../crew/all-crew-view/all-crew-view.component';
+import {Observable} from "rxjs";
+import {Crew} from "../../crew/models/model-crew/crew";
+import {CrewService} from "../../crew/servic-crew/crew-service";
 
 @Component({
   selector: 'app-add-movie',
   templateUrl: './add-movie.component.html',
-  styleUrls: ['./add-movie.component.scss']
+  styleUrls: ['./add-movie.component.scss'],
+  providers: [AllCrewViewComponent]
 })
 export class AddMovieComponent implements OnInit {
 
+  isHidden = false;
+  crewList: Observable<Array<Crew>>;
+  actorsFromCrew = [Crew];
+
+  hidden() {
+    this.isHidden = !this.isHidden;
+  }
+
+  selected(crew) {
+    this.actorsFromCrew.push(crew);
+    console.log(this.actorsFromCrew);
+  }
 
 
   ngOnInit() {
+    this.crewService.getCrewList().subscribe((data: any) => {
+      this.crewList = data;
+    });
   }
 
   constructor(private httpClient: HttpClient,
-              private notification: NotificationService) { }
+              private notification: NotificationService,
+              private crewService: CrewService) {
+  }
 
   movieTypes = [
     {value: "COMEDY", name: "comedy", "checked": false},
-    {value: "HORROR", name: "horror", "checked": false},
+    {value: "HORROR", name: 'horror', "checked": false},
     {value: "SF", name: "science - fiction", "checked": false},
     {value: "ACTION", name: "action", "checked": false},
     {value: "THRILLER", name: "thriller", "checked": false},
@@ -30,7 +52,7 @@ export class AddMovieComponent implements OnInit {
     {value: "MUSICAL", name: "musical", "checked": false},
     {value: "ANIMATION", name: "animation", "checked": false},
     {value: "WESTERNS", name: "western", "checked": false}
-    ];
+  ];
 
   directors = [
     {name: "name"},
@@ -40,32 +62,33 @@ export class AddMovieComponent implements OnInit {
   crew = [];
 
   checkMovieType(movieType, event) {
-    movieType.checked = !movieType.checked
+    movieType.checked = !movieType.checked;
+
   }
 
   addMovie(addMovieForm: NgForm) {
     let checkedMovieTypes = this.movieTypes.filter(type => type.checked == true).map(type => type.value)
-    if(addMovieForm.value.title == '' || addMovieForm.value.title == null) {
+    if (addMovieForm.value.title == '' || addMovieForm.value.title == null) {
       this.notification.warn("Please give title.")
       return;
     }
-    if(addMovieForm.value.duration == '' || addMovieForm.value.duration == null ){
+    if (addMovieForm.value.duration == '' || addMovieForm.value.duration == null) {
       this.notification.warn("Please give movie duration.");
       return;
     }
-    if(Number.isNaN(Number(addMovieForm.value.duration))) {
+    if (Number.isNaN(Number(addMovieForm.value.duration))) {
       this.notification.warn("Duration must be given as a number")
       return;
     }
-    this.httpClient.post("http://localhost:8080/movie",  {
-      "title" : addMovieForm.value.title,
-      "duration" : addMovieForm.value.duration,
-      "productionCountry" : addMovieForm.value.productionCountry,
-      "productionYear" : addMovieForm.value.productionYear,
-      "types" : checkedMovieTypes,
-      "directors" : null,
-      "cast" : null,
-      "movieShow" :null
+    this.httpClient.post("http://localhost:8080/movie", {
+      "title": addMovieForm.value.title,
+      "duration": addMovieForm.value.duration,
+      "productionCountry": addMovieForm.value.productionCountry,
+      "productionYear": addMovieForm.value.productionYear,
+      "types": checkedMovieTypes,
+      "directors": null,
+      "cast": null,
+      "movieShow": null
     })
       .subscribe(
         (data: any) => {

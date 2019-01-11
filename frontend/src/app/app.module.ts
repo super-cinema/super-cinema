@@ -29,6 +29,8 @@ import {EditMovieComponent} from './movie/edit-movie/edit-movie.component';
 import {TransformPipe} from './share/transform.pipe';
 import {CrewService} from './crew/servic-crew/crew-service';
 import {CrewDetailComponent} from './crew/crew-detail/crew-detail.component';
+import {MovieService} from "./movie/servic-movie/movie-service";
+import { CrewDetailInMovieComponent } from './crew/crew-detail-in-movie/crew-detail-in-movie.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import {CrewDetailComponent} from './crew/crew-detail/crew-detail.component';
     AllCrewViewComponent,
     EditCrewComponent,
     TransformPipe,
-    CrewDetailComponent
+    CrewDetailComponent,
+    CrewDetailInMovieComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,6 @@ import {CrewDetailComponent} from './crew/crew-detail/crew-detail.component';
     InterceptorModule,
     MatDialogModule,
     MatSnackBarModule,
-    FormsModule,
     ReactiveFormsModule
   ],
   exports: [
@@ -69,7 +71,7 @@ import {CrewDetailComponent} from './crew/crew-detail/crew-detail.component';
     MatSnackBarModule,
     TransformPipe
   ],
-  providers: [CrewService],
+  providers: [CrewService, MovieService],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialogComponent]
 })

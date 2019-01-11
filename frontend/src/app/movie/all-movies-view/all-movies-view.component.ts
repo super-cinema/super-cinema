@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {DialogService} from "../../share/dialog.service";
-import {NotificationService} from "../../share/notification.service";
+import {HttpClient} from '@angular/common/http';
+import {DialogService} from '../../share/dialog.service';
+import {NotificationService} from '../../share/notification.service';
 
 
 

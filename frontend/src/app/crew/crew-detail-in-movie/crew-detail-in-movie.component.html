@@ -1,0 +1,8 @@
+<div class="crew-container">
+  <div class="display-one-movie-container">
+    <mat-list-item class="list-group-item list-group-item-secondary">
+      <span>{{crew.surname | transform}} {{crew.name | transform}} {{crew.crewRoles}}</span>
+    </mat-list-item>
+    <button class="btn btn-default btn-lg" id="edit-button" (click)="select(crew)" >zaznacz</button>
+  </div>
+</div>

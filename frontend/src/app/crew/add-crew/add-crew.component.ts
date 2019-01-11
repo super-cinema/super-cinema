@@ -19,8 +19,8 @@ export class AddCrewComponent implements OnInit {
   crew = new Crew();
   addCrewForm: FormGroup;
   crewRoles = [
-    {value: 'ACTOR', name: 'actor', 'checked': false, id: 1},
-    {value: 'DIRECTOR', name: 'director', 'checked': false, id: 2}
+    {value: 'ACTOR', name: 'actor', 'checked': false},
+    {value: 'DIRECTOR', name: 'director', 'checked': false}
   ];
 
   ngOnInit(): void {

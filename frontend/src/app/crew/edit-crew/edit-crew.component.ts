@@ -61,6 +61,7 @@ export class EditCrewComponent implements OnInit {
     );
   }
 
+
   wasTypeSelected(crewRole: { value: string; name: string; checked: boolean }) {
     if (this.crew.crewRoles.includes(crewRole.value)) {
       crewRole.checked = true;

@@ -18,6 +18,7 @@
 <mat-list *ngFor="let crew of crewList" class="list-group">
   <div *ngIf="displaySearchedCrew(crew, findCrewForm)">
     <app-crew-detail [crew]="crew"></app-crew-detail>
+
   </div>
 </mat-list>
 

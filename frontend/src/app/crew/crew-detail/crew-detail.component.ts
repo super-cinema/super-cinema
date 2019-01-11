@@ -24,6 +24,7 @@ export class CrewDetailComponent implements OnInit {
   ngOnInit() {
   }
 
+
   deleteCrew() {
     const msg: string = 'Do you want delete ' + this.crew.name + ' ' + this.crew.surname;
     this.dialogService.openConfirmDialog(msg)
@@ -41,7 +42,6 @@ export class CrewDetailComponent implements OnInit {
         }
       });
   }
-
 
 
 }
