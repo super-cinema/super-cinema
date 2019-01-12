@@ -58,6 +58,24 @@ public class MovieBuilder {
         return movie;
     }
 
+    public Movie basicEntityFromDto(MovieDto movieDto){
+        Movie movie = new Movie();
+        movie.setId(movieDto.getId());
+        movie.setTitle(movieDto.getTitle());
+        movie.setDuration(movieDto.getDuration());
+        movie.setProductionCountry(movieDto.getProductionCountry());
+        movie.setProductionYear(movieDto.getProductionYear());
+        //set types
+        if (movieDto.getTypes() != null){
+            List<Type> typeList = movieDto.getTypes()
+                    .stream()
+                    .map(type -> Type.valueOf(type.name()))
+                    .collect(Collectors.toList());
+            movie.setTypes(typeList);
+        }
+        return movie;
+    }
+
     public MovieDto dtoFromEntity(Movie movie) {
 
         MovieDto movieDto = new MovieDto();

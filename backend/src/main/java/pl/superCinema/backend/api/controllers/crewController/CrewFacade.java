@@ -74,32 +74,61 @@ public class CrewFacade {
         return crew;
     }
 
-    public void assignMovieToCrew(List<Crew> crewList, Movie movie, CrewRole crewRole) {
-        if (crewList == null) {
+    public void assignMovieToCrew(List<CrewDto> crewListDto, Movie movie, CrewRole crewRole) {
+        if (crewListDto == null) {
             return;
         }
-        List<Crew> directors = movie.getDirectors();
-        List<Crew> actors = movie.getCast();
-        crewList.stream()
+        crewListDto.stream()
                 .forEach(director -> {
                     crewRepository.findById(director.getId()).ifPresent(
                             crewFounded -> {
-                                if(crewRole.name().equals("DIRECTOR")){
-                                    directors.add(crewFounded);
-                                    movie.setDirectors(directors);
-                                }
-                                if(crewRole.name().equals("ACTOR")){
-                                    actors.add(crewFounded);
-                                    movie.setCast(actors);
-                                }
-                                List<Movie> directedMovies = crewFounded.getDirectedMovies();
-                                if (!directedMovies.contains(movie)) {
-                                    directedMovies.add(movie);
-                                    crewFounded.setDirectedMovies(directedMovies);
-                                    crewRepository.save(crewFounded);
-                                }
+                                setMovieToCrewFounded(movie, crewFounded, crewRole);
                             }
                     );
                 });
+        }
+
+    private void setMovieToCrewFounded(Movie movie, Crew crewFounded, CrewRole crewRole) {
+        if(crewRole.equals(CrewRole.DIRECTOR)){
+            List<Movie> directedMovies = crewFounded.getDirectedMovies();
+            if (!directedMovies.contains(movie)) {
+                directedMovies.add(movie);
+                crewFounded.setDirectedMovies(directedMovies);
+                crewRepository.save(crewFounded);
+            }
+        }
+        List<Movie> starredMovies = crewFounded.getStarredMovies();
+        if(!starredMovies.contains(movie)){
+            starredMovies.add(movie);
+            crewFounded.setStarredMovies(starredMovies);
+            crewRepository.save(crewFounded);
+        }
+
+    }
+
+    public void setCrewListToMovie(List<CrewDto> crewDto, Movie movie, CrewRole crewRole) {
+        if(crewDto == null){
+            return;
+        }
+        if(crewRole.equals(CrewRole.DIRECTOR)){
+            List<Crew> directors = new ArrayList<>();
+            crewDto.stream()
+                    .forEach(director -> {
+                        crewRepository.findById(director.getId()).ifPresent(
+                                directorFounded -> directors.add(directorFounded)
+                        );
+                    });
+            movie.setDirectors(directors);
+            return;
+        }
+        //if actors
+        List<Crew> actors = new ArrayList<>();
+        crewDto.stream()
+                .forEach(actor -> {
+                    crewRepository.findById(actor.getId()).ifPresent(
+                            actorFounded -> actors.add(actorFounded)
+                    );
+                });
+        movie.setCast(actors);
     }
 }

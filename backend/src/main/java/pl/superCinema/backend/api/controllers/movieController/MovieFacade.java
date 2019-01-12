@@ -28,18 +28,16 @@ public class MovieFacade {
 
 
     public MovieDto saveMovie(MovieDto movieDto) {
-        Movie movie = movieBuilder.entityFromDto(movieDto);
-        try {
-            movieRepository.save(movie);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        List<Crew> directors = movie.getDirectors();
-        crewFacade.assignMovieToCrew(directors, movie, CrewRole.DIRECTOR);
-        movieRepository.save(movie);
-        List<Crew> cast = movie.getCast();
-        crewFacade.assignMovieToCrew(cast, movie, CrewRole.ACTOR);
-        movieRepository.save(movie);
+        Movie movie = movieBuilder.basicEntityFromDto(movieDto);
+        Movie movieSaved = movieRepository.save(movie);
+        List<CrewDto> directorsDto = movieDto.getDirectors();
+        crewFacade.setCrewListToMovie(directorsDto, movie, CrewRole.DIRECTOR);
+        crewFacade.assignMovieToCrew(directorsDto, movie, CrewRole.DIRECTOR);
+        movieRepository.save(movieSaved);
+        List<CrewDto> castDto = movieDto.getCast();
+        crewFacade.setCrewListToMovie(castDto, movie, CrewRole.ACTOR);
+        crewFacade.assignMovieToCrew(castDto, movie, CrewRole.ACTOR);
+        movieRepository.save(movieSaved);
         return movieBuilder.dtoFromEntity(movie);
     }
 
