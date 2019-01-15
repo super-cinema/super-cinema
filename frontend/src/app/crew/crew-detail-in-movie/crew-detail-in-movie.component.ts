@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Crew} from '../models/model-crew/crew';
+import {Crew} from '../model/crew';
 
 @Component({
   selector: 'app-crew-detail-in-movie',

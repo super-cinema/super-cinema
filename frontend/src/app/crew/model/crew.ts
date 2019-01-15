@@ -1,5 +1,5 @@
 export class Crew {
-  id?: string;
+  id?: number;
   name: string;
   surname: string;
   crewRoles?: string[] = [];

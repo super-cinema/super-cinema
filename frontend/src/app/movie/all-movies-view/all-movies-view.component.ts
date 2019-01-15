@@ -12,7 +12,7 @@ import {NotificationService} from '../../share/notification.service';
 })
 export class AllMoviesViewComponent implements OnInit {
 
-  moviesList = []
+  moviesList = [];
 
   constructor(private httpClient: HttpClient,
               private dialogService: DialogService,

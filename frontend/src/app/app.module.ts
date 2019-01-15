@@ -8,12 +8,13 @@ import {NavBarComponent} from './nav-bar/nav-bar.component';
 import {AllMoviesViewComponent} from './movie/all-movies-view/all-movies-view.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatDialogModule,
+  MatCardModule,
+  MatDialogModule, MatIconModule,
   MatListModule,
   MatPaginatorModule,
   MatSnackBarModule,
   MatSortModule,
-  MatTableModule
+  MatTableModule, MatToolbarModule
 } from '@angular/material';
 import {ScheduleScreeningComponent} from './schedule/schedule-screening/schedule-screening.component';
 import {ScheduleScreeningViewTableComponent} from './schedule/schedule-screening-view-table/schedule-screening-view-table.component';
@@ -27,10 +28,12 @@ import {EditCrewComponent} from './crew/edit-crew/edit-crew.component';
 import {ConfirmDialogComponent} from './share/confirm-dialog/confirm-dialog.component';
 import {EditMovieComponent} from './movie/edit-movie/edit-movie.component';
 import {TransformPipe} from './share/transform.pipe';
-import {CrewService} from './crew/servic-crew/crew-service';
+import {CrewService} from './services/crew-servic/crew-service';
 import {CrewDetailComponent} from './crew/crew-detail/crew-detail.component';
-import {MovieService} from "./movie/servic-movie/movie-service";
 import { CrewDetailInMovieComponent } from './crew/crew-detail-in-movie/crew-detail-in-movie.component';
+import {MovieService} from './movie/servic-movie/movie-service';
+import { CrewInMovieComponent } from './crew/crew-in-movie/crew-in-movie.component';
+import {SearchPipe} from './share/search-pipe';
 
 @NgModule({
   declarations: [
@@ -46,34 +49,41 @@ import { CrewDetailInMovieComponent } from './crew/crew-detail-in-movie/crew-det
     AllCrewViewComponent,
     EditCrewComponent,
     TransformPipe,
+    SearchPipe,
     CrewDetailComponent,
-    CrewDetailInMovieComponent
+    CrewDetailInMovieComponent,
+    CrewInMovieComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AlertModule.forRoot(),
     BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    InterceptorModule,
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    FormsModule,
-    HttpClientModule,
-    InterceptorModule,
     MatDialogModule,
+    MatCardModule,
     MatSnackBarModule,
-    ReactiveFormsModule
+    MatToolbarModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   exports: [
     MatListModule,
     MatDialogModule,
     MatSnackBarModule,
-    TransformPipe
+    TransformPipe,
+    SearchPipe
   ],
   providers: [CrewService, MovieService],
   bootstrap: [AppComponent],
-  entryComponents: [ConfirmDialogComponent]
+  entryComponents: [ConfirmDialogComponent, CrewInMovieComponent]
 })
 export class AppModule {
 }

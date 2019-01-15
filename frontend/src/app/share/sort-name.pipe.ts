@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {Crew} from '../crew/models/model-crew/crew';
+import {Crew} from '../crew/model/crew';
 
 @Pipe({
   name: 'sortName'

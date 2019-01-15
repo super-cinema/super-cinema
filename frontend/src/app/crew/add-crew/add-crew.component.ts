@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {NotificationService} from '../../share/notification.service';
-import {CrewService} from '../servic-crew/crew-service';
-import {Crew} from '../models/model-crew/crew';
+import {CrewService} from '../../services/crew-servic/crew-service';
+import {Crew} from '../model/crew';
 
 
 @Component({

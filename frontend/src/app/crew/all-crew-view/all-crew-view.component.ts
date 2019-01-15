@@ -2,8 +2,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
 import {DialogService} from '../../share/dialog.service';
-import {Crew} from '../models/model-crew/crew';
-import {CrewService} from '../servic-crew/crew-service';
+import {Crew} from '../model/crew';
+import {CrewService} from '../../services/crew-servic/crew-service';
 import {Observable} from 'rxjs';
 
 @Component({
