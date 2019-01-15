@@ -131,4 +131,14 @@ public class CrewFacade {
                 });
         movie.setCast(actors);
     }
+    //TODO consider if useful
+    public void deleteMovieFromCrew(Movie movie){
+        List<Crew> directors = movie.getDirectors();
+        directors.stream()
+                .forEach(director -> director.getDirectedMovies().remove(movie));
+        List<Crew> actors = movie.getCast();
+        actors.stream()
+                .forEach(actor -> actor.getStarredMovies().remove(movie));
+
+    }
 }

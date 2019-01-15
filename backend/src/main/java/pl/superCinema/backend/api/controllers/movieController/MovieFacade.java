@@ -58,6 +58,8 @@ public class MovieFacade {
     }
 
     public MovieDto saveEditedMovie(Long id, MovieDto movieDto) throws EntityCouldNotBeFoundException {
+
+
         Movie movie = getMovieEntityById(id);
         movie = editMovie(movie, movieDto);
         movieRepository.save(movie);
@@ -77,13 +79,10 @@ public class MovieFacade {
         movie.setTypes(typeList);
 
         //set actors
-        if(movieDto.getCast() != null) {
-            List<Crew> crewList = movieDto.getCast()
-                    .stream()
-                    .map(actor -> crewBuilder.dtoToEntity(actor))
-                    .collect(Collectors.toList());
-            movie.setCast(crewList);
-        }
+        List<Crew> cast = movie.getCast();
+        List<CrewDto> castDto = movieDto.getCast();
+
+
         //set directors
         if(movieDto.getDirectors() != null) {
             List<Crew> directors = movieDto.getDirectors()
@@ -123,6 +122,5 @@ public class MovieFacade {
 
     public void deleteMovie(Long id) {
         movieRepository.deleteById(id);
-
     }
 }

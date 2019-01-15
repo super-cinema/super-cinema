@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.superCinema.backend.api.dto.MovieDto;
 import pl.superCinema.backend.domain.errors.ApiError;
 import pl.superCinema.backend.domain.exceptions.EntityCouldNotBeFoundException;
+import pl.superCinema.backend.domain.model.Movie;
 
 import java.util.List;
 
@@ -58,8 +59,15 @@ public class MovieController {
 
     @PutMapping
     @RequestMapping(params = "id")
-    public MovieDto editMovie(@RequestParam Long id, @RequestBody MovieDto movieDto) {
-        return movieFacade.saveEditedMovie(id, movieDto);
+    public ResponseEntity editMovie(@RequestParam Long id, @RequestBody MovieDto movieDto) {
+        MovieDto updatedMovie;
+        try{
+            updatedMovie = movieFacade.saveEditedMovie(id, movieDto);
+        } catch (Exception e){
+            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
+            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(updatedMovie, HttpStatus.OK);
     }
 
     @DeleteMapping
