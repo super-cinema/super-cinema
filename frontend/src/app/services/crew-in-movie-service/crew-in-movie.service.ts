@@ -21,7 +21,7 @@ export class CrewInMovieService {
     this.crewList.splice(crew, 1);
   }
 
-  getAllContacts() {
+  getAllCrew() {
     return this.crewList;
   }
 }

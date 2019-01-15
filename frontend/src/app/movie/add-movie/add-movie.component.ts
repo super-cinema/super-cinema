@@ -25,7 +25,7 @@ export class AddMovieComponent implements OnInit {
   }
 
   get ActorList() {
-    return this.crewInMovieService.getAllContacts();
+    return this.crewInMovieService.getAllCrew();
     // this is list with crew from pop up - which show crew list
   }
   actorsFromCrew = [Crew];
@@ -59,6 +59,8 @@ export class AddMovieComponent implements OnInit {
   addActor() {
     this.isPopupOpened = true;
     const dialogRef = this.dialog.open(CrewInMovieComponent, {
+      width: '700px',
+      height: '500px',
       data: {}
     });
 
@@ -67,7 +69,7 @@ export class AddMovieComponent implements OnInit {
       this.isPopupOpened = false;
     });
   }
-  
+
   checkMovieType(movieType, event) {
     movieType.checked = !movieType.checked;
 
