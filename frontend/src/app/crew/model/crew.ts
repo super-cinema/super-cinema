@@ -1,6 +1,8 @@
 export class Crew {
-  id?: string;
+  id?: number;
   name: string;
   surname: string;
-  crewRoleDtos: string[] = [];
+  crewRoles?: string[] = [];
+
+
 }

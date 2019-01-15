@@ -19,18 +19,35 @@ public class CrewFacade {
     private CrewRepository crewRepository;
     private CrewBuilder crewBuilder;
 
-    public CrewDto addCrew(CrewDto crewDto) {
+    CrewDto addCrew(CrewDto crewDto) {
         Crew crew = crewBuilder.dtoToEntity(crewDto);
         Crew savedCrew = crewRepository.save(crew);
         return crewBuilder.entityToDto(savedCrew);
     }
 
-    public CrewDto getCrew(Long id) {
+    CrewDto updateCrew(Long id, CrewDto crewDto) {
+        Crew crew = getMovieEntityById(id);
+        crew = editCrew(crew, crewDto);
+        crewRepository.save(crew);
+        return crewBuilder.entityToDto(crew);
+    }
+
+    List<CrewDto> getAllCrew() {
+        List<Crew> allCrew = crewRepository.findAll();
+        List<CrewDto> allCrewDtos = new ArrayList<>();
+        if (!allCrew.isEmpty()) {
+            allCrew.forEach(crew ->
+                    allCrewDtos.add(crewBuilder.entityToDto(crew)));
+        }
+        return allCrewDtos;
+    }
+
+    CrewDto getCrew(Long id) {
         Optional<Crew> crew = crewRepository.findById(id);
         return crewBuilder.entityToDto(crew.get());
     }
 
-    public CrewDto deleteCrew(Long id) {
+    CrewDto deleteCrew(Long id) {
         if (crewRepository.existsById(id)) {
             Optional<Crew> crew = crewRepository.findById(id);
             crewRepository.deleteById(id);
@@ -38,24 +55,10 @@ public class CrewFacade {
         } else return null;
     }
 
-    public List<CrewDto> getAllCrew() {
-        List<Crew> allCrew = crewRepository.findAll();
-        List<CrewDto> allCrewDtos = new ArrayList<>();
-        if (!allCrew.isEmpty()) {
-            for (Crew crew : allCrew) {
-                allCrewDtos.add(crewBuilder.entityToDto(crew));
-            }
-        }
-        return allCrewDtos;
+    void deleteAllCrew() {
+        crewRepository.deleteAll();
     }
 
-
-    public CrewDto updateCrew(Long id, CrewDto crewDto) {
-        Crew crew = getMovieEntityById(id);
-        crew = editCrew(crew,crewDto);
-        crewRepository.save(crew);
-        return crewBuilder.entityToDto(crew);
-    }
 
     private Crew getMovieEntityById(Long id) {
         return crewRepository.findById(id).orElseThrow(

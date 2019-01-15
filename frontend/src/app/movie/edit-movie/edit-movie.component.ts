@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
+import {Movie} from '../model/movie';
 
 @Component({
   selector: 'app-edit-movie',
@@ -113,15 +114,5 @@ export class EditMovieComponent implements OnInit {
   }
 }
 
-export class Movie {
-  id;
-  title: string;
-  duration;
-  productionCountry: string;
-  productionYear: string;
-  directors: string;
-  cast: string;
-  movieShow: string;
-  types: string[] = [];
-}
+
 

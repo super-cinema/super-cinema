@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
 import {DialogService} from '../../share/dialog.service';
+import {Crew} from '../model/crew';
+import {CrewService} from '../../services/crew-servic/crew-service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-all-crew-view',
@@ -10,43 +13,39 @@ import {DialogService} from '../../share/dialog.service';
 })
 export class AllCrewViewComponent implements OnInit {
 
-  crewList = [];
+  crewList: Observable<Array<Crew>>;
 
   constructor(private httpClient: HttpClient,
               private dialogService: DialogService,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private crewService: CrewService) {
   }
 
   ngOnInit() {
-    this.httpClient.get('http://localhost:8080/crew')
-      .subscribe(
-        (data: any) => {
-          this.crewList = data;
-        }
-      );
+    this.crewService.getCrewList().subscribe((data: any) => {
+      this.crewList = data;
+    });
   }
 
   displaySearchedCrew(crew: any, findCrewForm: HTMLFormElement) {
     return crew.surname.toUpperCase().includes(findCrewForm.value.search.toUpperCase());
   }
 
-  deleteCrew(id, name, surname) {
-    const msg: string = 'Do you want delete ' + name + ' ' + surname;
+  deleteAllCrew() {
+    const msg = 'Are you sure you want delete the entire crew?  ';
     this.dialogService.openConfirmDialog(msg)
       .afterClosed()
       .subscribe(resp => {
-          if (resp) {
-            this.httpClient.delete('http://localhost:8080/crew?id=' + id)
-              .subscribe(data => {
+        if (resp) {
+          this.crewService.deleteAll()
+            .subscribe(
+              data => {
+                console.log(data);
                 this.ngOnInit();
-                this.notificationService.success('Deleted ' + name + ' ' + surname + ' person successfully');
-              }), (error => {
-                this.notificationService.warn('Deleting ' + name + ' ' + surname + ' person failed');
-                console.log(error);
-              });
-          }
+              },
+              error => console.log('ERROR: ' + error));
+
         }
-      );
+      });
   }
-  
 }

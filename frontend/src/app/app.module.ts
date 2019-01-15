@@ -8,24 +8,32 @@ import {NavBarComponent} from './nav-bar/nav-bar.component';
 import {AllMoviesViewComponent} from './movie/all-movies-view/all-movies-view.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatDialogModule,
+  MatCardModule,
+  MatDialogModule, MatIconModule,
   MatListModule,
   MatPaginatorModule,
   MatSnackBarModule,
   MatSortModule,
-  MatTableModule
+  MatTableModule, MatToolbarModule
 } from '@angular/material';
 import {ScheduleScreeningComponent} from './schedule/schedule-screening/schedule-screening.component';
 import {ScheduleScreeningViewTableComponent} from './schedule/schedule-screening-view-table/schedule-screening-view-table.component';
 import {AddCrewComponent} from './crew/add-crew/add-crew.component';
 import {AddMovieComponent} from './movie/add-movie/add-movie.component';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InterceptorModule} from './interceptor.module';
 import {AllCrewViewComponent} from './crew/all-crew-view/all-crew-view.component';
 import {EditCrewComponent} from './crew/edit-crew/edit-crew.component';
 import {ConfirmDialogComponent} from './share/confirm-dialog/confirm-dialog.component';
 import {EditMovieComponent} from './movie/edit-movie/edit-movie.component';
+import {TransformPipe} from './share/transform.pipe';
+import {CrewService} from './services/crew-servic/crew-service';
+import {CrewDetailComponent} from './crew/crew-detail/crew-detail.component';
+import { CrewDetailInMovieComponent } from './crew/crew-detail-in-movie/crew-detail-in-movie.component';
+import {MovieService} from './movie/servic-movie/movie-service';
+import { CrewInMovieComponent } from './crew/crew-in-movie/crew-in-movie.component';
+import {SearchPipe} from './share/search-pipe';
 
 @NgModule({
   declarations: [
@@ -40,30 +48,42 @@ import {EditMovieComponent} from './movie/edit-movie/edit-movie.component';
     ConfirmDialogComponent,
     AllCrewViewComponent,
     EditCrewComponent,
+    TransformPipe,
+    SearchPipe,
+    CrewDetailComponent,
+    CrewDetailInMovieComponent,
+    CrewInMovieComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AlertModule.forRoot(),
     BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    InterceptorModule,
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    FormsModule,
-    HttpClientModule,
-    InterceptorModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatCardModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   exports: [
     MatListModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    TransformPipe,
+    SearchPipe
   ],
-  providers: [],
+  providers: [CrewService, MovieService],
   bootstrap: [AppComponent],
-  entryComponents: [ConfirmDialogComponent]
+  entryComponents: [ConfirmDialogComponent, CrewInMovieComponent]
 })
 export class AppModule {
 }

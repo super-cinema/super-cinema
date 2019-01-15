@@ -1,7 +1,10 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Crew} from '../model-crew/crew';
+import {Crew} from '../model/crew';
+import {NotificationService} from '../../share/notification.service';
+import {CrewService} from '../../services/crew-servic/crew-service';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-edit-crew',
@@ -10,73 +13,102 @@ import {Crew} from '../model-crew/crew';
 })
 export class EditCrewComponent implements OnInit {
 
-  crewRole = [
-    {value: 'ACTOR', name: 'actor', 'checked': false},
-    {value: 'DIRECTOR', name: 'director', 'checked': false}
+
+  crew = new Crew();
+  editCrewForm: FormGroup;
+
+  crewRoles = [
+    {value: 'ACTOR', name: 'actor', 'checked': false, id: 1},
+    {value: 'DIRECTOR', name: 'director', 'checked': false, id: 2}
   ];
 
-  private crew: Crew;
-
-
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute) {
+  constructor(private httpClient: HttpClient,
+              private route: ActivatedRoute,
+              private notification: NotificationService,
+              private crewService: CrewService) {
   }
 
   ngOnInit() {
+    this.setRouteParam();
+    this.setFieldsToFormGroup();
+    this.getCrew();
+  }
+
+  private setFieldsToFormGroup() {
+    this.editCrewForm = new FormGroup({
+      name: new FormControl(null),
+      surname: new FormControl(null)
+    });
+  }
+
+  private setRouteParam() {
     this.route.params.subscribe(params => {
-      this.crew = new Crew;
+      this.crew = new Crew();
       this.crew.id = params['id'];
     });
-    this.getCrewData();
+  }
+
+  private getCrew() {
+    this.crewService.getCrew(Number(this.crew.id)).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.crew.name = data.name;
+        this.crew.surname = data.surname;
+        this.crew.crewRoles = data.crewRoles;
+        this.editCrewForm.get('name').setValue(this.crew.name);
+        this.editCrewForm.get('surname').setValue(this.crew.surname);
+      }
+    );
   }
 
 
   wasTypeSelected(crewRole: { value: string; name: string; checked: boolean }) {
-
-    if (this.crew.crewRoleDtos.includes(crewRole.value)) {
+    if (this.crew.crewRoles.includes(crewRole.value)) {
       crewRole.checked = true;
       return true;
     }
-    crewRole.checked = false;
-    return false;
   }
 
   checkCrewRole(i, event) {
-    this.crewRole[i].checked = !this.crewRole[i].checked;
-    if (this.crewRole[i].checked) {
-      this.crew.crewRoleDtos.push(this.crewRole[i].value);
+    this.crewRoles[i].checked = !this.crewRoles[i].checked;
+    if (this.crewRoles[i].checked) {
+      this.crew.crewRoles.push(this.crewRoles[i].value);
     } else {
-      const indexOf = this.crew.crewRoleDtos.indexOf(this.crewRole[i].value);
-      this.crew.crewRoleDtos.splice(indexOf, 1);
+      const indexOf = this.crew.crewRoles.indexOf(this.crewRoles[i].value);
+      this.crew.crewRoles.splice(indexOf, 1);
     }
   }
 
-
-  saveChanges(editMovieForm: HTMLFormElement) {
-    const checkedMovieTypes = this.crewRole.filter(type => type.checked === true).map(type => type.value);
-    this.httpClient.put('http://localhost:8080/crew?id=' + this.crew.id, {
-      'name': this.crew.name,
-      'surname': this.crew.surname,
-      'crewRoleDtos': checkedMovieTypes,
-    })
-      .subscribe(
-        (data: any) => {
-          console.log(':)', data);
-        },
-        (error) => {
-          console.log(':(', error);
-        }
-      );
+  areFieldsEmpty() {
+    if (this.editCrewForm.value.name === '' || this.editCrewForm.value.name == null) {
+      this.notification.warn('Please give name.');
+      return true;
+    }
+    if (this.editCrewForm.value.surname === '' || this.editCrewForm.value.surname == null) {
+      this.notification.warn('Please give surname.');
+      return true;
+    }
   }
 
-  private getCrewData() {
-    this.httpClient.get('http://localhost:8080/crew?id=' + this.crew.id)
-      .subscribe(
-        (data: any) => {
-          console.log(data);
-          this.crew.name = data.name;
-          this.crew.surname = data.surname;
-          this.crew.crewRoleDtos = data.crewRoleDtos;
-        });
+// todo validate checkbox here and in addCrewComponent
+  updateCrew() {
+    const fieldsAreEmpty = this.areFieldsEmpty();
+    if (fieldsAreEmpty !== true) {
+      const checkedCrewRoles = this.crewRoles.filter(type => type.checked === true).map(type => type.value);
+      this.crewService.updateCrew(Number(this.crew.id),
+        {
+          name: this.editCrewForm.value.name,
+          surname: this.editCrewForm.value.surname,
+          crewRoles: checkedCrewRoles
+        })
+        .subscribe(data => {
+            console.log(data);
+            this.crew = data as Crew;
+          },
+          error => console.log(error));
+    } else {
+      return;
+    }
   }
 }
 

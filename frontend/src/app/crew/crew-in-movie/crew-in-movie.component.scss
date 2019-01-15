@@ -1,4 +1,4 @@
-.add-movie{
+.add-Crew{
   margin-top: 100px;
   width: 100%;
   display: flex;
@@ -30,8 +30,7 @@
   }
 }
 
-.movies-container {
-  margin-top: 40px;
+.crew-container {
   width: 100%;
 
   .display-one-movie-container {
@@ -69,6 +68,15 @@
 #delete-button{
   background-color: #E38F8F;
 }
+.toolbar{
+  background-color:  #4B0082;
+  border-radius: 5px;
+  color: white;
 
+}
+
+.toolbar-spacer{
+  flex: 1 1 auto;
+}
 
 

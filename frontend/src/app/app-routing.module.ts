@@ -11,12 +11,13 @@ import {EditCrewComponent} from './crew/edit-crew/edit-crew.component';
 const routes: Routes = [
   {path: 'allMoviesView', component: AllMoviesViewComponent},
   {path: 'scheduleScreening',  component: ScheduleScreeningComponent},
-  {path: 'addCrew', component: AddCrewComponent},
   {path: 'addMovie', component: AddMovieComponent},
   {path: 'movie/:id/edit', component: EditMovieComponent},
-  {path: 'addMovie', component: AddMovieComponent},
   {path: 'allCrewView', component: AllCrewViewComponent},
-  {path: 'crew/:id/edit', component: EditCrewComponent }
+  {path: 'crew/:id/edit', component: EditCrewComponent },
+  {path: 'addCrew', component: AddCrewComponent},
+
+
 ];
 
 @NgModule({

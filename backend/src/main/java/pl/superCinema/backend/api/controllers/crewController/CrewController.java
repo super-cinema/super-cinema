@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/crew")
 @CrossOrigin(origins = "*")
+
 public class CrewController {
 
     private CrewFacade crewFacade;
@@ -35,7 +36,11 @@ public class CrewController {
     @DeleteMapping(params = "id")
     public CrewDto deleteCrew(@RequestParam Long id) {
        return crewFacade.deleteCrew(id);
-
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity deleteAllCrew(){
+        crewFacade.deleteAllCrew();
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PutMapping
