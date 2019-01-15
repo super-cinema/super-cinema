@@ -106,30 +106,31 @@ public class CrewFacade {
 
     }
 
-    public void setCrewListToMovie(List<CrewDto> crewDto, Movie movie, CrewRole crewRole) {
-        if(crewDto == null){
+    public void setCrewListInMovie(List<CrewDto> crewDto, Movie movie, CrewRole crewRole) {
+        List<Long> crewIds = crewDto.stream()
+                .map(crew -> crew.getId())
+                .collect(Collectors.toList());
+        setCrewInMovieById(crewIds, movie, crewRole);
+    }
+
+    public void setCrewInMovieById(List<Long> crewIds, Movie movie, CrewRole crewRole) {
+        if(crewIds == null){
             return;
         }
-        if(crewRole.equals(CrewRole.DIRECTOR)){
-            List<Crew> directors = new ArrayList<>();
-            crewDto.stream()
-                    .forEach(director -> {
-                        crewRepository.findById(director.getId()).ifPresent(
-                                directorFounded -> directors.add(directorFounded)
-                        );
-                    });
-            movie.setDirectors(directors);
-            return;
-        }
-        //if actors
-        List<Crew> actors = new ArrayList<>();
-        crewDto.stream()
-                .forEach(actor -> {
-                    crewRepository.findById(actor.getId()).ifPresent(
-                            actorFounded -> actors.add(actorFounded)
+        List<Crew> cast = movie.getCast();
+        List<Crew> directors = movie.getDirectors();
+        crewIds.stream()
+                .forEach(crewId -> {
+                    crewRepository.findById(crewId).ifPresent(
+                            crewFounded -> {
+                                if(crewRole.equals(CrewRole.DIRECTOR)){
+                                    directors.add(crewFounded);
+                                    return;
+                                }
+                                cast.add(crewFounded);
+                            }
                     );
                 });
-        movie.setCast(actors);
     }
     //TODO consider if useful
     public void deleteMovieFromCrew(Movie movie){
@@ -140,5 +141,40 @@ public class CrewFacade {
         actors.stream()
                 .forEach(actor -> actor.getStarredMovies().remove(movie));
 
+    }
+
+    public void deleteMovieFromCrewById(List<Long> crewIdsToRemove, Movie movie, CrewRole crewRole) {
+        crewIdsToRemove.stream()
+                .forEach(crewId -> {
+                    crewRepository.findById(crewId).ifPresent(
+                            crewFounded -> {
+                                if (crewRole.equals("DIRECTOR")) {
+                                    crewFounded.getDirectedMovies().remove(movie);
+                                    return;
+                                }
+                                crewFounded.getStarredMovies().remove(movie);
+                            }
+                    );
+                });
+    }
+
+    public void deleteCrewFromMovie(List<Long> actorsIdsToRemove, Movie existingMovie, CrewRole crewRole) {
+        if(actorsIdsToRemove == null){
+            return;
+        }
+        List<Crew> cast = existingMovie.getCast();
+        List<Crew> directors = existingMovie.getDirectors();
+        actorsIdsToRemove.stream()
+                .forEach(crewId -> {
+                    crewRepository.findById(crewId).ifPresent(
+                            crewFounded -> {
+                                if(crewRole.equals(CrewRole.DIRECTOR)){
+                                    directors.remove(crewFounded);
+                                    return;
+                                }
+                                cast.remove(crewFounded);
+                            }
+                    );
+                });
     }
 }
