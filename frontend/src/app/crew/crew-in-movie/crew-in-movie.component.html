@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form ngForm="crewList" (ngSubmit)="onSubmit()">
   <mat-card-header>
   <mat-toolbar class="toolbar">
     <mat-card-title>Add actors to movie</mat-card-title>
@@ -6,40 +6,25 @@
   </mat-card-header>
 
   <div class="form-container">
-
     <div class="input-group">
-      <!--<input type="text" class="form-control" formControlName="searchBar" placeholder="search crew" name="search" id="search">-->
-      <!--<input type="text" [ngModel]="query" class="form-control" placeholder="search crew" name="search" id="search" >-->
-
       <div class="input-group-btn">
         <button class="btn btn-default btn-lg">
           <i class="fa fa-search"></i>
         </button>
       </div>
     </div>
-
   </div>
-
-
-  <!--<mat-list -->
-            <!--class="list-group">-->
-    <div formArrayName="crewList" *ngFor="let crew of crewList;  let i = index" formGroupName="crewList" >
-    <!--<div *ngIf="displaySearchedCrew(query, form)">-->
+    <div *ngFor="let crew of crewList" >
     <div class="crew-container">
       <div class="display-one-movie-container">
-        <input type="checkbox" [formControlName]="i">
+        <input type="checkbox" (change)="checkCrew(crew.id, $event)" >
         <mat-list-item class="list-group-item list-group-item-secondary">
-          <span>{{crewList[i].name}} {{crewList[i].surname}} {{crewList[i].crewRoles}} </span>
-          <!--<span>{{crew.name}} {{crew.surname}} {{crew.crewRoles}} </span>-->
+          <span>{{crew.name}} {{crew.surname}} {{crew.crewRoles}} </span>
         </mat-list-item>
       </div>
     </div>
-    <!--</div>-->
     </div>
-  <!--</mat-list>-->
-
-
-  <button>submit</button>
+  <button >submit</button>
 </form>
 
 

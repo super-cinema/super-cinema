@@ -24,11 +24,7 @@ export class AddMovieComponent implements OnInit {
               private crewInMovieService?: CrewInMovieService) {
   }
 
-  get ActorList() {
-    return this.crewInMovieService.getAllCrew();
-    // this is list with crew from pop up - which show crew list
-  }
-  actorsFromCrew = [Crew];
+  crewListToAddToMovie = [Crew];
 
   isPopupOpened = true;
 
@@ -67,6 +63,9 @@ export class AddMovieComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.isPopupOpened = false;
+      var crew = this.crewInMovieService.getAllCrew();
+      this.crewListToAddToMovie = crew;
+      console.log('afterClose', this.crewListToAddToMovie)
     });
   }
 
@@ -76,6 +75,7 @@ export class AddMovieComponent implements OnInit {
   }
 
   addMovie(addMovieForm: NgForm) {
+    console.log(':)')
     const checkedMovieTypes = this.movieTypes.filter(type => type.checked == true).map(type => type.value);
     if (addMovieForm.value.title == '' || addMovieForm.value.title == null) {
       this.notification.warn('Please give title.');
@@ -96,7 +96,7 @@ export class AddMovieComponent implements OnInit {
       'productionYear': addMovieForm.value.productionYear,
       'types': checkedMovieTypes,
       'directors': null,
-      'cast': null,
+      'cast': this.crewListToAddToMovie,
       'movieShow': null
     })
       .subscribe(

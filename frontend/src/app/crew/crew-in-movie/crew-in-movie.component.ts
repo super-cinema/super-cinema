@@ -12,56 +12,34 @@ import {CrewService} from '../../services/crew-servic/crew-service';
   styleUrls: ['./crew-in-movie.component.scss']
 })
 export class CrewInMovieComponent implements OnInit {
-  // crewList = [Crew];
-  crewList = [{id: 100, name: 'order 1'},
-    {id: 200, name: 'order 2'},
-    // {id: 300, name: 'order 3'},
-    {id: 400, name: 'order 4'}];
-  // I have a problem with doing this list dynamic
-  // with number of objects equal to amount from DB
-  // when i making this array subscribe (which should observe how much i have objects in db)
-  // and built enough number of check boxes then a I have problem with appropriate map  arrays in constructor
-  // for now if you have 3 objects crew in your DB ten this array must contains 3 records, if you have 4 objects in DB
-  // then you array must contains 4 records... etc
-  form: FormGroup;
+  crewList = [];
+  crewListToPass = [];
   constructor(private formBuilder: FormBuilder,
               private dialogRef: MatDialogRef<AllCrewViewComponent>,
               private httpClient: HttpClient,
               private crewService: CrewService,
               private crewInMovieService: CrewInMovieService,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
-
-    const formControls = this.crewList.map(control => new FormControl(false));
-    this.form = this.formBuilder.group({
-      crewList: new FormArray(formControls),
-    });
-  }
+              @Inject(MAT_DIALOG_DATA) public data: any) {}
 
 
   ngOnInit() {
     this.crewService.getCrewList().subscribe((data: any) => {
       this.crewList = data;
     });
-    // searchBar: new FormControl(null)
-  }
-  addCrewListCheckBox() {
-    const arr = <FormArray>this.form.get('crewList');
-    arr.push(new FormControl(null));
-  }
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 
-  displaySearchedCrew(crew: any, findCrewForm: HTMLFormElement) {
-    return crew.surname.toUpperCase().includes(findCrewForm.value.search.toUpperCase());
+  onSubmit(){
+    console.log(this.crewListToPass);
+    this.crewInMovieService.passCrewList(this.crewListToPass);
+    this.dialogRef.close(true);
   }
 
-    onSubmit() {
-    const selectedCrews = this.form.value.crewList
-      .map((v, i) => v ? this.crewList[i].id : null)
-      .filter(v => v !== null);
-    this.crewInMovieService.addCrew(selectedCrews);
-    this.dialogRef.close();
-    console.log(selectedCrews);
+  checkCrew(id, $event) {
+    let index = this.crewListToPass.indexOf(id);
+    if(index !== -1){
+      this.crewListToPass.splice(index, 1);
+      return;
+    }
+    this.crewListToPass.push(id);
   }
 }

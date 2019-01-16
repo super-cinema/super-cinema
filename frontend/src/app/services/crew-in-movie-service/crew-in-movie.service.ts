@@ -24,4 +24,9 @@ export class CrewInMovieService {
   getAllCrew() {
     return this.crewList;
   }
+
+  passCrewList(passedCrewList) {
+    this.crewList = passedCrewList;
+    console.log('service', this.crewList);
+  }
 }
