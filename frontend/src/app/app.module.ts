@@ -31,7 +31,7 @@ import {TransformPipe} from './share/transform.pipe';
 import {CrewService} from './services/crew-servic/crew-service';
 import {CrewDetailComponent} from './crew/crew-detail/crew-detail.component';
 import { CrewDetailInMovieComponent } from './crew/crew-detail-in-movie/crew-detail-in-movie.component';
-import {MovieService} from './movie/servic-movie/movie-service';
+import {MovieService} from './movie/service-movie/movie-service';
 import { CrewInMovieComponent } from './crew/crew-in-movie/crew-in-movie.component';
 import {SearchPipe} from './share/search-pipe';
 

@@ -5,6 +5,7 @@ import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-m
 import {AllCrewViewComponent} from '../all-crew-view/all-crew-view.component';
 import {HttpClient} from '@angular/common/http';
 import {CrewService} from '../../services/crew-servic/crew-service';
+import {Crew} from "../model/crew";
 
 @Component({
   selector: 'app-crew-in-movie',
@@ -34,12 +35,12 @@ export class CrewInMovieComponent implements OnInit {
     this.dialogRef.close(true);
   }
 
-  checkCrew(id, $event) {
-    let index = this.crewListToPass.indexOf(id);
+  checkCrew(crew: Crew, $event) {
+    let index = this.crewListToPass.indexOf(crew);
     if(index !== -1){
       this.crewListToPass.splice(index, 1);
       return;
     }
-    this.crewListToPass.push(id);
+    this.crewListToPass.push(crew);
   }
 }

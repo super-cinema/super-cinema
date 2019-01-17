@@ -8,6 +8,7 @@ import {CrewService} from '../../services/crew-servic/crew-service';
 import {MatDialog} from '@angular/material';
 import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-movie.service';
 import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.component';
+import {CrewId} from "../../crew/model/crewId";
 
 @Component({
   selector: 'app-add-movie',
@@ -24,7 +25,8 @@ export class AddMovieComponent implements OnInit {
               private crewInMovieService?: CrewInMovieService) {
   }
 
-  crewListToAddToMovie = [Crew];
+  crewList: Crew[] = [];
+  crewIdsList: CrewId[] = [];
 
   isPopupOpened = true;
 
@@ -63,9 +65,8 @@ export class AddMovieComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.isPopupOpened = false;
-      var crew = this.crewInMovieService.getAllCrew();
-      this.crewListToAddToMovie = crew;
-      console.log('afterClose', this.crewListToAddToMovie)
+      this.crewList = this.crewInMovieService.getAllCrew();
+      console.log('afterClose', this.crewList)
     });
   }
 
@@ -74,8 +75,13 @@ export class AddMovieComponent implements OnInit {
 
   }
 
+  mapCrewListIntoCrewIdsList () {
+    this.crewIdsList = this.crewList.map(crew => new CrewId(crew.id));
+  }
+
   addMovie(addMovieForm: NgForm) {
-    console.log(':)')
+    this.mapCrewListIntoCrewIdsList();
+    console.log('addMovie', this.crewIdsList)
     const checkedMovieTypes = this.movieTypes.filter(type => type.checked == true).map(type => type.value);
     if (addMovieForm.value.title == '' || addMovieForm.value.title == null) {
       this.notification.warn('Please give title.');
@@ -96,7 +102,7 @@ export class AddMovieComponent implements OnInit {
       'productionYear': addMovieForm.value.productionYear,
       'types': checkedMovieTypes,
       'directors': null,
-      'cast': this.crewListToAddToMovie,
+      'cast': this.crewIdsList,
       'movieShow': null
     })
       .subscribe(
@@ -104,7 +110,8 @@ export class AddMovieComponent implements OnInit {
           this.notification.success('Added ' + addMovieForm.value.title + ' movie successfully ');
           addMovieForm.reset();
         }, (error1) => {
-          this.notification.warn('bad request');
+          console.log(error1.error)
+          //this.notification.warn('bad request');
           this.notification.warn(error1.error.message);
         }
       );
