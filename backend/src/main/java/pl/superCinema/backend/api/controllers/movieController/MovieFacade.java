@@ -21,31 +21,33 @@ public class MovieFacade {
 
     private MovieRepository movieRepository;
     private MovieBuilder movieBuilder;
-    private CrewBuilder crewBuilder;
     private CrewFacade crewFacade;
 
 
-    public MovieDto saveMovie(MovieDto movieDto) {
+    MovieDto saveMovie(MovieDto movieDto) {
         Movie movie = movieBuilder.basicEntityFromDto(movieDto);
         Movie movieSaved = movieRepository.save(movie);
         List<CrewDto> directorsDto = movieDto.getDirectors();
-        crewFacade.setCrewListInMovie(directorsDto, movieSaved, CrewRole.DIRECTOR);
-        movieRepository.save(movieSaved);
+        if(directorsDto != null){
+            crewFacade.setCrewListInMovie(directorsDto, movieSaved, CrewRole.DIRECTOR);
+            movieRepository.save(movieSaved);
+        }
         List<CrewDto> castDto = movieDto.getCast();
-        crewFacade.setCrewListInMovie(castDto, movieSaved, CrewRole.ACTOR);
-        movieRepository.save(movieSaved);
+        if(castDto != null){
+            crewFacade.setCrewListInMovie(castDto, movieSaved, CrewRole.ACTOR);
+            movieRepository.save(movieSaved);
+        }
         return movieBuilder.dtoFromEntity(movieSaved);
     }
 
-    public MovieDto getMovieByTitle(String title) throws EntityCouldNotBeFoundException {
+    MovieDto getMovieByTitle(String title) {
         Movie movie = findMovieEntity(title);
         return  movieBuilder.dtoFromEntity(movie);
     }
 
-    public MovieDto getMovieById(Long id) throws EntityCouldNotBeFoundException {
+    MovieDto getMovieById(Long id) {
         Movie movie = getMovieEntityById(id);
-        MovieDto movieDto = movieBuilder.dtoFromEntity(movie);
-        return movieDto;
+        return movieBuilder.dtoFromEntity(movie);
     }
 
     private Movie getMovieEntityById(Long id) {
@@ -53,16 +55,16 @@ public class MovieFacade {
                     () -> new EntityCouldNotBeFoundException("Movie with id: " + id + " not found"));
     }
 
-    public MovieDto saveEditedMovie(Long id, MovieDto movieDto) throws EntityCouldNotBeFoundException {
+    MovieDto saveEditedMovie(Long id, MovieDto movieDto) {
 
 
         Movie movie = getMovieEntityById(id);
-        movie = editMovie(movie, movieDto);
+        editMovie(movie, movieDto);
         movieRepository.save(movie);
         return movieBuilder.dtoFromEntity(movie);
     }
 
-    private Movie editMovie(Movie movie, MovieDto movieDto) {
+    private void editMovie(Movie movie, MovieDto movieDto) {
         movie.setTitle(movieDto.getTitle());
         movie.setDuration(movieDto.getDuration());
         movie.setProductionCountry(movieDto.getProductionCountry());
@@ -77,46 +79,26 @@ public class MovieFacade {
         updateCrewListInMovie(movie, movieDto, CrewRole.ACTOR);
         //update directors
         updateCrewListInMovie(movie, movieDto, CrewRole.DIRECTOR);
-        return movie;
     }
 
     private void updateCrewListInMovie(Movie existingMovie, MovieDto movieToSet, CrewRole crewRole) {
-        List<Crew> existingCrew;
-        List<CrewDto> crewToSetInMovie;
-        if(crewRole.equals(CrewRole.ACTOR)){
-            existingCrew = existingMovie.getCast();
-            crewToSetInMovie = movieToSet.getCast();
-        } else {
-            existingCrew = existingMovie.getDirectors();
-            crewToSetInMovie = movieToSet.getDirectors();
-        }
+        List<Crew> existingCrew = crewRole.equals(CrewRole.ACTOR) ? existingMovie.getCast()
+                                                                  : existingMovie.getDirectors();
+        List<CrewDto> crewToSetInMovie = crewRole.equals(CrewRole.ACTOR) ? movieToSet.getCast()
+                                                                         : movieToSet.getDirectors();
+
         List<Long> existingCrewIds = existingCrew.stream()
-                .map(crew -> crew.getId())
+                .map(Crew::getId)
                 .collect(Collectors.toList());
         List<Long> crewIdsToSetInMovie = crewToSetInMovie.stream()
-                .map(crewDto -> crewDto.getId())
+                .map(CrewDto::getId)
                 .collect(Collectors.toList());
 
-        //crew to add
-        List<Long> crewIdsToAdd = new ArrayList<>(crewIdsToSetInMovie);
-        crewIdsToAdd.removeAll(existingCrewIds);
-        if(crewRole.equals(CrewRole.ACTOR)){
-            crewFacade.setCrewInMovieById(crewIdsToAdd, existingMovie, CrewRole.ACTOR);
-        }else{
-            crewFacade.setCrewInMovieById(crewIdsToAdd, existingMovie, CrewRole.DIRECTOR);
-        }
-
-        //crew to delete
-        List<Long> crewIdsToRemove = new ArrayList<>(existingCrewIds);
-        crewIdsToRemove.removeAll(crewIdsToSetInMovie);
-        if(crewRole.equals(CrewRole.ACTOR)){
-            crewFacade.deleteCrewFromMovie(crewIdsToRemove, existingMovie, CrewRole.ACTOR);
-        }else{
-            crewFacade.deleteCrewFromMovie(crewIdsToRemove, existingMovie, CrewRole.DIRECTOR);
-        }
+        makeCrewListToAddToExistingCrewList(existingMovie, crewRole, existingCrewIds, crewIdsToSetInMovie);
+        makeCrewListToDeleteFromExistingCrewList(existingMovie, crewRole, existingCrewIds, crewIdsToSetInMovie);
     }
 
-    public MovieDto deleteMovieByTitle(String title) {
+    MovieDto deleteMovieByTitle(String title) {
         Movie movie = findMovieEntity(title);
         MovieDto movieDto = movieBuilder.dtoFromEntity(movie);
         movieRepository.delete(movie);
@@ -124,12 +106,12 @@ public class MovieFacade {
 
     }
 
-    private Movie findMovieEntity(String title) throws EntityCouldNotBeFoundException {
+    private Movie findMovieEntity(String title) {
         return movieRepository.findByTitle(title).orElseThrow(
                     () -> new EntityCouldNotBeFoundException("Movie " + title + " not found"));
     }
 
-    public List<MovieDto> getAllMovies() {
+    List<MovieDto> getAllMovies() {
         List<Movie> allMovies = movieRepository.findAll();
         List<MovieDto> allMoviesDto = new ArrayList<>();
         if(!allMovies.isEmpty()){
@@ -140,7 +122,28 @@ public class MovieFacade {
         return allMoviesDto;
     }
 
-    public void deleteMovie(Long id) {
+    void deleteMovie(Long id) {
         movieRepository.deleteById(id);
     }
+
+    private void makeCrewListToDeleteFromExistingCrewList(Movie existingMovie, CrewRole crewRole, List<Long> existingCrewIds, List<Long> crewIdsToSetInMovie) {
+        List<Long> crewIdsToRemove = new ArrayList<>(existingCrewIds);
+        crewIdsToRemove.removeAll(crewIdsToSetInMovie);
+        if(crewRole.equals(CrewRole.ACTOR)){
+            crewFacade.deleteCrewFromMovie(crewIdsToRemove, existingMovie, CrewRole.ACTOR);
+        }else{
+            crewFacade.deleteCrewFromMovie(crewIdsToRemove, existingMovie, CrewRole.DIRECTOR);
+        }
+    }
+
+    private void makeCrewListToAddToExistingCrewList(Movie existingMovie, CrewRole crewRole, List<Long> existingCrewIds, List<Long> crewIdsToSetInMovie) {
+        List<Long> crewIdsToAdd = new ArrayList<>(crewIdsToSetInMovie);
+        crewIdsToAdd.removeAll(existingCrewIds);
+        if(crewRole.equals(CrewRole.ACTOR)){
+            crewFacade.setCrewInMovieById(crewIdsToAdd, existingMovie, CrewRole.ACTOR);
+        }else{
+            crewFacade.setCrewInMovieById(crewIdsToAdd, existingMovie, CrewRole.DIRECTOR);
+        }
+    }
+
 }
