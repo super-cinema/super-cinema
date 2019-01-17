@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {NotificationService} from '../../share/notification.service';
-import {CrewService} from '../../services/crew-servic/crew-service';
+import {CrewService} from '../../services/crew-service/crew-service';
 import {Crew} from '../model/crew';
 
 

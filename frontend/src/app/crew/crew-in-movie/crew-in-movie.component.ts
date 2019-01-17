@@ -4,7 +4,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-movie.service';
 import {AllCrewViewComponent} from '../all-crew-view/all-crew-view.component';
 import {HttpClient} from '@angular/common/http';
-import {CrewService} from '../../services/crew-servic/crew-service';
+import {CrewService} from '../../services/crew-service/crew-service';
 import {Crew} from "../model/crew";
 
 @Component({

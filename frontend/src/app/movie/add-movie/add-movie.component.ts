@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
 import {AllCrewViewComponent} from '../../crew/all-crew-view/all-crew-view.component';
 import {Crew} from '../../crew/model/crew';
-import {CrewService} from '../../services/crew-servic/crew-service';
+import {CrewService} from '../../services/crew-service/crew-service';
 import {MatDialog} from '@angular/material';
 import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-movie.service';
 import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.component';
@@ -25,8 +25,9 @@ export class AddMovieComponent implements OnInit {
               private crewInMovieService?: CrewInMovieService) {
   }
 
-  crewList: Crew[] = [];
+  actorsList: Crew[] = [];
   crewIdsList: CrewId[] = [];
+  actorsListVisible: boolean = false;
 
   isPopupOpened = true;
 
@@ -65,8 +66,9 @@ export class AddMovieComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.isPopupOpened = false;
-      this.crewList = this.crewInMovieService.getAllCrew();
-      console.log('afterClose', this.crewList)
+      this.actorsList = this.crewInMovieService.getAllCrew();
+      this.actorsListVisible = !this.actorsList.isEmpty;
+      console.log('afterClose', this.actorsList)
     });
   }
 
@@ -76,7 +78,7 @@ export class AddMovieComponent implements OnInit {
   }
 
   mapCrewListIntoCrewIdsList () {
-    this.crewIdsList = this.crewList.map(crew => new CrewId(crew.id));
+    this.crewIdsList = this.actorsList.map(crew => new CrewId(crew.id));
   }
 
   addMovie(addMovieForm: NgForm) {
@@ -117,4 +119,7 @@ export class AddMovieComponent implements OnInit {
       );
   }
 
+  showOrHideActors() {
+    this.actorsListVisible = !this.actorsListVisible;
+  }
 }

@@ -28,7 +28,7 @@ import {EditCrewComponent} from './crew/edit-crew/edit-crew.component';
 import {ConfirmDialogComponent} from './share/confirm-dialog/confirm-dialog.component';
 import {EditMovieComponent} from './movie/edit-movie/edit-movie.component';
 import {TransformPipe} from './share/transform.pipe';
-import {CrewService} from './services/crew-servic/crew-service';
+import {CrewService} from './services/crew-service/crew-service';
 import {CrewDetailComponent} from './crew/crew-detail/crew-detail.component';
 import { CrewDetailInMovieComponent } from './crew/crew-detail-in-movie/crew-detail-in-movie.component';
 import {MovieService} from './movie/service-movie/movie-service';

@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Crew} from '../model/crew';
 import {NotificationService} from '../../share/notification.service';
-import {CrewService} from '../../services/crew-servic/crew-service';
+import {CrewService} from '../../services/crew-service/crew-service';
 import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({

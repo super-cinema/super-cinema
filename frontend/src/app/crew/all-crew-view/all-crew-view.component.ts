@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
 import {DialogService} from '../../share/dialog.service';
 import {Crew} from '../model/crew';
-import {CrewService} from '../../services/crew-servic/crew-service';
+import {CrewService} from '../../services/crew-service/crew-service';
 import {Observable} from 'rxjs';
 
 @Component({
