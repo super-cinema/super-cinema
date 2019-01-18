@@ -10,15 +10,29 @@
   </div>
   <div class="form-group row">
     <label class="col-sm-3 col-form-label">Directors</label>
-    <button type="button" class="btn btn-primary mb-1" routerLink="/allCrewView">Add director</button>
+    <button type="button" class="btn btn-primary mb-1" (click)="addCrewList('DIRECTOR')" >Add from list</button>
+    <button type="button" class="btn btn-primary mb-1" (click)="showOrHideDirectors()">
+      {{directorsListVisible == true ? "Hide list":
+      "Display list"}}</button>
+  </div>
+  <div class="crew-list-container">
+    <mat-list *ngFor="let director of directorsList " class="list-group">
+      <div class="display-one-crew-container" *ngIf= "directorsListVisible" >
+        <mat-list-item class="list-group-item list-group-item-secondary">
+          <span>{{director.name}}, {{director.surname}}</span>
+        </mat-list-item>
+        <!--TODO letters in buttons should change size-->
+        <button class="btn btn-default btn-lg delete-button">Delete</button>
+      </div>
+    </mat-list>
   </div>
 
   <div class="form-group row">
     <label class="col-sm-3 col-form-label">Actors</label>
-    <button type="button" class="btn btn-primary mb-1" (click)="addActorsList()" >Add actors</button>
+    <button type="button" class="btn btn-primary mb-1" (click)="addCrewList('ACTOR')" >Add from list</button>
     <button type="button" class="btn btn-primary mb-1" (click)="showOrHideActors()">
-      {{actorsListVisible == true ? "Hide actors":
-                                                  "Display actors"}}</button>
+      {{actorsListVisible == true ? "Hide list":
+                                                  "Display list"}}</button>
   </div>
   <div class="crew-list-container">
     <mat-list *ngFor="let actor of actorsList " class="list-group">

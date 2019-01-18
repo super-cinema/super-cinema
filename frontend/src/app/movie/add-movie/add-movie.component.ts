@@ -30,8 +30,11 @@ export class AddMovieComponent implements OnInit {
   }
 
   actorsList: Crew[] = [];
-  crewIdsList: CrewId[] = [];
+  actorsIdsList: CrewId[] = [];
   actorsListVisible: boolean = false;
+  directorsList: Crew[] = [];
+  directorsIdsList: CrewId[] = [];
+  directorsListVisible: boolean = false;
   isPopupOpened = true;
   movie: Movie = new Movie();
 
@@ -53,18 +56,22 @@ export class AddMovieComponent implements OnInit {
   ngOnInit() {
   }
 
-  addActorsList() {
+  addCrewList(crewRole: string) {
     this.isPopupOpened = true;
     const dialogRef = this.dialog.open(CrewInMovieComponent, {
       width: '700px',
       height: '500px',
-      data: {}
+      data: {crewRole}
     });
     dialogRef.afterClosed().subscribe(result => {
       this.isPopupOpened = false;
-      this.actorsList = this.crewInMovieService.getAllCrew();
+      this.actorsList = this.crewInMovieService.getAllActors();
+      this.directorsList = this.crewInMovieService.getAllDirectors();
+      console.log('add movie component', this.actorsList, this.directorsList);
       let ifActorsListIsEmpty = this.actorsList.length === 0;
       this.actorsListVisible = !ifActorsListIsEmpty;
+      let ifDirectosListIsEmpty = this.directorsList.length === 0;
+      this.directorsListVisible = !ifDirectosListIsEmpty;
     });
   }
 
@@ -74,7 +81,7 @@ export class AddMovieComponent implements OnInit {
   }
 
   mapCrewListIntoCrewIdsList () {
-    this.crewIdsList = this.actorsList.map(crew => new CrewId(crew.id));
+    this.actorsIdsList = this.actorsList.map(crew => new CrewId(crew.id));
   }
 
   addMovie(addMovieForm: NgForm) {
@@ -100,12 +107,16 @@ export class AddMovieComponent implements OnInit {
     this.movie.productionYear = addMovieForm.value.productionYear;
     this.movie.directors = null;
     this.movie.types = checkedMovieTypes;
-    this.movie.cast = this.crewIdsList;
+    this.movie.cast = this.actorsIdsList;
     this.movie.movieShow = null;
   }
 
   showOrHideActors() {
     this.actorsListVisible = !this.actorsListVisible;
+  }
+
+  showOrHideDirectors(){
+    this.directorsListVisible = !this.directorsListVisible;
   }
 
   private formDataValidation(form: NgForm){

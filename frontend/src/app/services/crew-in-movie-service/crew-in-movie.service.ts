@@ -7,6 +7,8 @@ import {Crew} from '../../crew/model/crew';
 export class CrewInMovieService {
 
   crewList: Crew[] = [];
+  actorsList: Crew[] = [];
+  directorsList: Crew[] = [];
 
   constructor() {
   }
@@ -28,5 +30,23 @@ export class CrewInMovieService {
   passCrewList(passedCrewList) {
     this.crewList = passedCrewList;
     console.log('service', this.crewList);
+  }
+
+  passActorsList(passedActorsList: Crew[]){
+    this.actorsList = passedActorsList;
+    console.log('crew in movie service actors list', this.actorsList)
+  }
+
+  passedDirectorsList(passedDirectorsList: Crew[]){
+    this.directorsList = passedDirectorsList;
+    console.log('crew in movie service directors list', this.directorsList)
+  }
+
+  getAllActors(){
+    return this.actorsList;
+  }
+
+  getAllDirectors(){
+    return this.directorsList;
   }
 }

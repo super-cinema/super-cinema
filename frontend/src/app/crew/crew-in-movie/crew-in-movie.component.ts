@@ -13,34 +13,55 @@ import {Crew} from "../model/crew";
   styleUrls: ['./crew-in-movie.component.scss']
 })
 export class CrewInMovieComponent implements OnInit {
-  crewList = [];
-  crewListToPass = [];
+  private crewList = [];
+  private actorsListToPass: Crew[] = [];
+  private crewRole: string;
+  private directorsListToPass: Crew[] = [];
   constructor(private formBuilder: FormBuilder,
               private dialogRef: MatDialogRef<AllCrewViewComponent>,
               private httpClient: HttpClient,
               private crewService: CrewService,
               private crewInMovieService: CrewInMovieService,
-              @Inject(MAT_DIALOG_DATA) public data: any) {}
+              @Inject(MAT_DIALOG_DATA) public data: any) {
+              this.crewRole = this.data;
+  }
 
 
   ngOnInit() {
-    this.crewService.getCrewList().subscribe((data: any) => {
+    console.log(this.crewRole);
+    this.crewService.getCrewList().subscribe((data: string) => {
       this.crewList = data;
     });
   }
 
   onSubmit(){
-    console.log(this.crewListToPass);
-    this.crewInMovieService.passCrewList(this.crewListToPass);
+    this.crewInMovieService.passActorsList(this.actorsListToPass);
+    if(this.crewRole.crewRole === "ACTOR"){
+      this.crewInMovieService.passActorsList(this.actorsListToPass);
+    } else {
+      this.crewInMovieService.passedDirectorsList(this.directorsListToPass)
+    }
+
     this.dialogRef.close(true);
   }
 
   checkCrew(crew: Crew, $event) {
-    let index = this.crewListToPass.indexOf(crew);
-    if(index !== -1){
-      this.crewListToPass.splice(index, 1);
-      return;
+    if(this.crewRole.crewRole === "ACTOR"){
+      let index = this.actorsListToPass.indexOf(crew);
+      if(index !== -1){
+        this.actorsListToPass.splice(index, 1);
+        return;
+      }
+      this.actorsListToPass.push(crew);
+    }else {
+      let index = this.directorsListToPass.indexOf(crew);
+      if(index !== -1){
+        this.directorsListToPass.splice(index, 1);
+        return;
+      }
+      this.directorsListToPass.push(crew);
     }
-    this.crewListToPass.push(crew);
+
   }
+
 }
