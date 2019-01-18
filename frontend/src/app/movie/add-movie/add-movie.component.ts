@@ -88,17 +88,18 @@ export class AddMovieComponent implements OnInit {
   addMovie(addMovieForm: NgForm) {
     this.mapCrewListIntoCrewIdsList();
     const checkedMovieTypes = this.movieTypes.filter(type => type.checked == true).map(type => type.value);
-    this.formDataValidation(addMovieForm);
-    this.makeMovieObject(addMovieForm, checkedMovieTypes);
-    this.movieService.save(this.movie)
-      .subscribe(
-        (data: any) => {
-          this.notification.success('Added ' + addMovieForm.value.title + ' movie successfully ');
-          addMovieForm.reset();
-        }, (error1) => {
-          this.notification.warn(error1);
-        }
-      );
+    if(this.isDataSufficient(addMovieForm)){
+      this.makeMovieObject(addMovieForm, checkedMovieTypes);
+      this.movieService.save(this.movie)
+        .subscribe(
+          (data: any) => {
+            this.notification.success('Added ' + addMovieForm.value.title + ' movie successfully ');
+            addMovieForm.reset();
+          }, (error1) => {
+            this.notification.warn(error1);
+          }
+        );
+    }
   }
 
   private makeMovieObject(addMovieForm: NgForm, checkedMovieTypes) {
@@ -120,18 +121,27 @@ export class AddMovieComponent implements OnInit {
     this.directorsListVisible = !this.directorsListVisible;
   }
 
-  private formDataValidation(form: NgForm){
+  private isDataSufficient(form: NgForm): boolean{
     if (form.value.title == '' || form.value.title == null) {
       this.notification.warn('Please give title.');
-      return;
+      return false;
     }
     if (form.value.duration == '' || form.value.duration == null) {
       this.notification.warn('Please give movie duration.');
-      return;
+      return false;
     }
     if (Number.isNaN(Number(form.value.duration))) {
       this.notification.warn('Duration must be given as a number');
-      return;
+      return false;
     }
+    return true;
+  }
+
+  deleteDirectorFromDirectorsList(director: Crew) {
+    this.directorsList.splice(director, 1);
+  }
+
+  deleteActorFormActorsList(actor: Crew) {
+    this.actorsList.splice(actor, 1);
   }
 }
