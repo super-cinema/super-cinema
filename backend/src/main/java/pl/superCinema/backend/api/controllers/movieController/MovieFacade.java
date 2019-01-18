@@ -85,15 +85,20 @@ public class MovieFacade {
         List<Crew> existingCrew = crewRole.equals(CrewRole.ACTOR) ? existingMovie.getCast()
                                                                   : existingMovie.getDirectors();
         List<CrewDto> crewToSetInMovie = crewRole.equals(CrewRole.ACTOR) ? movieToSet.getCast()
-                                                                         : movieToSet.getDirectors();
+                                                                        : movieToSet.getDirectors();
 
-        List<Long> existingCrewIds = existingCrew.stream()
-                .map(Crew::getId)
-                .collect(Collectors.toList());
-        List<Long> crewIdsToSetInMovie = crewToSetInMovie.stream()
-                .map(CrewDto::getId)
-                .collect(Collectors.toList());
-
+        List<Long> existingCrewIds = new ArrayList<>();
+        if(existingCrew != null){
+            existingCrewIds = existingCrew.stream()
+                    .map(Crew::getId)
+                    .collect(Collectors.toList());
+        }
+        List<Long> crewIdsToSetInMovie = new ArrayList<>();
+        if(crewToSetInMovie != null){
+            crewIdsToSetInMovie = crewToSetInMovie.stream()
+                    .map(CrewDto::getId)
+                    .collect(Collectors.toList());
+        }
         makeCrewListToAddToExistingCrewList(existingMovie, crewRole, existingCrewIds, crewIdsToSetInMovie);
         makeCrewListToDeleteFromExistingCrewList(existingMovie, crewRole, existingCrewIds, crewIdsToSetInMovie);
     }

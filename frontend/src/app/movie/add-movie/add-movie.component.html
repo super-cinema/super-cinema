@@ -2,7 +2,6 @@
   <h3>Add movie</h3>
 </div>
 <form #addMovieForm = "ngForm" >
-<!--<form #addMovieForm = "ngForm" (ngSubmit) = "addMovie(addMovieForm)" >-->
   <div class="form-group row">
     <label for="title" class="col-sm-3 col-form-label">Title</label>
     <div class="col-sm-8 ">
@@ -16,7 +15,7 @@
 
   <div class="form-group row">
     <label class="col-sm-3 col-form-label">Actors</label>
-    <button type="button" class="btn btn-primary mb-1" (click)="addActor()" >Add actors</button>
+    <button type="button" class="btn btn-primary mb-1" (click)="addActorsList()" >Add actors</button>
     <button type="button" class="btn btn-primary mb-1" (click)="showOrHideActors()">
       {{actorsListVisible == true ? "Hide actors":
                                                   "Display actors"}}</button>

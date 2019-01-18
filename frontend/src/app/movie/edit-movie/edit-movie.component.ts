@@ -3,6 +3,8 @@ import { ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
 import {Movie} from '../model/movie';
+import {NgForm} from "@angular/forms";
+import {MovieService} from "../../services/service-movie/movie-service";
 
 @Component({
   selector: 'app-edit-movie',
@@ -11,6 +13,7 @@ import {Movie} from '../model/movie';
 })
 export class EditMovieComponent implements OnInit {
 
+  //TODO data form database
   movieTypesArray = [
     {value: 'COMEDY', name: 'comedy', checked: false},
     {value: 'HORROR', name: 'horror', checked: false},
@@ -27,9 +30,10 @@ export class EditMovieComponent implements OnInit {
 
   private movie: Movie;
 
-
-
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private notification: NotificationService) { }
+  constructor(private httpClient: HttpClient,
+              private route: ActivatedRoute,
+              private movieService: MovieService,
+              private notification: NotificationService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -38,8 +42,6 @@ export class EditMovieComponent implements OnInit {
     });
     this.getMovieData();
   }
-
-
 
   wasTypeSelected(movieType: { value: string; name: string; checked: boolean }) {
 
@@ -61,44 +63,23 @@ export class EditMovieComponent implements OnInit {
     }
   }
 
-
-  saveChanges(editMovieForm: HTMLFormElement) {
+  saveChanges(editMovieForm: NgForm) {
     const checkedMovieTypes = this.movieTypesArray.filter(type => type.checked === true).map(type => type.value);
-    if (this.movie.title === '' || this.movie.title == null) {
-      this.notification.warn('Please give title.');
-      return;
-    }
-    if (this.movie.duration === '' || this.movie.duration == null ) {
-      this.notification.warn('Please give movie duration.');
-      return;
-    }
-    if (Number.isNaN(Number(this.movie.duration))) {
-      this.notification.warn('Duration must be given as a number');
-      return;
-    }
-    this.httpClient.put('http://localhost:8080/movie?id=' + this.movie.id, {
-      'title' : this.movie.title,
-      'duration' : this.movie.duration,
-      'productionCountry' : this.movie.productionCountry,
-      'productionYear' : this.movie.productionYear,
-      'types' : checkedMovieTypes,
-      'directors' : null,
-      'cast' : null,
-      'movieShow' : null
-    })
+    this.formDataValidation(editMovieForm);
+    this.movieService.updateMovie(this.movie.id, this.movie)
       .subscribe(
         (data: any) => {
           this.notification.success('Edited ' + this.movie.title + ' movie succesfully' );
         },
         (error) => {
-          this.notification.warn(error.error.message);
+          console.log(error);
+          this.notification.warn(error);
         }
-
-      );
+        );
   }
 
   private getMovieData() {
-    this.httpClient.get('http://localhost:8080/movie?movieId=' + this.movie.id)
+    this.movieService.getMovie(this.movie.id)
       .subscribe(
         (data: any) => {
           console.log(data);
@@ -111,6 +92,21 @@ export class EditMovieComponent implements OnInit {
           this.movie.movieShow = data.movieShow;
           this.movie.types = data.types;
         });
+  }
+
+  private formDataValidation(form: NgForm){
+    if (this.movie.title === '' || this.movie.title == null) {
+      this.notification.warn('Please give title.');
+      return;
+    }
+    if (this.movie.duration === '' || this.movie.duration == null ) {
+      this.notification.warn('Please give movie duration.');
+      return;
+    }
+    if (Number.isNaN(Number(this.movie.duration))) {
+      this.notification.warn('Duration must be given as a number');
+      return;
+    }
   }
 }
 

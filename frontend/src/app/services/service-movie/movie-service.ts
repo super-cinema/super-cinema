@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Movie} from '../model/movie';
+import {Movie} from '../../movie/model/movie';
 
 
 @Injectable()
@@ -13,19 +13,19 @@ export class MovieService {
   }
 
   getMovie(id: number): Observable<Object> {
-    return this.httpClient.get(this.baseUrl + '?id=' + id);
+    return this.httpClient.get(this.baseUrl + '?movieId=' + id);
   }
 
-  createMovie(movie: Movie): Observable<Object> {
+  save(movie: Movie): Observable<Object> {
     return this.httpClient.post(this.baseUrl, movie);
   }
 
-  updateMovie(id: number, value: any): Observable<Object> {
-    return this.httpClient.put(this.baseUrl + '?id=' + id, value);
+  updateMovie(id: number, movie: Movie): Observable<Object> {
+    return this.httpClient.put(this.baseUrl + '?id=' + id, movie);
   }
 
   deleteMovie(id: number): Observable<any> {
-    return this.httpClient.delete(this.baseUrl + '?id=' + id);
+    return this.httpClient.delete(this.baseUrl + '?idToDelete=' + id);
   }
 
   getMovieList(): Observable<Array<Movie>> {

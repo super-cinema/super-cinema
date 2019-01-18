@@ -1,4 +1,5 @@
 import {Crew} from '../../crew/model/crew';
+import {CrewId} from "../../crew/model/crewId";
 
 export class Movie {
   id;
@@ -7,7 +8,7 @@ export class Movie {
   productionCountry: string;
   productionYear: string;
   directors: Crew[];
-  cast?: Crew[];
+  cast?: CrewId[];
   movieShow?: string;
   types: string[] = [];
 }

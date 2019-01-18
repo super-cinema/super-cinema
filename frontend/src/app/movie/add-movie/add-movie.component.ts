@@ -9,6 +9,8 @@ import {MatDialog} from '@angular/material';
 import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-movie.service';
 import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.component';
 import {CrewId} from "../../crew/model/crewId";
+import {Movie} from "../model/movie";
+import {MovieService} from "../../services/service-movie/movie-service";
 
 @Component({
   selector: 'app-add-movie',
@@ -18,7 +20,9 @@ import {CrewId} from "../../crew/model/crewId";
 })
 export class AddMovieComponent implements OnInit {
 
+
   constructor(private httpClient: HttpClient,
+              private movieService: MovieService,
               private notification: NotificationService,
               private crewService: CrewService,
               private dialog?: MatDialog,
@@ -28,10 +32,10 @@ export class AddMovieComponent implements OnInit {
   actorsList: Crew[] = [];
   crewIdsList: CrewId[] = [];
   actorsListVisible: boolean = false;
-
   isPopupOpened = true;
+  movie: Movie = new Movie();
 
-
+//TODO data from database, service and model to do
   movieTypes = [
     {value: 'COMEDY', name: 'comedy', 'checked': false},
     {value: 'HORROR', name: 'horror', 'checked': false},
@@ -46,29 +50,21 @@ export class AddMovieComponent implements OnInit {
     {value: 'WESTERNS', name: 'western', 'checked': false}
   ];
 
-  directors = [
-    {name: 'name'},
-    {name: 'name'},
-    {name: 'name'}
-  ];
-
   ngOnInit() {
   }
 
-  addActor() {
+  addActorsList() {
     this.isPopupOpened = true;
     const dialogRef = this.dialog.open(CrewInMovieComponent, {
       width: '700px',
       height: '500px',
       data: {}
     });
-
-
     dialogRef.afterClosed().subscribe(result => {
       this.isPopupOpened = false;
       this.actorsList = this.crewInMovieService.getAllCrew();
-      this.actorsListVisible = !this.actorsList.isEmpty;
-      console.log('afterClose', this.actorsList)
+      let ifActorsListIsEmpty = this.actorsList.length === 0;
+      this.actorsListVisible = !ifActorsListIsEmpty;
     });
   }
 
@@ -83,43 +79,47 @@ export class AddMovieComponent implements OnInit {
 
   addMovie(addMovieForm: NgForm) {
     this.mapCrewListIntoCrewIdsList();
-    console.log('addMovie', this.crewIdsList)
     const checkedMovieTypes = this.movieTypes.filter(type => type.checked == true).map(type => type.value);
-    if (addMovieForm.value.title == '' || addMovieForm.value.title == null) {
-      this.notification.warn('Please give title.');
-      return;
-    }
-    if (addMovieForm.value.duration == '' || addMovieForm.value.duration == null) {
-      this.notification.warn('Please give movie duration.');
-      return;
-    }
-    if (Number.isNaN(Number(addMovieForm.value.duration))) {
-      this.notification.warn('Duration must be given as a number');
-      return;
-    }
-    this.httpClient.post('http://localhost:8080/movie', {
-      'title': addMovieForm.value.title,
-      'duration': addMovieForm.value.duration,
-      'productionCountry': addMovieForm.value.productionCountry,
-      'productionYear': addMovieForm.value.productionYear,
-      'types': checkedMovieTypes,
-      'directors': null,
-      'cast': this.crewIdsList,
-      'movieShow': null
-    })
+    this.formDataValidation(addMovieForm);
+    this.makeMovieObject(addMovieForm, checkedMovieTypes);
+    this.movieService.save(this.movie)
       .subscribe(
         (data: any) => {
           this.notification.success('Added ' + addMovieForm.value.title + ' movie successfully ');
           addMovieForm.reset();
         }, (error1) => {
-          console.log(error1.error)
-          //this.notification.warn('bad request');
-          this.notification.warn(error1.error.message);
+          this.notification.warn(error1);
         }
       );
   }
 
+  private makeMovieObject(addMovieForm: NgForm, checkedMovieTypes) {
+    this.movie.title = addMovieForm.value.title;
+    this.movie.duration = addMovieForm.value.duration;
+    this.movie.productionCountry = addMovieForm.value.productionCountry;
+    this.movie.productionYear = addMovieForm.value.productionYear;
+    this.movie.directors = null;
+    this.movie.types = checkedMovieTypes;
+    this.movie.cast = this.crewIdsList;
+    this.movie.movieShow = null;
+  }
+
   showOrHideActors() {
     this.actorsListVisible = !this.actorsListVisible;
+  }
+
+  private formDataValidation(form: NgForm){
+    if (form.value.title == '' || form.value.title == null) {
+      this.notification.warn('Please give title.');
+      return;
+    }
+    if (form.value.duration == '' || form.value.duration == null) {
+      this.notification.warn('Please give movie duration.');
+      return;
+    }
+    if (Number.isNaN(Number(form.value.duration))) {
+      this.notification.warn('Duration must be given as a number');
+      return;
+    }
   }
 }

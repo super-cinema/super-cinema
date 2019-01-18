@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {DialogService} from '../../share/dialog.service';
 import {NotificationService} from '../../share/notification.service';
+import {MovieService} from "../../services/service-movie/movie-service";
 
 
 
@@ -15,11 +16,12 @@ export class AllMoviesViewComponent implements OnInit {
   moviesList = [];
 
   constructor(private httpClient: HttpClient,
+              private movieService: MovieService,
               private dialogService: DialogService,
               private notificationService: NotificationService) { }
 
   ngOnInit() {
-    this.httpClient.get('http://localhost:8080/movie')
+    this.movieService.getMovieList()
       .subscribe(
         (data: any) => {
           this.moviesList = data;
@@ -45,13 +47,13 @@ export class AllMoviesViewComponent implements OnInit {
       .subscribe(resp =>
         {
           if(resp) {
-            this.httpClient.delete("http://localhost:8080/movie?idToDelete=" + id)
+            this.movieService.deleteMovie(id)
               .subscribe(data => {
                 this.ngOnInit();
                 this.notificationService.success('Deleted ' + title + ' movie successfully');
               }),(error => {
                 this.notificationService.warn('Deleting ' + title + ' movie failed')
-              console.log(error);
+              console.log(error.message);
             })
 
 
