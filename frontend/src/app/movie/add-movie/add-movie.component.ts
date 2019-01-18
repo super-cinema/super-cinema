@@ -81,7 +81,8 @@ export class AddMovieComponent implements OnInit {
   }
 
   mapCrewListIntoCrewIdsList () {
-    this.actorsIdsList = this.actorsList.map(crew => new CrewId(crew.id));
+    this.actorsIdsList = this.actorsList.map(actor => new CrewId(actor.id));
+    this.directorsIdsList = this.directorsList.map(director => new CrewId(director.id));
   }
 
   addMovie(addMovieForm: NgForm) {
@@ -105,7 +106,7 @@ export class AddMovieComponent implements OnInit {
     this.movie.duration = addMovieForm.value.duration;
     this.movie.productionCountry = addMovieForm.value.productionCountry;
     this.movie.productionYear = addMovieForm.value.productionYear;
-    this.movie.directors = null;
+    this.movie.directors = this.directorsIdsList;
     this.movie.types = checkedMovieTypes;
     this.movie.cast = this.actorsIdsList;
     this.movie.movieShow = null;
