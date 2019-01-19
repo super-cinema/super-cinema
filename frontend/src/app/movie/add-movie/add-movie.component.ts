@@ -9,7 +9,7 @@ import {MatDialog} from '@angular/material';
 import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-movie.service';
 import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.component';
 import {CrewId} from "../../crew/model/crewId";
-import {Movie} from "../model/movie";
+import {MovieToMakePost} from "../model/movieToMakePost";
 import {MovieService} from "../../services/service-movie/movie-service";
 
 @Component({
@@ -29,14 +29,14 @@ export class AddMovieComponent implements OnInit {
               private crewInMovieService?: CrewInMovieService) {
   }
 
-  actorsList: Crew[] = [];
-  actorsIdsList: CrewId[] = [];
-  actorsListVisible: boolean = false;
-  directorsList: Crew[] = [];
-  directorsIdsList: CrewId[] = [];
-  directorsListVisible: boolean = false;
-  isPopupOpened = true;
-  movie: Movie = new Movie();
+  private actorsList: Crew[] = [];
+  private actorsIdsList: CrewId[] = [];
+  private actorsListVisible: boolean = false;
+  private directorsList: Crew[] = [];
+  private directorsIdsList: CrewId[] = [];
+  private directorsListVisible: boolean = false;
+  private isPopupOpened = false;
+  private movie: MovieToMakePost = new MovieToMakePost();
 
 //TODO data from database, service and model to do
   movieTypes = [

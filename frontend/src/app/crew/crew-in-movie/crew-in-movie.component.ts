@@ -15,7 +15,7 @@ import {Crew} from "../model/crew";
 export class CrewInMovieComponent implements OnInit {
   private crewList = [];
   private actorsListToPass: Crew[] = [];
-  private crewRole: string;
+  private crewRole;
   private directorsListToPass: Crew[] = [];
   constructor(private formBuilder: FormBuilder,
               private dialogRef: MatDialogRef<AllCrewViewComponent>,
@@ -28,25 +28,24 @@ export class CrewInMovieComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log(this.crewRole);
-    this.crewService.getCrewList().subscribe((data: string) => {
+    this.crewService.getCrewList().subscribe((data) => {
       this.crewList = data;
     });
   }
 
   onSubmit(){
-    this.crewInMovieService.passActorsList(this.actorsListToPass);
+    //this.crewInMovieService.passActorsList(this.actorsListToPass);
     if(this.crewRole.crewRole === "ACTOR"){
       this.crewInMovieService.passActorsList(this.actorsListToPass);
     } else {
       this.crewInMovieService.passedDirectorsList(this.directorsListToPass)
     }
-
     this.dialogRef.close(true);
   }
 
   checkCrew(crew: Crew, $event) {
     if(this.crewRole.crewRole === "ACTOR"){
+      console.log('actor list', this.directorsListToPass)
       let index = this.actorsListToPass.indexOf(crew);
       if(index !== -1){
         this.actorsListToPass.splice(index, 1);
@@ -54,12 +53,15 @@ export class CrewInMovieComponent implements OnInit {
       }
       this.actorsListToPass.push(crew);
     }else {
+      console.log('//directors list', this.directorsListToPass)
       let index = this.directorsListToPass.indexOf(crew);
       if(index !== -1){
         this.directorsListToPass.splice(index, 1);
         return;
       }
+      console.log('both list', this.directorsListToPass)
       this.directorsListToPass.push(crew);
+      console.log('both list after', this.directorsListToPass)
     }
 
   }

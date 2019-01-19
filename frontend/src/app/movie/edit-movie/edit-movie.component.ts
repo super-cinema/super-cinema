@@ -2,9 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
-import {Movie} from '../model/movie';
 import {NgForm} from "@angular/forms";
 import {MovieService} from "../../services/service-movie/movie-service";
+import {Crew} from "../../crew/model/crew";
+import {CrewService} from "../../services/crew-service/crew-service";
+import {CrewId} from "../../crew/model/crewId";
+import {Movie} from "../model/movie";
+import {CrewInMovieComponent} from "../../crew/crew-in-movie/crew-in-movie.component";
+import {MatDialog} from "@angular/material";
+import {CrewInMovieService} from "../../services/crew-in-movie-service/crew-in-movie.service";
 
 @Component({
   selector: 'app-edit-movie',
@@ -29,10 +35,21 @@ export class EditMovieComponent implements OnInit {
   ];
 
   private movie: Movie;
+  private actorsList: Crew[] = [];
+  private actorsListToAdd: Crew[] = [];
+  private actorsIdsList: CrewId[] = [];
+  private existingDirectorsList: Crew[] = [];
+  private directorsListToAdd: Crew[] = [];
+  private directorsListToUpdateMovie: Crew[] = [];
+  private directorsIdsList: CrewId[] = [];
+  private isPopupOpened: boolean = false;
 
   constructor(private httpClient: HttpClient,
+              private crewService: CrewService,
               private route: ActivatedRoute,
               private movieService: MovieService,
+              private crewInMovieService: CrewInMovieService,
+              private matDialog: MatDialog,
               private notification: NotificationService) { }
 
   ngOnInit() {
@@ -72,7 +89,6 @@ export class EditMovieComponent implements OnInit {
           this.notification.success('Edited ' + this.movie.title + ' movie succesfully' );
         },
         (error) => {
-          console.log(error);
           this.notification.warn(error);
         }
         );
@@ -82,16 +98,19 @@ export class EditMovieComponent implements OnInit {
     this.movieService.getMovie(this.movie.id)
       .subscribe(
         (data: any) => {
-          console.log(data);
           this.movie.title = data.title;
           this.movie.duration = data.duration;
           this.movie.productionCountry = data.productionCountry;
           this.movie.productionYear = data.productionYear;
           this.movie.cast = data.cast;
-          this.movie.directors = data.cast;
+          this.movie.directors = data.directors;
           this.movie.movieShow = data.movieShow;
           this.movie.types = data.types;
+          this.existingDirectorsList = this.movie.directors;
+          this.actorsList = this.movie.cast;
         });
+
+
   }
 
   private formDataValidation(form: NgForm){
@@ -107,6 +126,23 @@ export class EditMovieComponent implements OnInit {
       this.notification.warn('Duration must be given as a number');
       return;
     }
+  }
+
+  addCrewListToEditMovieComponent(crewRole: string) {
+    this.isPopupOpened = true;
+    const dialogRef = this.matDialog.open(CrewInMovieComponent, {
+      width: '700px',
+      height: '500px',
+      data: {crewRole}
+    });
+    dialogRef.afterClosed()
+      .subscribe(data => {
+        this.isPopupOpened = false;
+       this.directorsListToAdd = this.crewInMovieService.getAllDirectors();
+
+
+      }
+    )
   }
 }
 
