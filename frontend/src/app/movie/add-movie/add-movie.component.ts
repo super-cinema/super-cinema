@@ -40,17 +40,17 @@ export class AddMovieComponent implements OnInit {
 
 //TODO data from database, service and model to do
   movieTypes = [
-    {value: 'COMEDY', name: 'comedy', 'checked': false},
-    {value: 'HORROR', name: 'horror', 'checked': false},
-    {value: 'SF', name: 'science - fiction', 'checked': false},
-    {value: 'ACTION', name: 'action', 'checked': false},
-    {value: 'THRILLER', name: 'thriller', 'checked': false},
-    {value: 'DRAMA', name: 'drama', 'checked': false},
-    {value: 'CRIME', name: 'crime', 'checked': false},
-    {value: 'FANTASY', name: 'fantasy', 'checked': false},
-    {value: 'MUSICAL', name: 'musical', 'checked': false},
-    {value: 'ANIMATION', name: 'animation', 'checked': false},
-    {value: 'WESTERNS', name: 'western', 'checked': false}
+    {value: 'COMEDY', name: 'comedy', checked: false},
+    {value: 'HORROR', name: 'horror', checked: false},
+    {value: 'SF', name: 'science - fiction', checked: false},
+    {value: 'ACTION', name: 'action', checked: false},
+    {value: 'THRILLER', name: 'thriller', checked: false},
+    {value: 'DRAMA', name: 'drama', checked: false},
+    {value: 'CRIME', name: 'crime', checked: false},
+    {value: 'FANTASY', name: 'fantasy', checked: false},
+    {value: 'MUSICAL', name: 'musical', checked: false},
+    {value: 'ANIMATION', name: 'animation', checked: false},
+    {value: 'WESTERNS', name: 'western', checked: false}
   ];
 
   ngOnInit() {
@@ -138,10 +138,10 @@ export class AddMovieComponent implements OnInit {
   }
 
   deleteDirectorFromDirectorsList(director: Crew) {
-    this.directorsList.splice(director, 1);
+    //this.directorsList.splice(director, 1);
   }
 
   deleteActorFormActorsList(actor: Crew) {
-    this.actorsList.splice(actor, 1);
+    //this.actorsList.splice(actor, 1);
   }
 }

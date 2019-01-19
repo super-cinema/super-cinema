@@ -7,10 +7,10 @@ import {MovieService} from "../../services/service-movie/movie-service";
 import {Crew} from "../../crew/model/crew";
 import {CrewService} from "../../services/crew-service/crew-service";
 import {CrewId} from "../../crew/model/crewId";
-import {Movie} from "../model/movie";
 import {CrewInMovieComponent} from "../../crew/crew-in-movie/crew-in-movie.component";
 import {MatDialog} from "@angular/material";
 import {CrewInMovieService} from "../../services/crew-in-movie-service/crew-in-movie.service";
+import {Movie} from "../model/movie";
 
 @Component({
   selector: 'app-edit-movie',
@@ -35,12 +35,12 @@ export class EditMovieComponent implements OnInit {
   ];
 
   private movie: Movie;
-  private actorsList: Crew[] = [];
-  private actorsListToAdd: Crew[] = [];
-  private actorsIdsList: CrewId[] = [];
-  private existingDirectorsList: Crew[] = [];
-  private directorsListToAdd: Crew[] = [];
-  private directorsListToUpdateMovie: Crew[] = [];
+  private actorsList;
+  private actorsListToAdd;
+  private actorsIdsList;
+  private existingDirectorsList;
+  private directorsListToAdd;
+  private directorsListToUpdateMovie;
   private directorsIdsList: CrewId[] = [];
   private isPopupOpened: boolean = false;
 
@@ -138,12 +138,20 @@ export class EditMovieComponent implements OnInit {
     dialogRef.afterClosed()
       .subscribe(data => {
         this.isPopupOpened = false;
-       this.directorsListToAdd = this.crewInMovieService.getAllDirectors();
+        this.directorsListToAdd = this.crewInMovieService.getAllDirectors();
+        let existingDirectorsIdsList = this.existingDirectorsList.map(directors => directors.id);
+        this.directorsListToAdd.map(directorToAdd => {
+          if(existingDirectorsIdsList.includes(directorToAdd.id) === false){
+            this.existingDirectorsList.push(directorToAdd);
+          }
 
+        })
+
+        })
 
       }
-    )
-  }
+
+
 }
 
 
