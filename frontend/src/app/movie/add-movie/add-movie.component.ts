@@ -68,9 +68,9 @@ export class AddMovieComponent implements OnInit {
       this.actorsList = this.crewInMovieService.getAllActors();
       this.directorsList = this.crewInMovieService.getAllDirectors();
       console.log('add movie component', this.actorsList, this.directorsList);
-      let ifActorsListIsEmpty = this.actorsList.length === 0;
+      const ifActorsListIsEmpty = this.actorsList.length === 0;
       this.actorsListVisible = !ifActorsListIsEmpty;
-      let ifDirectosListIsEmpty = this.directorsList.length === 0;
+      const ifDirectosListIsEmpty = this.directorsList.length === 0;
       this.directorsListVisible = !ifDirectosListIsEmpty;
     });
   }
