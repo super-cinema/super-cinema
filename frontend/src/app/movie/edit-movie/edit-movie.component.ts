@@ -144,14 +144,9 @@ export class EditMovieComponent implements OnInit {
           if(existingDirectorsIdsList.includes(directorToAdd.id) === false){
             this.existingDirectorsList.push(directorToAdd);
           }
-
         })
-
-        })
-
-      }
-
-
+      })
+  }
 }
 
 

@@ -6,8 +6,8 @@ import {Crew} from '../../crew/model/crew';
 })
 export class CrewInMovieService {
 
-  crewList;
-  actorsList;
+  crewList = [];
+  actorsList = [];
   directorsListInCrewInMovieService: Crew[] = [];
 
   constructor() {
@@ -50,13 +50,11 @@ export class CrewInMovieService {
   };
 
   getAllActors(){
-    console.log('get all actors');
     return this.actorsList;
 
   }
 
   getAllDirectors(){
-    console.log('get all directors');
     return this.directorsListInCrewInMovieService;
 
   }

@@ -45,7 +45,6 @@ export class CrewInMovieComponent implements OnInit {
 
   checkCrew(crew: Crew, $event) {
     if(this.crewRole.crewRole === "ACTOR"){
-      console.log('actor list', this.directorsListToPass)
       let index = this.actorsListToPass.indexOf(crew);
       if(index !== -1){
         this.actorsListToPass.splice(index, 1);
@@ -53,15 +52,12 @@ export class CrewInMovieComponent implements OnInit {
       }
       this.actorsListToPass.push(crew);
     }else {
-      console.log('//directors list', this.directorsListToPass)
       let index = this.directorsListToPass.indexOf(crew);
       if(index !== -1){
         this.directorsListToPass.splice(index, 1);
         return;
       }
-      console.log('both list', this.directorsListToPass)
       this.directorsListToPass.push(crew);
-      console.log('both list after', this.directorsListToPass)
     }
 
   }
