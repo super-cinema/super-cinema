@@ -32,21 +32,22 @@ export class CrewInMovieService {
     console.log('service', this.crewList);
   }
 
-  passActorsList(passedActorsList: Crew[]){
+  passActorsList(passedActorsList: Crew[]) {
+    console.log('lista aktorow przed passActroList');
     this.actorsList = passedActorsList;
-    console.log('crew in movie service actors list', this.actorsList)
+    console.log('crew in movie service actors list', this.actorsList);
   }
 
-  passedDirectorsList(passedDirectorsList: Crew[]){
+  passedDirectorsList(passedDirectorsList: Crew[]) {
     this.directorsList = passedDirectorsList;
-    console.log('crew in movie service directors list', this.directorsList)
+    console.log('crew in movie service directors list', this.directorsList);
   }
 
-  getAllActors(){
+  getAllActors() {
     return this.actorsList;
   }
 
-  getAllDirectors(){
+  getAllDirectors() {
     return this.directorsList;
   }
 }

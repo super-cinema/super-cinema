@@ -8,9 +8,9 @@ import {CrewService} from '../../services/crew-service/crew-service';
 import {MatDialog} from '@angular/material';
 import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-movie.service';
 import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.component';
-import {CrewId} from "../../crew/model/crewId";
-import {Movie} from "../model/movie";
-import {MovieService} from "../../services/service-movie/movie-service";
+import {CrewId} from '../../crew/model/crewId';
+import {Movie} from '../model/movie';
+import {MovieService} from '../../services/service-movie/movie-service';
 
 @Component({
   selector: 'app-add-movie',
@@ -31,14 +31,14 @@ export class AddMovieComponent implements OnInit {
 
   actorsList: Crew[] = [];
   actorsIdsList: CrewId[] = [];
-  actorsListVisible: boolean = false;
+  actorsListVisible = false;
   directorsList: Crew[] = [];
   directorsIdsList: CrewId[] = [];
-  directorsListVisible: boolean = false;
+  directorsListVisible = false;
   isPopupOpened = true;
   movie: Movie = new Movie();
 
-//TODO data from database, service and model to do
+// TODO data from database, service and model to do
   movieTypes = [
     {value: 'COMEDY', name: 'comedy', 'checked': false},
     {value: 'HORROR', name: 'horror', 'checked': false},
@@ -80,15 +80,15 @@ export class AddMovieComponent implements OnInit {
 
   }
 
-  mapCrewListIntoCrewIdsList () {
+  mapCrewListIntoCrewIdsList() {
     this.actorsIdsList = this.actorsList.map(actor => new CrewId(actor.id));
     this.directorsIdsList = this.directorsList.map(director => new CrewId(director.id));
   }
 
   addMovie(addMovieForm: NgForm) {
     this.mapCrewListIntoCrewIdsList();
-    const checkedMovieTypes = this.movieTypes.filter(type => type.checked == true).map(type => type.value);
-    if(this.isDataSufficient(addMovieForm)){
+    const checkedMovieTypes = this.movieTypes.filter(type => type.checked === true).map(type => type.value);
+    if (this.isDataSufficient(addMovieForm)) {
       this.makeMovieObject(addMovieForm, checkedMovieTypes);
       this.movieService.save(this.movie)
         .subscribe(
@@ -117,16 +117,16 @@ export class AddMovieComponent implements OnInit {
     this.actorsListVisible = !this.actorsListVisible;
   }
 
-  showOrHideDirectors(){
+  showOrHideDirectors() {
     this.directorsListVisible = !this.directorsListVisible;
   }
 
-  private isDataSufficient(form: NgForm): boolean{
-    if (form.value.title == '' || form.value.title == null) {
+  private isDataSufficient(form: NgForm): boolean {
+    if (form.value.title === '' || form.value.title == null) {
       this.notification.warn('Please give title.');
       return false;
     }
-    if (form.value.duration == '' || form.value.duration == null) {
+    if (form.value.duration === '' || form.value.duration == null) {
       this.notification.warn('Please give movie duration.');
       return false;
     }

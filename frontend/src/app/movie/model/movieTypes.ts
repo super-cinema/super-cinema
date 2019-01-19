@@ -1,5 +1,5 @@
-export class MovieTypes{
+export class MovieTypes {
   value: string;
   name: string;
-  checked: bolean;
+  checked: boolean;
 }

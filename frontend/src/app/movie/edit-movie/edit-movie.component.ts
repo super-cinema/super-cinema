@@ -3,8 +3,8 @@ import { ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
 import {Movie} from '../model/movie';
-import {NgForm} from "@angular/forms";
-import {MovieService} from "../../services/service-movie/movie-service";
+import {NgForm} from '@angular/forms';
+import {MovieService} from '../../services/service-movie/movie-service';
 
 @Component({
   selector: 'app-edit-movie',
