@@ -1,4 +1,4 @@
-import {CrewId} from "../../crew/model/crewId";
+import {CrewId} from '../../crew/model/crewId';
 
 export class MovieToMakePost {
   id;

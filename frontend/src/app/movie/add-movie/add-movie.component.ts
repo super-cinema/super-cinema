@@ -90,7 +90,7 @@ export class AddMovieComponent implements OnInit {
   addMovie(addMovieForm: NgForm) {
     this.mapCrewListIntoCrewIdsList();
     const checkedMovieTypes = this.movieTypes.filter(type => type.checked == true).map(type => type.value);
-    if(this.isDataSufficient(addMovieForm)){
+    if(this.isDataSufficient(addMovieForm)) {
       this.makeMovieObject(addMovieForm, checkedMovieTypes);
       this.movieService.save(this.movie)
         .subscribe(

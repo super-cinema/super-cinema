@@ -10,19 +10,20 @@
   </div>
   <div class="form-group row">
     <label class="col-sm-3 col-form-label">Directors</label>
-    <button type="button" class="btn btn-primary mb-1" (click)="addCrewListToEditMovieComponent('DIRECTOR')" >Add from list</button>
+    <button type="button" class="btn btn-primary mb-1" (click)="addCrewListToEditMovieComponent('DIRECTOR')"  >Add from list</button>
     <button type="button" class="btn btn-primary mb-1" (click)="showOrHideDirectors()">
       {{directorsListVisible == true ? "Hide list":
       "Display list"}}</button>
   </div>
   <div class="crew-list-container">
-    <mat-list *ngFor="let director of existingDirectorsList" class="list-group">
+    <mat-list *ngFor="let director of existingDirectorsList"  class="list-group">
       <div class="display-one-crew-container" >
         <mat-list-item class="list-group-item list-group-item-secondary">
           <span>{{director.name}} {{director.surname}}</span>
         </mat-list-item>
         <!--TODO letters in buttons should change size-->
-        <button class="btn btn-default btn-lg delete-button" (click)="deleteDirectorFromDirectorsList(director)">Delete</button>
+        <!--<button class="btn btn-default btn-lg delete-button" (click)="deleteDirectorFromDirectorsList(director)">Delete</button>-->
+        <button class="btn btn-default btn-lg delete-button" (click)="filthermethod()">Delete</button>
       </div>
     </mat-list>
   </div>

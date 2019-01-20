@@ -110,7 +110,6 @@ export class EditMovieComponent implements OnInit {
           this.actorsList = this.movie.cast;
         });
 
-
   }
 
   private formDataValidation(form: NgForm){
