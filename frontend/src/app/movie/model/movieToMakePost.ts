@@ -1,13 +1,13 @@
-import {Crew} from "../../crew/model/crew";
+import {CrewId} from '../../crew/model/crewId';
 
-export class Movie {
+export class MovieToMakePost {
   id;
   title: string;
   duration;
   productionCountry: string;
   productionYear: string;
-  directors: Crew[];
-  cast?: Crew[];
+  directors: CrewId[];
+  cast?: CrewId[];
   movieShow?: string;
   types: string[] = [];
 }

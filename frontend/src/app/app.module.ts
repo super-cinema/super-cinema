@@ -30,10 +30,9 @@ import {EditMovieComponent} from './movie/edit-movie/edit-movie.component';
 import {TransformPipe} from './share/transform.pipe';
 import {CrewService} from './services/crew-service/crew-service';
 import {CrewDetailComponent} from './crew/crew-detail/crew-detail.component';
-import { CrewDetailInMovieComponent } from './crew/crew-detail-in-movie/crew-detail-in-movie.component';
 import {MovieService} from './services/service-movie/movie-service';
 import { CrewInMovieComponent } from './crew/crew-in-movie/crew-in-movie.component';
-import {SearchPipe} from './share/search-pipe';
+import {FilterPipe} from './share/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -49,9 +48,8 @@ import {SearchPipe} from './share/search-pipe';
     AllCrewViewComponent,
     EditCrewComponent,
     TransformPipe,
-    SearchPipe,
+    FilterPipe,
     CrewDetailComponent,
-    CrewDetailInMovieComponent,
     CrewInMovieComponent,
   ],
   imports: [
@@ -79,7 +77,7 @@ import {SearchPipe} from './share/search-pipe';
     MatDialogModule,
     MatSnackBarModule,
     TransformPipe,
-    SearchPipe
+    FilterPipe
   ],
   providers: [CrewService, MovieService],
   bootstrap: [AppComponent],

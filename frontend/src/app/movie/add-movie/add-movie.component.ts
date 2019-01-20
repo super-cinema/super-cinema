@@ -29,28 +29,28 @@ export class AddMovieComponent implements OnInit {
               private crewInMovieService?: CrewInMovieService) {
   }
 
-  actorsList: Crew[] = [];
-  actorsIdsList: CrewId[] = [];
-  actorsListVisible = false;
-  directorsList: Crew[] = [];
-  directorsIdsList: CrewId[] = [];
-  directorsListVisible = false;
-  isPopupOpened = true;
-  movie: Movie = new Movie();
+  private actorsList: Crew[] = [];
+  private actorsIdsList: CrewId[] = [];
+  private actorsListVisible: boolean = false;
+  private directorsList: Crew[] = [];
+  private directorsIdsList: CrewId[] = [];
+  private directorsListVisible: boolean = false;
+  private isPopupOpened = false;
+  private movie: MovieToMakePost = new MovieToMakePost();
 
 // TODO data from database, service and model to do
   movieTypes = [
-    {value: 'COMEDY', name: 'comedy', 'checked': false},
-    {value: 'HORROR', name: 'horror', 'checked': false},
-    {value: 'SF', name: 'science - fiction', 'checked': false},
-    {value: 'ACTION', name: 'action', 'checked': false},
-    {value: 'THRILLER', name: 'thriller', 'checked': false},
-    {value: 'DRAMA', name: 'drama', 'checked': false},
-    {value: 'CRIME', name: 'crime', 'checked': false},
-    {value: 'FANTASY', name: 'fantasy', 'checked': false},
-    {value: 'MUSICAL', name: 'musical', 'checked': false},
-    {value: 'ANIMATION', name: 'animation', 'checked': false},
-    {value: 'WESTERNS', name: 'western', 'checked': false}
+    {value: 'COMEDY', name: 'comedy', checked: false},
+    {value: 'HORROR', name: 'horror', checked: false},
+    {value: 'SF', name: 'science - fiction', checked: false},
+    {value: 'ACTION', name: 'action', checked: false},
+    {value: 'THRILLER', name: 'thriller', checked: false},
+    {value: 'DRAMA', name: 'drama', checked: false},
+    {value: 'CRIME', name: 'crime', checked: false},
+    {value: 'FANTASY', name: 'fantasy', checked: false},
+    {value: 'MUSICAL', name: 'musical', checked: false},
+    {value: 'ANIMATION', name: 'animation', checked: false},
+    {value: 'WESTERNS', name: 'western', checked: false}
   ];
 
   ngOnInit() {
@@ -66,12 +66,14 @@ export class AddMovieComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.isPopupOpened = false;
       this.actorsList = this.crewInMovieService.getAllActors();
-      this.directorsList = this.crewInMovieService.getAllDirectors();
-      console.log('add movie component', this.actorsList, this.directorsList);
-      const ifActorsListIsEmpty = this.actorsList.length === 0;
+      console.log(this.actorsList)
+      let ifActorsListIsEmpty = this.actorsList.length === 0;
       this.actorsListVisible = !ifActorsListIsEmpty;
-      const ifDirectosListIsEmpty = this.directorsList.length === 0;
+      this.directorsList = this.crewInMovieService.getAllDirectors();
+      let ifDirectosListIsEmpty = this.directorsList.length === 0;
       this.directorsListVisible = !ifDirectosListIsEmpty;
+      console.log(this.actorsListVisible)
+      console.log(this.actorsList)
     });
   }
 
@@ -80,7 +82,7 @@ export class AddMovieComponent implements OnInit {
 
   }
 
-  mapCrewListIntoCrewIdsList() {
+  mapCrewListIntoCrewIdsList () {
     this.actorsIdsList = this.actorsList.map(actor => new CrewId(actor.id));
     this.directorsIdsList = this.directorsList.map(director => new CrewId(director.id));
   }
@@ -138,10 +140,12 @@ export class AddMovieComponent implements OnInit {
   }
 
   deleteDirectorFromDirectorsList(director: Crew) {
-    this.directorsList.splice(director, 1);
+    var index = this.directorsList.indexOf(director);
+    this.directorsList.splice(index, 1);
   }
 
   deleteActorFormActorsList(actor: Crew) {
-    this.actorsList.splice(actor, 1);
+    var index = this.actorsList.indexOf(actor);
+    this.actorsList.splice(index, 1);
   }
 }

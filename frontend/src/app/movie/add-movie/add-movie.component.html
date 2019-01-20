@@ -19,7 +19,7 @@
     <mat-list *ngFor="let director of directorsList " class="list-group">
       <div class="display-one-crew-container" *ngIf="directorsListVisible">
         <mat-list-item class="list-group-item list-group-item-secondary">
-          <span>{{director.name}}, {{director.surname}}</span>
+          <span>{{director.name}} {{director.surname}}</span>
         </mat-list-item>
         <!--TODO letters in buttons should change size-->
         <button class="btn btn-default btn-lg delete-button" (click)="deleteDirectorFromDirectorsList(director)">
@@ -40,7 +40,7 @@
     <mat-list *ngFor="let actor of actorsList " class="list-group">
       <div class="display-one-crew-container" *ngIf="actorsListVisible">
         <mat-list-item class="list-group-item list-group-item-secondary">
-          <span>{{actor.name}}, {{actor.surname}}</span>
+          <span>{{actor.name}} {{actor.surname}}</span>
         </mat-list-item>
         <!--TODO letters in buttons should change size-->
         <button class="btn btn-default btn-lg delete-button" (click)="deleteActorFormActorsList(actor)">Delete</button>
@@ -50,7 +50,7 @@
 
   <fieldset class="form-group">
     <div class="row">
-      <legend class="col-form-label col-sm-3 pt-0">Movie types</legend>
+      <legend class="col-form-label col-sm-3 pt-0">MovieToMakePost types</legend>
       <!-- TODO display inline/table ??-->
       <div class="col-sm-8">
         <div *ngFor="let movieType of movieTypes">

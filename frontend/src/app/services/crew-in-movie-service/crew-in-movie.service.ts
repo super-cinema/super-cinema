@@ -6,8 +6,8 @@ import {Crew} from '../../crew/model/crew';
 })
 export class CrewInMovieService {
 
-  crewList: Crew[] = [];
-  actorsList: Crew[] = [];
+  crewList = [];
+  actorsList = [];
   directorsList: Crew[] = [];
 
   constructor() {
@@ -16,6 +16,7 @@ export class CrewInMovieService {
   addCrew(crew: Crew) {
     crew.id = this.crewList.length + 1;
     this.crewList.push(crew);
+    console.log('ADD')
   }
 
   deleteCrew(id: number) {
@@ -28,20 +29,26 @@ export class CrewInMovieService {
   }
 
   passCrewList(passedCrewList) {
-    this.crewList = passedCrewList;
-    console.log('service', this.crewList);
+    this.crewList.push(passedCrewList);
+
   }
 
-  passActorsList(passedActorsList: Crew[]) {
-    console.log('lista aktorow przed passActroList');
-    this.actorsList = passedActorsList;
-    console.log('crew in movie service actors list', this.actorsList);
+  passActorsList(passedActorsList: Crew[]){
+    passedActorsList.map(actor => {
+      if(this.actorsList.filter(existingActor => existingActor.id === actor.id).length == 0) {
+        this.actorsList.push(actor);
+      }
+    })
+
   }
 
-  passedDirectorsList(passedDirectorsList: Crew[]) {
-    this.directorsList = passedDirectorsList;
-    console.log('crew in movie service directors list', this.directorsList);
-  }
+  passedDirectorsList(passedDirectorsList: Crew[]){
+    passedDirectorsList.map(director => {
+      if(this.directorsList.filter(existingDirector => existingDirector.id === director.id).length == 0){
+        this.directorsList.push(director);
+      }
+    })
+  };
 
   getAllActors() {
     return this.actorsList;

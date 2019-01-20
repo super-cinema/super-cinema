@@ -38,14 +38,13 @@ export class CrewInMovieComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.crewRole);
-    this.crewService.getCrewList().subscribe((data: string) => {
+    this.crewService.getCrewList().subscribe((data) => {
       this.crewList = data;
     });
   }
 
   onSubmit() {
-    this.crewInMovieService.passActorsList(this.actorsListToPass);
+    // this.crewInMovieService.passActorsList(this.actorsListToPass);
     if (this.crewRole.crewRole === 'ACTOR') {
       this.crewInMovieService.passActorsList(this.actorsListToPass);
     } else {
