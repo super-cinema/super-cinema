@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {MovieToMakePost} from '../../movie/model/movieToMakePost';
 import {Movie} from "../../movie/model/movie";
 
 
@@ -17,7 +16,7 @@ export class MovieService {
     return this.httpClient.get(this.baseUrl + '?movieId=' + id);
   }
 
-  save(movie: MovieToMakePost): Observable<Object> {
+  save(movie: Movie): Observable<Object> {
     return this.httpClient.post(this.baseUrl, movie);
   }
 

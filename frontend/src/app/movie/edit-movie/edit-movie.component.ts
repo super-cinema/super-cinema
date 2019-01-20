@@ -6,7 +6,6 @@ import {Movie} from '../model/movie';
 import {NgForm} from '@angular/forms';
 import {MovieService} from '../../services/service-movie/movie-service';
 import {CrewService} from '../../services/crew-service/crew-service';
-import {CrewId} from '../../crew/model/crewId';
 import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.component';
 import {MatDialog} from '@angular/material';
 import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-movie.service';
