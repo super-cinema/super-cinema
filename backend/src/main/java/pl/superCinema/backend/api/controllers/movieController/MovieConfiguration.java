@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.superCinema.backend.api.controllers.crewController.CrewBuilder;
 import pl.superCinema.backend.api.controllers.crewController.CrewFacade;
-import pl.superCinema.backend.domain.repository.CrewRepository;
 import pl.superCinema.backend.domain.repository.MovieRepository;
 
 @Configuration

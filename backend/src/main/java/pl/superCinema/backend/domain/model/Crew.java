@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,8 +19,10 @@ public class Crew {
     private String name;
     private String surname;
 
-    @ElementCollection(fetch = FetchType.EAGER, targetClass = CrewRole.class)
+
+    @ElementCollection(targetClass = CrewRole.class)
     @Enumerated(EnumType.STRING)
+    @JoinTable(name = "crew_and_roles")
     private List<CrewRole> crewRoles;
 
 
@@ -35,11 +36,11 @@ public class Crew {
     public String toString() {
         String directedMoviesString = "[]";
         if(directedMovies != null) {
-            directedMoviesString = directedMovies.stream().map(directedMovie -> directedMovie.getTitle()).collect(Collectors.joining(",", "{", "}"));
+            directedMoviesString = directedMovies.stream().map(Movie::getTitle).collect(Collectors.joining(",", "{", "}"));
         }
         String starredMoviesString = "[]";
         if(starredMovies != null) {
-            starredMoviesString = starredMovies.stream().map(starredMovie -> starredMovie.getTitle()).collect(Collectors.joining(",", "{", "}"));
+            starredMoviesString = starredMovies.stream().map(Movie::getTitle).collect(Collectors.joining(",", "{", "}"));
 
         }
         return "Crew{" +

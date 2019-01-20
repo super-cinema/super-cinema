@@ -1,14 +1,12 @@
 package pl.superCinema.backend.api.controllers.movieController;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.superCinema.backend.api.dto.MovieDto;
 import pl.superCinema.backend.domain.errors.ApiError;
 import pl.superCinema.backend.domain.exceptions.EntityCouldNotBeFoundException;
-import pl.superCinema.backend.domain.model.Movie;
 
 import java.util.List;
 

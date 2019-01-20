@@ -24,8 +24,9 @@ public class CrewController {
     }
 
     @GetMapping
-    public List<CrewDto> getAllCrew() {
-        return crewFacade.getAllCrew();
+    public ResponseEntity getAllCrew() {
+        List<CrewDto> crewDtoList = crewFacade.getAllCrew();
+        return new ResponseEntity(crewDtoList, HttpStatus.OK);
     }
 
     @PostMapping

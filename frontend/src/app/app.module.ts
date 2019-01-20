@@ -32,7 +32,7 @@ import {CrewService} from './services/crew-service/crew-service';
 import {CrewDetailComponent} from './crew/crew-detail/crew-detail.component';
 import {MovieService} from './services/service-movie/movie-service';
 import { CrewInMovieComponent } from './crew/crew-in-movie/crew-in-movie.component';
-import {FilterPipe} from './share/filter.pipe';
+import {CrewInMovieService} from './services/crew-in-movie-service/crew-in-movie.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +48,6 @@ import {FilterPipe} from './share/filter.pipe';
     AllCrewViewComponent,
     EditCrewComponent,
     TransformPipe,
-    FilterPipe,
     CrewDetailComponent,
     CrewInMovieComponent,
   ],
@@ -77,9 +76,8 @@ import {FilterPipe} from './share/filter.pipe';
     MatDialogModule,
     MatSnackBarModule,
     TransformPipe,
-    FilterPipe
   ],
-  providers: [CrewService, MovieService],
+  providers: [CrewService, MovieService,CrewInMovieService ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialogComponent, CrewInMovieComponent]
 })

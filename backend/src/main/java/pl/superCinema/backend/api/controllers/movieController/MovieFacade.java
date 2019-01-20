@@ -1,7 +1,6 @@
 package pl.superCinema.backend.api.controllers.movieController;
 
 import lombok.AllArgsConstructor;
-import pl.superCinema.backend.api.controllers.crewController.CrewBuilder;
 import pl.superCinema.backend.api.controllers.crewController.CrewFacade;
 import pl.superCinema.backend.api.dto.CrewDto;
 import pl.superCinema.backend.api.dto.MovieDto;
@@ -25,7 +24,7 @@ public class MovieFacade {
 
 
     MovieDto saveMovie(MovieDto movieDto) {
-        Movie movie = movieBuilder.basicEntityFromDto(movieDto);
+        Movie movie = movieBuilder.dtoToBasicEntity(movieDto);
         Movie movieSaved = movieRepository.save(movie);
         List<CrewDto> directorsDto = movieDto.getDirectors();
         if(directorsDto != null){
@@ -37,17 +36,17 @@ public class MovieFacade {
             crewFacade.setCrewListInMovie(castDto, movieSaved, CrewRole.ACTOR);
             movieRepository.save(movieSaved);
         }
-        return movieBuilder.dtoFromEntity(movieSaved);
+        return movieBuilder.entityToDto(movieSaved);
     }
 
     MovieDto getMovieByTitle(String title) {
         Movie movie = findMovieEntity(title);
-        return  movieBuilder.dtoFromEntity(movie);
+        return  movieBuilder.entityToDto(movie);
     }
 
     MovieDto getMovieById(Long id) {
         Movie movie = getMovieEntityById(id);
-        return movieBuilder.dtoFromEntity(movie);
+        return movieBuilder.entityToDto(movie);
     }
 
     private Movie getMovieEntityById(Long id) {
@@ -61,7 +60,7 @@ public class MovieFacade {
         Movie movie = getMovieEntityById(id);
         editMovie(movie, movieDto);
         movieRepository.save(movie);
-        return movieBuilder.dtoFromEntity(movie);
+        return movieBuilder.entityToDto(movie);
     }
 
     private void editMovie(Movie movie, MovieDto movieDto) {
@@ -105,7 +104,7 @@ public class MovieFacade {
 
     MovieDto deleteMovieByTitle(String title) {
         Movie movie = findMovieEntity(title);
-        MovieDto movieDto = movieBuilder.dtoFromEntity(movie);
+        MovieDto movieDto = movieBuilder.entityToDto(movie);
         movieRepository.delete(movie);
         return movieDto;
 
@@ -121,7 +120,7 @@ public class MovieFacade {
         List<MovieDto> allMoviesDto = new ArrayList<>();
         if(!allMovies.isEmpty()){
             for(Movie movie : allMovies) {
-                allMoviesDto.add(movieBuilder.dtoFromEntity(movie));
+                allMoviesDto.add(movieBuilder.entityToDto(movie));
             }
         }
         return allMoviesDto;

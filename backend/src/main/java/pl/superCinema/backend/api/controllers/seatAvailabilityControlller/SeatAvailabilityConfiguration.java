@@ -10,13 +10,13 @@ import pl.superCinema.backend.domain.repository.SeatAvailabilityRepository;
 public class SeatAvailabilityConfiguration {
 
     @Bean
-    SeatAvailabilityBuilder seatAvailabilityBuilder(@Lazy MovieShowBuilder movieShowBuilder){
-        return new SeatAvailabilityBuilder(movieShowBuilder);
+    SeatAvailabilityBuilder seatAvailabilityBuilder() {
+        return new SeatAvailabilityBuilder();
     }
 
     @Bean
-    SeatAvailabilityFacade seatAvailabilityFacade(@Lazy SeatAvailabilityRepository seatAvailabilityRepository,@Lazy SeatAvailabilityBuilder seatAvailabilityBuilder){
-        return new SeatAvailabilityFacade(seatAvailabilityRepository,seatAvailabilityBuilder);
+    SeatAvailabilityFacade seatAvailabilityFacade(SeatAvailabilityRepository seatAvailabilityRepository, SeatAvailabilityBuilder seatAvailabilityBuilder) {
+        return new SeatAvailabilityFacade(seatAvailabilityRepository, seatAvailabilityBuilder);
     }
 
 

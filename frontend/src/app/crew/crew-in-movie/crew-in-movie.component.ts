@@ -6,11 +6,13 @@ import {AllCrewViewComponent} from '../all-crew-view/all-crew-view.component';
 import {HttpClient} from '@angular/common/http';
 import {CrewService} from '../../services/crew-service/crew-service';
 import {Crew} from '../model/crew';
+import {MovieService} from '../../services/service-movie/movie-service';
 
 @Component({
   selector: 'app-crew-in-movie',
   templateUrl: './crew-in-movie.component.html',
   styleUrls: ['./crew-in-movie.component.scss']
+
 })
 export class CrewInMovieComponent implements OnInit {
   private crewList = [];
@@ -31,10 +33,7 @@ export class CrewInMovieComponent implements OnInit {
     if (crew.surname == null) {
       crew.surname = '';
     }
-    if (crew.surname.toUpperCase().includes(crewSearchForm.value.search.toUpperCase())) {
-      return true;
-    }
-    return false;
+    return crew.surname.toUpperCase().includes(crewSearchForm.value.search.toUpperCase());
   }
 
   ngOnInit() {
@@ -48,9 +47,9 @@ export class CrewInMovieComponent implements OnInit {
     if (this.crewRole.crewRole === 'ACTOR') {
       this.crewInMovieService.passActorsList(this.actorsListToPass);
     } else {
-      this.crewInMovieService.passedDirectorsList(this.directorsListToPass)
+      this.crewInMovieService.passedDirectorsList(this.directorsListToPass);
+      console.log(this.directorsListToPass);
     }
-
     this.dialogRef.close(true);
   }
 

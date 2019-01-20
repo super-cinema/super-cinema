@@ -27,6 +27,7 @@ export class AllMoviesViewComponent implements OnInit {
           this.moviesList = data;
         }
       );
+
   }
 
   displaySearchedMovie(movie: any, findMovieForm: HTMLFormElement) {

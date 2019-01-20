@@ -26,7 +26,7 @@ public class MovieShowBuilder {
         movieShowDto.setId(movieShow.getId());
         movieShowDto.setStartMovieShow(movieShow.getStartMovieShow());
         movieShowDto.setEndMovieShow(movieShow.getEndMovieShow());
-        movieShowDto.setMovieDto(movieBuilder.dtoFromEntity(movieShow.getMovie()));
+        movieShowDto.setMovieDto(movieBuilder.entityToDto(movieShow.getMovie()));
 
         List<CinemaHallDto> cinemaHallDtos = movieShow.getCinemaHalls()
                 .stream()
@@ -48,7 +48,7 @@ public class MovieShowBuilder {
         movieShow.setId(movieShowDto.getId());
         movieShow.setStartMovieShow(movieShowDto.getStartMovieShow());
         movieShow.setEndMovieShow(movieShowDto.getEndMovieShow());
-        movieShow.setMovie(movieBuilder.entityFromDto(movieShowDto.getMovieDto()));
+        movieShow.setMovie(movieBuilder.dtoToEntity(movieShowDto.getMovieDto()));
 
         List<CinemaHall> cinemaHalls = movieShowDto.getCinemaHallDtos()
                 .stream()

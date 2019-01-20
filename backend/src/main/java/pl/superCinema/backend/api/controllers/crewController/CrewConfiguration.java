@@ -14,7 +14,8 @@ public class CrewConfiguration {
     }
 
     @Bean
-    CrewFacade crewService(@Lazy CrewRepository crewRepository,@Lazy CrewBuilder crewBuilder){
+    CrewFacade crewFacade(CrewRepository crewRepository, CrewBuilder crewBuilder){
         return new CrewFacade(crewRepository, crewBuilder);
     }
 }
+
