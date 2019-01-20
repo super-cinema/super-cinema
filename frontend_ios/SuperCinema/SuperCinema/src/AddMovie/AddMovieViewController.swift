@@ -14,9 +14,20 @@ final class AddMovieViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        let doneMoviewItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(addMovie))
+        navigationItem.rightBarButtonItem = doneMoviewItem
+
+        let cancelMovieItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+        navigationItem.leftBarButtonItem = cancelMovieItem
     }
 
+    @objc private func addMovie() {
+    }
+
+    @objc private func cancel() {
+        dismiss(animated: true, completion: nil)
+    }
 
 }
 
