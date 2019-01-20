@@ -8,7 +8,7 @@ export class CrewInMovieService {
 
   crewList = [];
   actorsList = [];
-  directorsListInCrewInMovieService: Crew[] = [];
+  directorsList: Crew[] = [];
 
   constructor() {
   }
@@ -22,29 +22,31 @@ export class CrewInMovieService {
   deleteCrew(id: number) {
     const crew = this.crewList.findIndex(c => c.id === id);
     this.crewList.splice(crew, 1);
-    console.log('delete')
   }
 
   getAllCrew() {
-    console.log('getAllCrew');
     return this.crewList;
 
   }
 
   passCrewList(passedCrewList) {
-    console.log('passCrewList')
     this.crewList.push(passedCrewList);
 
   }
 
   passActorsList(passedActorsList: Crew[]){
-    this.actorsList.push(passedActorsList);
+    passedActorsList.map(actor => {
+      if(this.actorsList.filter(existingActor => existingActor.id === actor.id).length == 0) {
+        this.actorsList.push(actor);
+      }
+    })
+
   }
 
   passedDirectorsList(passedDirectorsList: Crew[]){
     passedDirectorsList.map(director => {
-      if(this.directorsListInCrewInMovieService.indexOf(director) === -1){
-        this.directorsListInCrewInMovieService.push(director);
+      if(this.directorsList.filter(existingDirector => existingDirector.id === director.id).length == 0){
+        this.directorsList.push(director);
       }
     })
   };
@@ -55,7 +57,7 @@ export class CrewInMovieService {
   }
 
   getAllDirectors(){
-    return this.directorsListInCrewInMovieService;
+    return this.directorsList;
 
   }
 }

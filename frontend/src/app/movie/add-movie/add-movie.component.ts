@@ -66,12 +66,14 @@ export class AddMovieComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.isPopupOpened = false;
       this.actorsList = this.crewInMovieService.getAllActors();
-      this.directorsList = this.crewInMovieService.getAllDirectors();
-      console.log('add movie component', this.actorsList, this.directorsList);
+      console.log(this.actorsList)
       let ifActorsListIsEmpty = this.actorsList.length === 0;
       this.actorsListVisible = !ifActorsListIsEmpty;
+      this.directorsList = this.crewInMovieService.getAllDirectors();
       let ifDirectosListIsEmpty = this.directorsList.length === 0;
       this.directorsListVisible = !ifDirectosListIsEmpty;
+      console.log(this.actorsListVisible)
+      console.log(this.actorsList)
     });
   }
 
@@ -138,10 +140,12 @@ export class AddMovieComponent implements OnInit {
   }
 
   deleteDirectorFromDirectorsList(director: Crew) {
-    //this.directorsList.splice(director, 1);
+    var index = this.directorsList.indexOf(director);
+    this.directorsList.splice(index, 1);
   }
 
   deleteActorFormActorsList(actor: Crew) {
-    //this.actorsList.splice(actor, 1);
+    var index = this.actorsList.indexOf(actor);
+    this.actorsList.splice(index, 1);
   }
 }
