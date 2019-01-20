@@ -46,11 +46,11 @@ public class Movie {
     public String toString() {
         String directorsToString = "[]";
         if(directors != null){
-            directorsToString =  directors.stream().map(director -> director.getName()).collect(Collectors.joining(",", "{", "}"));
+            directorsToString =  directors.stream().map(Crew::getName).collect(Collectors.joining(",", "{", "}"));
         }
         String castToString = "[]";
         if(cast != null){
-            castToString = cast.stream().map(actor -> actor.getName()).collect(Collectors.joining(",", "{", "}"));
+            castToString = cast.stream().map(Crew::getName).collect(Collectors.joining(",", "{", "}"));
         }
         return "Movie{" +
                 "id=" + id +

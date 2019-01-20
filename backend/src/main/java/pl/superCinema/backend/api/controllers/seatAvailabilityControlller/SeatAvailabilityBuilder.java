@@ -7,13 +7,12 @@ import pl.superCinema.backend.domain.model.SeatAvailability;
 
 @AllArgsConstructor
 public class SeatAvailabilityBuilder {
-    private MovieShowBuilder movieShowBuilder;
+
 
     public SeatAvailabilityDto entityToDto(SeatAvailability seatAvailability) {
         SeatAvailabilityDto seatAvailabilityDto = new SeatAvailabilityDto();
         seatAvailabilityDto.setId(seatAvailability.getId());
         seatAvailabilityDto.setSeatTaken(seatAvailability.isSeatTaken());
-        seatAvailabilityDto.setMovieShowDto(movieShowBuilder.entityToDto(seatAvailability.getMovieShow()));
 
         return seatAvailabilityDto;
     }
@@ -22,7 +21,6 @@ public class SeatAvailabilityBuilder {
         SeatAvailability seatAvailability = new SeatAvailability();
         seatAvailability.setId(seatAvailabilityDto.getId());
         seatAvailability.setSeatTaken(seatAvailabilityDto.isSeatTaken());
-        seatAvailability.setMovieShow(movieShowBuilder.dtoToEntity(seatAvailabilityDto.getMovieShowDto()));
 
         return seatAvailability;
     }

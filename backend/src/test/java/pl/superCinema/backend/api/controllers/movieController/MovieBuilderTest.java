@@ -75,7 +75,7 @@ public class MovieBuilderTest {
         movieDto.setCast(castDto);
 
         //when
-        Movie movieFromDto = movieBuilder.entityFromDto(movieDto);
+        Movie movieFromDto = movieBuilder.dtoToEntity(movieDto);
 
         //then
         Assert.assertEquals(movieDto.getId(), movieFromDto.getId());

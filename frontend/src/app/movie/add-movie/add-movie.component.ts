@@ -51,6 +51,7 @@ export class AddMovieComponent implements OnInit {
   ];
 
   ngOnInit() {
+    this.crewInMovieService.clearAllList();
   }
 
   addCrewList(crewRole: string) {

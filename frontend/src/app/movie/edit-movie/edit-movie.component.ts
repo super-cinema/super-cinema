@@ -57,6 +57,7 @@ export class EditMovieComponent implements OnInit {
       this.movie.id = params['id'];
     });
     this.getMovieData();
+    this.crewInMovieService.clearAllList();
   }
 
   wasTypeSelected(movieType: { value: string; name: string; checked: boolean }) {

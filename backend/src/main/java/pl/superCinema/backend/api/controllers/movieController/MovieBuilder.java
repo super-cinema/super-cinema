@@ -2,11 +2,10 @@ package pl.superCinema.backend.api.controllers.movieController;
 
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import pl.superCinema.backend.api.controllers.crewController.CrewBuilder;
 import pl.superCinema.backend.api.dto.CrewDto;
-import pl.superCinema.backend.api.dto.TypeDto;
 import pl.superCinema.backend.api.dto.MovieDto;
+import pl.superCinema.backend.api.dto.TypeDto;
 import pl.superCinema.backend.domain.model.Crew;
 import pl.superCinema.backend.domain.model.Movie;
 import pl.superCinema.backend.domain.model.Type;
@@ -19,7 +18,7 @@ public class MovieBuilder {
 
     private CrewBuilder crewBuilder;
 
-    public Movie entityFromDto(MovieDto movieDto){
+    public Movie dtoToEntity(MovieDto movieDto){
 
         Movie movie = new Movie();
         movie.setId(movieDto.getId());
@@ -58,7 +57,7 @@ public class MovieBuilder {
         return movie;
     }
 
-    public Movie basicEntityFromDto(MovieDto movieDto){
+    Movie dtoToBasicEntity(MovieDto movieDto){
         Movie movie = new Movie();
         movie.setId(movieDto.getId());
         movie.setTitle(movieDto.getTitle());
@@ -76,7 +75,7 @@ public class MovieBuilder {
         return movie;
     }
 
-    public MovieDto dtoFromEntity(Movie movie) {
+    public MovieDto entityToDto(Movie movie) {
 
         MovieDto movieDto = new MovieDto();
         movieDto.setId(movie.getId());

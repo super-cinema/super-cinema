@@ -1,10 +1,11 @@
 import {Injectable, OnInit} from '@angular/core';
 import {Crew} from '../../crew/model/crew';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class CrewInMovieService {
+// @Injectable({
+//   providedIn: 'root'
+// })
+@Injectable()
+export class CrewInMovieService implements OnInit {
 
   crewList = [];
   actorsList = [];
@@ -69,6 +70,9 @@ export class CrewInMovieService {
   clearAllList() {
     this.clearActorList();
     this.clearDirectorsList();
+  }
+
+  ngOnInit(): void {
   }
 
 }
