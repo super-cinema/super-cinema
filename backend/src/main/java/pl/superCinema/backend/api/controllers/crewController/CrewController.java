@@ -29,24 +29,27 @@ public class CrewController {
     }
 
     @PostMapping
-    public CrewDto addCrew(@RequestBody CrewDto crewDto) {
-     return crewFacade.addCrew(crewDto);
+    public ResponseEntity addCrew(@RequestBody CrewDto crewDto) {
+        crewFacade.addCrew(crewDto);
+        return new ResponseEntity(crewDto, HttpStatus.OK);
     }
 
     @DeleteMapping(params = "id")
     public CrewDto deleteCrew(@RequestParam Long id) {
-       return crewFacade.deleteCrew(id);
+        return crewFacade.deleteCrew(id);
     }
+
     @DeleteMapping("/delete")
-    public ResponseEntity deleteAllCrew(){
+    public ResponseEntity deleteAllCrew() {
         crewFacade.deleteAllCrew();
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PutMapping
     @RequestMapping(params = "id")
-    public CrewDto editMovie(@RequestParam Long id, @RequestBody CrewDto crewDto) {
-        return crewFacade.updateCrew(id, crewDto);
+    public ResponseEntity editMovie(@RequestParam Long id, @RequestBody CrewDto crewDto) {
+         crewFacade.updateCrew(id, crewDto);
+        return new ResponseEntity(crewDto, HttpStatus.OK);
     }
 
 }

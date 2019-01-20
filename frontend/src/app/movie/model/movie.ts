@@ -1,4 +1,4 @@
-import {Crew} from "../../crew/model/crew";
+import {Crew} from '../../crew/model/crew';
 
 export class Movie {
   id;

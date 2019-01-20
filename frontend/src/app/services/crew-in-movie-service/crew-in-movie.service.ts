@@ -16,7 +16,7 @@ export class CrewInMovieService {
   addCrew(crew: Crew) {
     crew.id = this.crewList.length + 1;
     this.crewList.push(crew);
-    console.log('ADD')
+    console.log('ADD');
   }
 
   deleteCrew(id: number) {
@@ -26,7 +26,6 @@ export class CrewInMovieService {
 
   getAllCrew() {
     return this.crewList;
-
   }
 
   passCrewList(passedCrewList) {
@@ -34,30 +33,28 @@ export class CrewInMovieService {
 
   }
 
-  passActorsList(passedActorsList: Crew[]){
+  passActorsList(passedActorsList: Crew[]) {
     passedActorsList.map(actor => {
-      if(this.actorsList.filter(existingActor => existingActor.id === actor.id).length == 0) {
+      if (this.actorsList.filter(existingActor => existingActor.id === actor.id).length == 0) {
         this.actorsList.push(actor);
       }
-    })
+    });
 
   }
 
-  passedDirectorsList(passedDirectorsList: Crew[]){
+  passedDirectorsList(passedDirectorsList: Crew[]) {
     passedDirectorsList.map(director => {
-      if(this.directorsList.filter(existingDirector => existingDirector.id === director.id).length == 0){
+      if (this.directorsList.filter(existingDirector => existingDirector.id === director.id).length == 0) {
         this.directorsList.push(director);
       }
-    })
-  };
-
-  getAllActors(){
-    return this.actorsList;
-
+    });
   }
 
-  getAllDirectors(){
-    return this.directorsList;
+  getAllActors() {
+    return this.actorsList;
+  }
 
+  getAllDirectors() {
+    return this.directorsList;
   }
 }

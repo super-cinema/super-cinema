@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
-import {NgForm} from "@angular/forms";
-import {MovieService} from "../../services/service-movie/movie-service";
-import {Crew} from "../../crew/model/crew";
-import {CrewService} from "../../services/crew-service/crew-service";
-import {CrewId} from "../../crew/model/crewId";
-import {CrewInMovieComponent} from "../../crew/crew-in-movie/crew-in-movie.component";
-import {MatDialog} from "@angular/material";
-import {CrewInMovieService} from "../../services/crew-in-movie-service/crew-in-movie.service";
-import {Movie} from "../model/movie";
+import {Movie} from '../model/movie';
+import {NgForm} from '@angular/forms';
+import {MovieService} from '../../services/service-movie/movie-service';
+import {CrewService} from '../../services/crew-service/crew-service';
+import {CrewId} from '../../crew/model/crewId';
+import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.component';
+import {MatDialog} from '@angular/material';
+import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-movie.service';
 
 @Component({
   selector: 'app-edit-movie',
@@ -42,7 +41,7 @@ export class EditMovieComponent implements OnInit {
   private directorsListToAdd;
   private directorsListToUpdateMovie;
   private directorsIdsList: CrewId[] = [];
-  private isPopupOpened: boolean = false;
+  private isPopupOpened = false;
   private directorsListVisible: boolean = true;
   private actorsListVisible: boolean = true;
 
@@ -111,8 +110,6 @@ export class EditMovieComponent implements OnInit {
           this.existingDirectorsList = this.movie.directors;
           this.existingActorsList = this.movie.cast;
         });
-
-
   }
 
   private formDataValidation(form: NgForm){
