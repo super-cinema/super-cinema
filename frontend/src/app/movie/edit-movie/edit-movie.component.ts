@@ -148,6 +148,7 @@ export class EditMovieComponent implements OnInit {
           this.existingDirectorsList.push(directorToAdd);
         }
       })
+      this.movie.directors = this.existingDirectorsList;
     }
     if (crewRole == 'ACTOR') {
       this.actorsListToAdd = this.crewInMovieService.getAllActors();
@@ -157,6 +158,7 @@ export class EditMovieComponent implements OnInit {
           this.existingActorsList.push(actorToAdd);
         }
       })
+      this.movie.cast = this.existingActorsList;
     }
   }
 
