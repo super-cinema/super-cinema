@@ -12,6 +12,8 @@ final class AddMovieViewController: UIViewController {
     @IBOutlet weak private var yearTextField: UITextField!
     @IBOutlet weak private var countryTextField: UITextField!
 
+    private var task: URLSessionTask?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,6 +25,32 @@ final class AddMovieViewController: UIViewController {
     }
 
     @objc private func addMovie() {
+        guard let title = titleTextField.text, let duration = durationTextField.text else { return }
+        let movie = Movie(title: title,
+                          duration: Int(duration)!,
+                          productionCountry: countryTextField.text,
+                          productionYear: yearTextField.text,
+                          directors: [],
+                          types: [])
+
+        let url = URL(string: "http://localhost:8080/movie")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+
+        let encoder = JSONEncoder()
+        if let body = try? encoder.encode(movie) {
+            request.httpBody = body
+        }
+
+        task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            self?.dismiss(animated: true, completion: nil)
+        }
+        task?.resume()
     }
 
     @objc private func cancel() {

@@ -79,7 +79,7 @@ extension MoviesListViewController: UITableViewDataSource {
 }
 
 struct Movie: Codable {
-    let id: Int
+    let id: Int?
     let title: String
     let duration: Int
     let productionCountry: String?
@@ -88,6 +88,26 @@ struct Movie: Codable {
     let cast: [Crew]?
     let movieShow: String?
     let types: [String]
+
+    init(id: Int? = nil,
+         title: String,
+         duration: Int,
+         productionCountry: String? = nil,
+         productionYear: String? = nil,
+         directors: [Crew],
+         cast: [Crew]? = nil,
+         movieShow: String? = nil,
+         types: [String]) {
+        self.id = id
+        self.title = title
+        self.duration = duration
+        self.productionCountry = productionCountry
+        self.productionYear = productionYear
+        self.directors = directors
+        self.cast = cast
+        self.movieShow = movieShow
+        self.types = types
+    }
 }
 
 struct Crew: Codable {
