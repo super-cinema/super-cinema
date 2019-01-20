@@ -9,8 +9,8 @@ import {MatDialog} from '@angular/material';
 import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-movie.service';
 import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.component';
 import {CrewId} from '../../crew/model/crewId';
-import {Movie} from '../model/movie';
 import {MovieService} from '../../services/service-movie/movie-service';
+import {MovieToMakePost} from '../model/movieToMakePost';
 
 @Component({
   selector: 'app-add-movie',
@@ -31,10 +31,10 @@ export class AddMovieComponent implements OnInit {
 
   private actorsList: Crew[] = [];
   private actorsIdsList: CrewId[] = [];
-  private actorsListVisible: boolean = false;
+  private actorsListVisible = false;
   private directorsList: Crew[] = [];
   private directorsIdsList: CrewId[] = [];
-  private directorsListVisible: boolean = false;
+  private directorsListVisible = false;
   private isPopupOpened = false;
   private movie: MovieToMakePost = new MovieToMakePost();
 
@@ -66,14 +66,14 @@ export class AddMovieComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.isPopupOpened = false;
       this.actorsList = this.crewInMovieService.getAllActors();
-      console.log(this.actorsList)
-      let ifActorsListIsEmpty = this.actorsList.length === 0;
+      console.log(this.actorsList);
+      const ifActorsListIsEmpty = this.actorsList.length === 0;
       this.actorsListVisible = !ifActorsListIsEmpty;
       this.directorsList = this.crewInMovieService.getAllDirectors();
-      let ifDirectosListIsEmpty = this.directorsList.length === 0;
+      const ifDirectosListIsEmpty = this.directorsList.length === 0;
       this.directorsListVisible = !ifDirectosListIsEmpty;
-      console.log(this.actorsListVisible)
-      console.log(this.actorsList)
+      console.log(this.actorsListVisible);
+      console.log(this.actorsList);
     });
   }
 
@@ -140,12 +140,12 @@ export class AddMovieComponent implements OnInit {
   }
 
   deleteDirectorFromDirectorsList(director: Crew) {
-    var index = this.directorsList.indexOf(director);
+    const index = this.directorsList.indexOf(director);
     this.directorsList.splice(index, 1);
   }
 
   deleteActorFormActorsList(actor: Crew) {
-    var index = this.actorsList.indexOf(actor);
+    const index = this.actorsList.indexOf(actor);
     this.actorsList.splice(index, 1);
   }
 }

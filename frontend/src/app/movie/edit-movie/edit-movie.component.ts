@@ -1,19 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
 import {Movie} from '../model/movie';
 import {NgForm} from '@angular/forms';
 import {MovieService} from '../../services/service-movie/movie-service';
-import {NgForm} from "@angular/forms";
-import {MovieService} from "../../services/service-movie/movie-service";
-import {Crew} from "../../crew/model/crew";
-import {CrewService} from "../../services/crew-service/crew-service";
-import {CrewId} from "../../crew/model/crewId";
-import {CrewInMovieComponent} from "../../crew/crew-in-movie/crew-in-movie.component";
-import {MatDialog} from "@angular/material";
-import {CrewInMovieService} from "../../services/crew-in-movie-service/crew-in-movie.service";
-import {Movie} from "../model/movie";
+import {CrewService} from '../../services/crew-service/crew-service';
+import {CrewId} from '../../crew/model/crewId';
+import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.component';
+import {MatDialog} from '@angular/material';
+import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-movie.service';
 
 @Component({
   selector: 'app-edit-movie',
@@ -22,7 +18,7 @@ import {Movie} from "../model/movie";
 })
 export class EditMovieComponent implements OnInit {
 
-  //TODO data form database
+  // TODO data form database
   movieTypesArray = [
     {value: 'COMEDY', name: 'comedy', checked: false},
     {value: 'HORROR', name: 'horror', checked: false},
@@ -45,7 +41,7 @@ export class EditMovieComponent implements OnInit {
   private directorsListToAdd;
   private directorsListToUpdateMovie;
   private directorsIdsList: CrewId[] = [];
-  private isPopupOpened: boolean = false;
+  private isPopupOpened = false;
 
   constructor(private httpClient: HttpClient,
               private crewService: CrewService,
@@ -114,7 +110,7 @@ export class EditMovieComponent implements OnInit {
         });
   }
 
-  private formDataValidation(form: NgForm){
+  private formDataValidation(form: NgForm) {
     if (this.movie.title === '' || this.movie.title == null) {
       this.notification.warn('Please give title.');
       return;
@@ -140,13 +136,13 @@ export class EditMovieComponent implements OnInit {
       .subscribe(data => {
         this.isPopupOpened = false;
         this.directorsListToAdd = this.crewInMovieService.getAllDirectors();
-        let existingDirectorsIdsList = this.existingDirectorsList.map(directors => directors.id);
+        const existingDirectorsIdsList = this.existingDirectorsList.map(directors => directors.id);
         this.directorsListToAdd.map(directorToAdd => {
-          if(existingDirectorsIdsList.includes(directorToAdd.id) === false){
+          if (existingDirectorsIdsList.includes(directorToAdd.id) === false) {
             this.existingDirectorsList.push(directorToAdd);
           }
-        })
-      })
+        });
+      });
   }
 }
 

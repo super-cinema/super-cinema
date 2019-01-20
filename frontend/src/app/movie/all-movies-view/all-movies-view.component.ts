@@ -40,8 +40,8 @@ export class AllMoviesViewComponent implements OnInit {
   }
 
   deleteMovie(id, title) {
-    console.log(id)
-    let msg: string = "Do you want delete " + title + " movie?";
+    console.log(id);
+    const msg: string = 'Do you want delete ' + title + ' movie?';
     this.dialogService.openConfirmDialog(msg)
       .afterClosed()
       .subscribe(resp => {
@@ -51,14 +51,14 @@ export class AllMoviesViewComponent implements OnInit {
                 this.ngOnInit();
                 this.notificationService.success('Deleted ' + title + ' movie successfully');
               }), (error => {
-              this.notificationService.warn('Deleting ' + title + ' movie failed')
+              this.notificationService.warn('Deleting ' + title + ' movie failed');
               console.log(error.message);
-            })
+            });
 
 
           }
         }
-      )
+      );
   }
 
 

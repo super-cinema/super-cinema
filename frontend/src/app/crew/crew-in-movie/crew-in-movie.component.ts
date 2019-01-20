@@ -15,7 +15,7 @@ import {Crew} from '../model/crew';
 export class CrewInMovieComponent implements OnInit {
   private crewList = [];
   private actorsListToPass: Crew[] = [];
-  private readonly crewRole: string;
+  private readonly crewRole;
   private directorsListToPass: Crew[] = [];
 
   constructor(private formBuilder: FormBuilder,
