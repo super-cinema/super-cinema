@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		B7D7764421F4887800C2F709 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D7764321F4887800C2F709 /* AppDelegate.swift */; };
-		B7D7764621F4887800C2F709 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D7764521F4887800C2F709 /* FirstViewController.swift */; };
+		B7D7764621F4887800C2F709 /* MoviesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D7764521F4887800C2F709 /* MoviesListViewController.swift */; };
 		B7D7764821F4887800C2F709 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D7764721F4887800C2F709 /* SecondViewController.swift */; };
 		B7D7764B21F4887800C2F709 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7D7764921F4887800C2F709 /* Main.storyboard */; };
 		B7D7764D21F4887D00C2F709 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7D7764C21F4887D00C2F709 /* Assets.xcassets */; };
 		B7D7765021F4887D00C2F709 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7D7764E21F4887D00C2F709 /* LaunchScreen.storyboard */; };
 		B7D7765B21F4887E00C2F709 /* SuperCinemaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D7765A21F4887E00C2F709 /* SuperCinemaTests.swift */; };
 		B7D7766621F4887E00C2F709 /* SuperCinemaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D7766521F4887E00C2F709 /* SuperCinemaUITests.swift */; };
+		B7D7767721F492A400C2F709 /* MoviesList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7D7767621F492A400C2F709 /* MoviesList.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +38,7 @@
 /* Begin PBXFileReference section */
 		B7D7764021F4887800C2F709 /* SuperCinema.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperCinema.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7D7764321F4887800C2F709 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B7D7764521F4887800C2F709 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		B7D7764521F4887800C2F709 /* MoviesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListViewController.swift; sourceTree = "<group>"; };
 		B7D7764721F4887800C2F709 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		B7D7764A21F4887800C2F709 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B7D7764C21F4887D00C2F709 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +50,7 @@
 		B7D7766121F4887E00C2F709 /* SuperCinemaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SuperCinemaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7D7766521F4887E00C2F709 /* SuperCinemaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperCinemaUITests.swift; sourceTree = "<group>"; };
 		B7D7766721F4887E00C2F709 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B7D7767621F492A400C2F709 /* MoviesList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MoviesList.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,8 +128,8 @@
 		B7D7767321F48F4100C2F709 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				B7D7767821F492C300C2F709 /* MoviesList */,
 				B7D7764321F4887800C2F709 /* AppDelegate.swift */,
-				B7D7764521F4887800C2F709 /* FirstViewController.swift */,
 				B7D7764721F4887800C2F709 /* SecondViewController.swift */,
 			);
 			path = src;
@@ -150,6 +152,15 @@
 				B7D7764E21F4887D00C2F709 /* LaunchScreen.storyboard */,
 			);
 			path = storyboards;
+			sourceTree = "<group>";
+		};
+		B7D7767821F492C300C2F709 /* MoviesList */ = {
+			isa = PBXGroup;
+			children = (
+				B7D7764521F4887800C2F709 /* MoviesListViewController.swift */,
+				B7D7767621F492A400C2F709 /* MoviesList.storyboard */,
+			);
+			path = MoviesList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +270,7 @@
 				B7D7765021F4887D00C2F709 /* LaunchScreen.storyboard in Resources */,
 				B7D7764D21F4887D00C2F709 /* Assets.xcassets in Resources */,
 				B7D7764B21F4887800C2F709 /* Main.storyboard in Resources */,
+				B7D7767721F492A400C2F709 /* MoviesList.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +297,7 @@
 			files = (
 				B7D7764821F4887800C2F709 /* SecondViewController.swift in Sources */,
 				B7D7764421F4887800C2F709 /* AppDelegate.swift in Sources */,
-				B7D7764621F4887800C2F709 /* FirstViewController.swift in Sources */,
+				B7D7764621F4887800C2F709 /* MoviesListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,7 +474,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XKUS3R4AXT;
-				INFOPLIST_FILE = SuperCinema/Info.plist;
+				INFOPLIST_FILE = SuperCinema/resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -480,7 +492,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XKUS3R4AXT;
-				INFOPLIST_FILE = SuperCinema/Info.plist;
+				INFOPLIST_FILE = SuperCinema/resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
