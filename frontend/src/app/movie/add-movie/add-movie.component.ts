@@ -11,6 +11,7 @@ import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.compo
 import {CrewId} from '../../crew/model/crewId';
 import {MovieService} from '../../services/service-movie/movie-service';
 import {MovieToMakePost} from '../model/movieToMakePost';
+import {Movie} from '../model/movie';
 
 @Component({
   selector: 'app-add-movie',
@@ -30,13 +31,14 @@ export class AddMovieComponent implements OnInit {
   }
 
   private actorsList: Crew[] = [];
-  private actorsIdsList: CrewId[] = [];
+  // private actorsIdsList: CrewId[] = [];
   private actorsListVisible = false;
   private directorsList: Crew[] = [];
-  private directorsIdsList: CrewId[] = [];
+  // private directorsIdsList: CrewId[] = [];
   private directorsListVisible = false;
   private isPopupOpened = false;
-  private movie: MovieToMakePost = new MovieToMakePost();
+  // private movie: MovieToMakePost = new MovieToMakePost();
+  private movie: Movie = new Movie();
 
 // TODO data from database, service and model to do
   movieTypes = [
@@ -70,8 +72,8 @@ export class AddMovieComponent implements OnInit {
       const ifActorsListIsEmpty = this.actorsList.length === 0;
       this.actorsListVisible = !ifActorsListIsEmpty;
       this.directorsList = this.crewInMovieService.getAllDirectors();
-      const ifDirectosListIsEmpty = this.directorsList.length === 0;
-      this.directorsListVisible = !ifDirectosListIsEmpty;
+      const ifDirectorsListIsEmpty = this.directorsList.length === 0;
+      this.directorsListVisible = !ifDirectorsListIsEmpty;
       console.log(this.actorsListVisible);
       console.log(this.actorsList);
     });
@@ -82,13 +84,13 @@ export class AddMovieComponent implements OnInit {
 
   }
 
-  mapCrewListIntoCrewIdsList () {
-    this.actorsIdsList = this.actorsList.map(actor => new CrewId(actor.id));
-    this.directorsIdsList = this.directorsList.map(director => new CrewId(director.id));
-  }
+  // mapCrewListIntoCrewIdsList () {
+  //   this.actorsIdsList = this.actorsList.map(actor => new CrewId(actor.id));
+  //   this.directorsIdsList = this.directorsList.map(director => new CrewId(director.id));
+  // }
 
   addMovie(addMovieForm: NgForm) {
-    this.mapCrewListIntoCrewIdsList();
+    // this.mapCrewListIntoCrewIdsList();
     const checkedMovieTypes = this.movieTypes.filter(type => type.checked === true).map(type => type.value);
     if (this.isDataSufficient(addMovieForm)) {
       this.makeMovieObject(addMovieForm, checkedMovieTypes);
@@ -97,8 +99,8 @@ export class AddMovieComponent implements OnInit {
           (data: any) => {
             this.notification.success('Added ' + addMovieForm.value.title + ' movie successfully ');
             addMovieForm.reset();
-          }, (error1) => {
-            this.notification.warn(error1);
+          }, (error) => {
+            this.notification.warn(error);
           }
         );
     }
@@ -109,9 +111,11 @@ export class AddMovieComponent implements OnInit {
     this.movie.duration = addMovieForm.value.duration;
     this.movie.productionCountry = addMovieForm.value.productionCountry;
     this.movie.productionYear = addMovieForm.value.productionYear;
-    this.movie.directors = this.directorsIdsList;
+    // this.movie.directors = this.directorsIdsList;
+    this.movie.directors = this.directorsList;
     this.movie.types = checkedMovieTypes;
-    this.movie.cast = this.actorsIdsList;
+    // this.movie.cast = this.actorsIdsList;
+    this.movie.cast = this.actorsList;
     this.movie.movieShow = null;
   }
 
