@@ -3,6 +3,4 @@ export class Crew {
   name?: string;
   surname?: string;
   crewRoles?: string[] = [];
-
-
 }
