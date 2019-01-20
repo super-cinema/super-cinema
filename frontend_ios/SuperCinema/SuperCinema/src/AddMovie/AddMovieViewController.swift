@@ -26,10 +26,11 @@ final class AddMovieViewController: UIViewController {
 
     @objc private func addMovie() {
         guard let title = titleTextField.text, let duration = durationTextField.text else { return }
+        let year = yearTextField.text != nil ? Int(yearTextField.text!) : nil
         let movie = Movie(title: title,
                           duration: Int(duration)!,
                           productionCountry: countryTextField.text,
-                          productionYear: yearTextField.text,
+                          productionYear: year,
                           directors: [],
                           types: [])
 
