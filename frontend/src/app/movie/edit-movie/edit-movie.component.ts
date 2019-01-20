@@ -43,6 +43,8 @@ export class EditMovieComponent implements OnInit {
   private directorsListToUpdateMovie;
   private directorsIdsList: CrewId[] = [];
   private isPopupOpened: boolean = false;
+  private directorsListVisible: boolean = true;
+  private actorsListVisible: boolean = false;
 
   constructor(private httpClient: HttpClient,
               private crewService: CrewService,
@@ -146,6 +148,10 @@ export class EditMovieComponent implements OnInit {
           }
         })
       })
+  }
+
+  showOrHideDirectorsInEditMovie() {
+    this.directorsListVisible = !this.directorsListVisible;
   }
 }
 
