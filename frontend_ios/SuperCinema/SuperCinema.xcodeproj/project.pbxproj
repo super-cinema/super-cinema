@@ -18,6 +18,7 @@
 		B7D7767721F492A400C2F709 /* MoviesList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7D7767621F492A400C2F709 /* MoviesList.storyboard */; };
 		B7D7767B21F49B9D00C2F709 /* AddMovie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7D7767A21F49B9D00C2F709 /* AddMovie.storyboard */; };
 		B7D7767D21F4B6F400C2F709 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D7767C21F4B6F400C2F709 /* Models.swift */; };
+		B7D7767F21F4B81200C2F709 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D7767E21F4B81200C2F709 /* Api.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		B7D7767621F492A400C2F709 /* MoviesList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MoviesList.storyboard; sourceTree = "<group>"; };
 		B7D7767A21F49B9D00C2F709 /* AddMovie.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddMovie.storyboard; sourceTree = "<group>"; };
 		B7D7767C21F4B6F400C2F709 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		B7D7767E21F4B81200C2F709 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				B7D7767921F49B4D00C2F709 /* AddMovie */,
 				B7D7764321F4887800C2F709 /* AppDelegate.swift */,
 				B7D7767C21F4B6F400C2F709 /* Models.swift */,
+				B7D7767E21F4B81200C2F709 /* Api.swift */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				B7D7764821F4887800C2F709 /* AddMovieViewController.swift in Sources */,
 				B7D7764421F4887800C2F709 /* AppDelegate.swift in Sources */,
 				B7D7764621F4887800C2F709 /* MoviesListViewController.swift in Sources */,
+				B7D7767F21F4B81200C2F709 /* Api.swift in Sources */,
 				B7D7767D21F4B6F400C2F709 /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -35,25 +35,22 @@ final class MoviesListViewController: UIViewController {
     }
 
     private func loadMovies() {
-        let url = URL(string: "http://localhost:8080/movie")!
-        task = URLSession.shared.dataTask(with: url,
-                                          completionHandler: { [weak self] (data, response, error) in
-                                            self?.handleMoviesResponse(data: data, response: response, error: error)
-        })
-        task?.resume()
+        Api().getMovies { [weak self] result in
+            self?.handleResult(result)
+        }
     }
 
-    private func handleMoviesResponse(data: Data?, response: URLResponse?, error: Error?) {
-        if let data = data {
+    private func handleResult(_ result: Result<Any>) {
+        switch result {
+        case .error(let error):
+            print(error)
+        case .succes(let data):
             let decoder = JSONDecoder()
             do {
-                movies = try decoder.decode([Movie].self, from: data)
+                movies = try decoder.decode([Movie].self, from: data as! Data)
             } catch {
                 print(error)
             }
-        }
-        if let error = error {
-            print(error)
         }
     }
 
