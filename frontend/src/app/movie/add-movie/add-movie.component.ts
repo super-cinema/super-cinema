@@ -81,7 +81,6 @@ export class AddMovieComponent implements OnInit {
 
   checkMovieType(movieType, event) {
     movieType.checked = !movieType.checked;
-
   }
 
   // mapCrewListIntoCrewIdsList () {
@@ -104,6 +103,9 @@ export class AddMovieComponent implements OnInit {
           }
         );
     }
+    this.crewInMovieService.clearAllList();
+    this.clearActorsList();
+    this.clearDirectorsList();
   }
 
   private makeMovieObject(addMovieForm: NgForm, checkedMovieTypes) {
@@ -151,5 +153,13 @@ export class AddMovieComponent implements OnInit {
   deleteActorFormActorsList(actor: Crew) {
     const index = this.actorsList.indexOf(actor);
     this.actorsList.splice(index, 1);
+  }
+
+  clearActorsList() {
+    this.actorsList = [];
+  }
+
+  clearDirectorsList() {
+    this.directorsList = [];
   }
 }

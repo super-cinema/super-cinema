@@ -44,7 +44,7 @@ export class CrewInMovieService {
 
   passedDirectorsList(passedDirectorsList: Crew[]) {
     passedDirectorsList.map(director => {
-      if (this.directorsList.filter(existingDirector => existingDirector.id === director.id).length == 0) {
+      if (this.directorsList.filter(existingDirector => existingDirector.id === director.id).length === 0) {
         this.directorsList.push(director);
       }
     });
@@ -57,4 +57,18 @@ export class CrewInMovieService {
   getAllDirectors() {
     return this.directorsList;
   }
+
+  clearActorList() {
+    this.actorsList = [];
+  }
+
+  clearDirectorsList() {
+    this.directorsList = [];
+  }
+
+  clearAllList() {
+    this.clearActorList();
+    this.clearDirectorsList();
+  }
+
 }
