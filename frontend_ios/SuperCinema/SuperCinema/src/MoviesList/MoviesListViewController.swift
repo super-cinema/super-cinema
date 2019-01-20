@@ -22,6 +22,10 @@ final class MoviesListViewController: UIViewController {
         super.viewDidLoad()
 
         tableView.dataSource = self
+
+        let addMoviewItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentAddMovie))
+        navigationItem.rightBarButtonItem = addMoviewItem
+
         title = "MoviesList"
     }
 
@@ -52,6 +56,12 @@ final class MoviesListViewController: UIViewController {
             print(error)
         }
     }
+
+    @objc private func presentAddMovie() {
+        let storyboard = UIStoryboard(name: "AddMovie", bundle: Bundle.main)
+        guard let viewController = storyboard.instantiateInitialViewController() else { return }
+        present(viewController, animated: true, completion: nil)
+    }
 }
 
 extension MoviesListViewController: UITableViewDataSource {
@@ -66,8 +76,6 @@ extension MoviesListViewController: UITableViewDataSource {
         cell.textLabel?.text = movie.title
         return cell
     }
-    
-
 }
 
 struct Movie: Codable {
