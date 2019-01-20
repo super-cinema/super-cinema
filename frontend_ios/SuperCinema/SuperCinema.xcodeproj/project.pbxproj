@@ -99,13 +99,8 @@
 		B7D7764221F4887800C2F709 /* SuperCinema */ = {
 			isa = PBXGroup;
 			children = (
-				B7D7764321F4887800C2F709 /* AppDelegate.swift */,
-				B7D7764521F4887800C2F709 /* FirstViewController.swift */,
-				B7D7764721F4887800C2F709 /* SecondViewController.swift */,
-				B7D7764921F4887800C2F709 /* Main.storyboard */,
-				B7D7764C21F4887D00C2F709 /* Assets.xcassets */,
-				B7D7764E21F4887D00C2F709 /* LaunchScreen.storyboard */,
-				B7D7765121F4887D00C2F709 /* Info.plist */,
+				B7D7767321F48F4100C2F709 /* src */,
+				B7D7767421F48F4E00C2F709 /* resources */,
 			);
 			path = SuperCinema;
 			sourceTree = "<group>";
@@ -126,6 +121,35 @@
 				B7D7766721F4887E00C2F709 /* Info.plist */,
 			);
 			path = SuperCinemaUITests;
+			sourceTree = "<group>";
+		};
+		B7D7767321F48F4100C2F709 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B7D7764321F4887800C2F709 /* AppDelegate.swift */,
+				B7D7764521F4887800C2F709 /* FirstViewController.swift */,
+				B7D7764721F4887800C2F709 /* SecondViewController.swift */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B7D7767421F48F4E00C2F709 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				B7D7767521F48F7000C2F709 /* storyboards */,
+				B7D7764C21F4887D00C2F709 /* Assets.xcassets */,
+				B7D7765121F4887D00C2F709 /* Info.plist */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		B7D7767521F48F7000C2F709 /* storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				B7D7764921F4887800C2F709 /* Main.storyboard */,
+				B7D7764E21F4887D00C2F709 /* LaunchScreen.storyboard */,
+			);
+			path = storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
