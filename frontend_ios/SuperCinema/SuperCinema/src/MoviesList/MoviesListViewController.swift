@@ -1,7 +1,4 @@
 //
-//  FirstViewController.swift
-//  SuperCinema
-//
 //  Created by Krzysztof Pawski on 20/01/2019.
 //  Copyright © 2019 SuperCinemaSpZoo. All rights reserved.
 //
@@ -10,12 +7,21 @@ import UIKit
 
 final class MoviesListViewController: UIViewController {
 
+    @IBOutlet weak private var tableView: UITableView!
+
     private var task: URLSessionTask?
-    private var movies: [Movie] = []
+    private var movies: [Movie] = [] {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.reloadData()
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.dataSource = self
         title = "MoviesList"
     }
 
@@ -49,6 +55,18 @@ final class MoviesListViewController: UIViewController {
 }
 
 extension MoviesListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return movies.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MoviesListCellIdentifier",
+                                                 for: indexPath)
+        let movie = movies[indexPath.row]
+        cell.textLabel?.text = movie.title
+        return cell
+    }
+    
 
 }
 
