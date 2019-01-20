@@ -10,6 +10,7 @@ import {CrewId} from '../../crew/model/crewId';
 import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.component';
 import {MatDialog} from '@angular/material';
 import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-movie.service';
+import {Crew} from "../../crew/model/crew";
 
 @Component({
   selector: 'app-edit-movie',
@@ -36,11 +37,8 @@ export class EditMovieComponent implements OnInit {
   private movie: Movie;
   private existingActorsList;
   private actorsListToAdd;
-  private actorsIdsList;
   private existingDirectorsList;
   private directorsListToAdd;
-  private directorsListToUpdateMovie;
-  private directorsIdsList: CrewId[] = [];
   private isPopupOpened = false;
   private directorsListVisible: boolean = true;
   private actorsListVisible: boolean = true;
@@ -167,7 +165,17 @@ export class EditMovieComponent implements OnInit {
   }
 
   showOrHideActorsInEditMovie() {
+    this.actorsListVisible = !this.actorsListVisible;
+  }
 
+  deleteCrewFromEditMovieCopmonent(crew: Crew, crewRole: string) {
+    if(crewRole === 'ACTOR'){
+      var index = this.existingActorsList.indexOf(crew);
+      this.existingActorsList.splice(index, 1);
+      return;
+    }
+    var index = this.existingDirectorsList.indexOf(crew);
+    this.existingDirectorsList.splice(index, 1);
   }
 }
 

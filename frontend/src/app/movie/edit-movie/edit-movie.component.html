@@ -22,7 +22,7 @@
           <span>{{director.name}} {{director.surname}}</span>
         </mat-list-item>
         <!--TODO letters in buttons should change size-->
-        <button class="btn btn-default btn-lg delete-button" (click)="deleteDirectorFromDirectorsList(director)">Delete</button>
+        <button class="btn btn-default btn-lg delete-button" (click)="deleteCrewFromEditMovieCopmonent(director, 'DIRECTOR')">Delete</button>
       </div>
     </mat-list>
   </div>
@@ -41,7 +41,7 @@
           <span>{{actor.name}} {{actor.surname}}</span>
         </mat-list-item>
         <!--TODO letters in buttons should change size-->
-        <button class="btn btn-default btn-lg delete-button" (click)="deleteActorFormActorsList(actor)">Delete</button>
+        <button class="btn btn-default btn-lg delete-button" (click)="deleteCrewFromEditMovieCopmonent(actor, 'ACTOR')">Delete</button>
       </div>
     </mat-list>
   </div>
