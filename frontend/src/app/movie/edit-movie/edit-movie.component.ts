@@ -35,7 +35,7 @@ export class EditMovieComponent implements OnInit {
   ];
 
   private movie: Movie;
-  private actorsList;
+  private existingActorsList;
   private actorsListToAdd;
   private actorsIdsList;
   private existingDirectorsList;
@@ -44,7 +44,7 @@ export class EditMovieComponent implements OnInit {
   private directorsIdsList: CrewId[] = [];
   private isPopupOpened: boolean = false;
   private directorsListVisible: boolean = true;
-  private actorsListVisible: boolean = false;
+  private actorsListVisible: boolean = true;
 
   constructor(private httpClient: HttpClient,
               private crewService: CrewService,
@@ -109,7 +109,7 @@ export class EditMovieComponent implements OnInit {
           this.movie.movieShow = data.movieShow;
           this.movie.types = data.types;
           this.existingDirectorsList = this.movie.directors;
-          this.actorsList = this.movie.cast;
+          this.existingActorsList = this.movie.cast;
         });
 
 
@@ -140,18 +140,37 @@ export class EditMovieComponent implements OnInit {
     dialogRef.afterClosed()
       .subscribe(data => {
         this.isPopupOpened = false;
-        this.directorsListToAdd = this.crewInMovieService.getAllDirectors();
-        let existingDirectorsIdsList = this.existingDirectorsList.map(directors => directors.id);
-        this.directorsListToAdd.map(directorToAdd => {
-          if(existingDirectorsIdsList.includes(directorToAdd.id) === false){
-            this.existingDirectorsList.push(directorToAdd);
-          }
-        })
+        this.addCrewListToAddIntoExistingCrewList(crewRole);
       })
+  }
+
+  private addCrewListToAddIntoExistingCrewList(crewRole: string) {
+    if (crewRole == 'DIRECTOR') {
+      this.directorsListToAdd = this.crewInMovieService.getAllDirectors();
+      let existingDirectorsIdsList = this.existingDirectorsList.map(directors => directors.id);
+      this.directorsListToAdd.map(directorToAdd => {
+        if (existingDirectorsIdsList.includes(directorToAdd.id) === false) {
+          this.existingDirectorsList.push(directorToAdd);
+        }
+      })
+    }
+    if (crewRole == 'ACTOR') {
+      this.actorsListToAdd = this.crewInMovieService.getAllActors();
+      let existingActorsIdsList = this.existingActorsList.map(actor => actor.id);
+      this.actorsListToAdd.map(actorToAdd => {
+        if (existingActorsIdsList.includes(actorToAdd.id) === false) {
+          this.existingActorsList.push(actorToAdd);
+        }
+      })
+    }
   }
 
   showOrHideDirectorsInEditMovie() {
     this.directorsListVisible = !this.directorsListVisible;
+  }
+
+  showOrHideActorsInEditMovie() {
+
   }
 }
 
