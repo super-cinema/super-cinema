@@ -5,22 +5,13 @@
 
 import Foundation
 
-// MARK: - Result
-
-enum Result<T> {
-    case succes(T)
-    case error(Error)
-}
-
-typealias ResultBlock = (Result<Any>) -> Void
-
 // MARK: - Api
 
 struct Api {
     var getMovies = getMovies(completion:)
 }
 
-// MARK: - Private
+// MARK: - Movies
 
 private func getMovies(completion: @escaping ResultBlock) {
     URLSession
@@ -29,15 +20,19 @@ private func getMovies(completion: @escaping ResultBlock) {
         .resume()
 }
 
+// Helpers
+
 fileprivate func urlRequest() -> URLRequest {
     let url = URL(string: "http://localhost:8080/movie")!
     return URLRequest(url: url)
 }
 
-fileprivate func handler(with c: @escaping ResultBlock)
-    -> (_ data: Data?, _ response: URLResponse?, _ error: Error?) -> Void {
-        return { (d, r, e) in
-            responseHandler(data: d, response: r, error: e, completion: c)
+fileprivate func handler(with completion: @escaping ResultBlock) -> (Data?, URLResponse?, Error?) -> Void {
+        return { (data, response, error) in
+            responseHandler(data: data,
+                            response: response,
+                            error: error,
+                            completion: completion)
         }
 }
 
@@ -46,7 +41,7 @@ fileprivate func responseHandler(data: Data?,
                                  error: Error?,
                                  completion: ResultBlock) {
     if let error = error  {
-        defer { completion(.error(error)) }
+        completion(.error(error))
         return
     }
 

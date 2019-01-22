@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B724B16021F79C690038D617 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B724B15F21F79C690038D617 /* Environment.swift */; };
+		B724B16421F79CF80038D617 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = B724B16321F79CF80038D617 /* Result.swift */; };
 		B7D7764421F4887800C2F709 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D7764321F4887800C2F709 /* AppDelegate.swift */; };
 		B7D7764621F4887800C2F709 /* MoviesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D7764521F4887800C2F709 /* MoviesListViewController.swift */; };
 		B7D7764821F4887800C2F709 /* AddMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D7764721F4887800C2F709 /* AddMovieViewController.swift */; };
@@ -39,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B724B15F21F79C690038D617 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		B724B16321F79CF80038D617 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		B7D7764021F4887800C2F709 /* SuperCinema.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperCinema.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7D7764321F4887800C2F709 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7D7764521F4887800C2F709 /* MoviesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +88,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B724B16121F79CC30038D617 /* Environment */ = {
+			isa = PBXGroup;
+			children = (
+				B724B16221F79CDA0038D617 /* Networking */,
+				B724B15F21F79C690038D617 /* Environment.swift */,
+			);
+			path = Environment;
+			sourceTree = "<group>";
+		};
+		B724B16221F79CDA0038D617 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				B7D7767C21F4B6F400C2F709 /* Models.swift */,
+				B7D7767E21F4B81200C2F709 /* Api.swift */,
+				B724B16321F79CF80038D617 /* Result.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		B7D7763721F4887800C2F709 = {
 			isa = PBXGroup;
 			children = (
@@ -137,8 +160,7 @@
 				B7D7767821F492C300C2F709 /* MoviesList */,
 				B7D7767921F49B4D00C2F709 /* AddMovie */,
 				B7D7764321F4887800C2F709 /* AppDelegate.swift */,
-				B7D7767C21F4B6F400C2F709 /* Models.swift */,
-				B7D7767E21F4B81200C2F709 /* Api.swift */,
+				B724B16121F79CC30038D617 /* Environment */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -314,8 +336,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7D7764821F4887800C2F709 /* AddMovieViewController.swift in Sources */,
+				B724B16021F79C690038D617 /* Environment.swift in Sources */,
 				B7D7764421F4887800C2F709 /* AppDelegate.swift in Sources */,
 				B7D7764621F4887800C2F709 /* MoviesListViewController.swift in Sources */,
+				B724B16421F79CF80038D617 /* Result.swift in Sources */,
 				B7D7767F21F4B81200C2F709 /* Api.swift in Sources */,
 				B7D7767D21F4B6F400C2F709 /* Models.swift in Sources */,
 			);

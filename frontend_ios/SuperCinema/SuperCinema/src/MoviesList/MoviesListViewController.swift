@@ -35,7 +35,7 @@ final class MoviesListViewController: UIViewController {
     }
 
     private func loadMovies() {
-        Api().getMovies { [weak self] result in
+        Current.dataProvider.getMovies { [weak self] result in
             self?.handleResult(result)
         }
     }
