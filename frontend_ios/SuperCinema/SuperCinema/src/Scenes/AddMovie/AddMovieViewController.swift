@@ -33,25 +33,18 @@ final class AddMovieViewController: UIViewController {
                           productionYear: year,
                           directors: [],
                           types: [])
-
-        let url = URL(string: "http://localhost:8080/movie")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-
-        let encoder = JSONEncoder()
-        if let body = try? encoder.encode(movie) {
-            request.httpBody = body
+        Current.dataProvider.postMovie(movie) { [weak self] result in
+            self?.handleResult(result)
         }
+    }
 
-        task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-            if let error = error {
-                print(error)
-                return
-            }
-            self?.dismiss(animated: true, completion: nil)
+    private func handleResult(_ result: Result<Any>) {
+        switch result {
+        case .error(let error):
+            print(error)
+        case .succes(_):
+            dismiss(animated: true, completion: nil)
         }
-        task?.resume()
     }
 
     @objc private func cancel() {

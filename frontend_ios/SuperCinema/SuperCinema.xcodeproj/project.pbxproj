@@ -107,6 +107,15 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		B724B16521F79E6B0038D617 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				B7D7767821F492C300C2F709 /* MoviesList */,
+				B7D7767921F49B4D00C2F709 /* AddMovie */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
 		B7D7763721F4887800C2F709 = {
 			isa = PBXGroup;
 			children = (
@@ -157,10 +166,9 @@
 		B7D7767321F48F4100C2F709 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				B7D7767821F492C300C2F709 /* MoviesList */,
-				B7D7767921F49B4D00C2F709 /* AddMovie */,
-				B7D7764321F4887800C2F709 /* AppDelegate.swift */,
 				B724B16121F79CC30038D617 /* Environment */,
+				B724B16521F79E6B0038D617 /* Scenes */,
+				B7D7764321F4887800C2F709 /* AppDelegate.swift */,
 			);
 			path = src;
 			sourceTree = "<group>";

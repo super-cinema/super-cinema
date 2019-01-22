@@ -37,8 +37,8 @@ struct Movie: Codable {
     }
 
     var details: String {
-        var detailsElements: [String] = []
-        if let country = productionCountry {
+        var detailsElements: [String] = [String(duration)]
+        if let country = productionCountry, country.count > 0 {
             detailsElements.append(country)
         }
         if let year = productionYear {

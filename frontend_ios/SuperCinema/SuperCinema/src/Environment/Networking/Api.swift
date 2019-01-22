@@ -9,6 +9,7 @@ import Foundation
 
 struct Api {
     var getMovies = getMovies(completion:)
+    var postMovie = postMovie(_:completion:)
 }
 
 // MARK: - Movies
@@ -20,11 +21,27 @@ private func getMovies(completion: @escaping ResultBlock) {
         .resume()
 }
 
+private func postMovie(_ movie: Movie, completion: @escaping ResultBlock) {
+    let encoder = JSONEncoder()
+    let body = try? encoder.encode(movie)
+    let request = urlRequest(httpMethod: "POST", httpBody: body)
+
+    URLSession
+        .shared
+        .dataTask(with: request, completionHandler: handler(with: completion))
+        .resume()
+}
+
 // Helpers
 
-fileprivate func urlRequest() -> URLRequest {
+fileprivate func urlRequest(httpMethod: String? = nil,
+                            httpBody: Data? = nil) -> URLRequest {
     let url = URL(string: "http://localhost:8080/movie")!
-    return URLRequest(url: url)
+    var request = URLRequest(url: url)
+    request.httpMethod = httpMethod
+    request.httpBody = httpBody
+    request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+    return request
 }
 
 fileprivate func handler(with completion: @escaping ResultBlock) -> (Data?, URLResponse?, Error?) -> Void {
