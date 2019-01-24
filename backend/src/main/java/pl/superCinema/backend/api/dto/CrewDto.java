@@ -14,4 +14,13 @@ public class CrewDto {
     private String surname;
 
     private List<CrewRoleDto> crewRoles;
+
+    @Override
+    public String toString() {
+        return "CrewDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                '}';
+    }
 }

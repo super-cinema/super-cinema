@@ -69,11 +69,6 @@ public class MovieBuilderTest {
         directorsDto.addAll(Arrays.asList(directorDto1, directorDto2));
         castDto.addAll(Arrays.asList(actorDto1, actorDto2));
 
-        when(crewBuilder.dtoToEntity(any(CrewDto.class)))
-                .thenReturn(director1)
-                .thenReturn(director2)
-                .thenReturn(actor1)
-                .thenReturn(actor2);
         //entities
         movie = new Movie();
         director2 = new Crew();
@@ -84,11 +79,18 @@ public class MovieBuilderTest {
         cast = new ArrayList<>();
         directors.addAll(Arrays.asList(director1, director2));
         cast.addAll(Arrays.asList(actor1, actor2));
+        when(crewBuilder.dtoToEntity(any(CrewDto.class)))
+                .thenReturn(actor1)
+                .thenReturn(actor2)
+                .thenReturn(director1)
+                .thenReturn(director2);
+
+
         when(crewBuilder.entityToDto(any(Crew.class)))
-                .thenReturn(directorDto1)
-                .thenReturn(directorDto2)
                 .thenReturn(actorDto1)
-                .thenReturn(actorDto2);
+                .thenReturn(actorDto2)
+                .thenReturn(directorDto1)
+                .thenReturn(directorDto2);
     }
 
     @Test
@@ -126,8 +128,8 @@ public class MovieBuilderTest {
         movie.setProductionCountry("PL");
         movie.setProductionYear(2010);
         movie.setTypes(Arrays.asList(Type.HORROR, Type.HISTORICAL));
-        movie.setCast(cast);
         movie.setDirectors(directors);
+        movie.setCast(cast);
          //when
         MovieDto movieDtoFromMovie = movieBuilder.entityToDto(movie);
         //then
