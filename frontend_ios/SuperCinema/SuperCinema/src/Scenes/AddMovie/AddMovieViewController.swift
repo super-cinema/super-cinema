@@ -3,33 +3,22 @@
 //  Copyright © 2019 SuperCinemaSpZoo. All rights reserved.
 //
 
-import UIKit
-
-final class PickerDataSource: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
-    private weak var textField: UITextField?
-    private let values: [String]
-
-    init(values: [String], textField: UITextField?) {
-        self.values = values
-        self.textField = textField
-    }
-
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return values.count
-    }
-
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return values[row]
-    }
-
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        textField?.text = values[row]
-    }
+enum MovieType: String {
+    case COMEDY = "comedy"
+    case HORROR = "horror"
+    case SF = "sf"
+    case ACTION = "action"
+    case THRILLER = "thriller"
+    case DRAMA = "drama"
+    case CRIME = "crime"
+    case FANTASY = "fantasy"
+    case MUSIC = "music"
+    case ANIMATON = "animation"
+    case WESTERN = "western"
 }
+
+
+import UIKit
 
 final class AddMovieViewController: UIViewController {
 

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B724B16021F79C690038D617 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B724B15F21F79C690038D617 /* Environment.swift */; };
 		B724B16421F79CF80038D617 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = B724B16321F79CF80038D617 /* Result.swift */; };
+		B724B16721F8ECC40038D617 /* PickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B724B16621F8ECC40038D617 /* PickerDataSource.swift */; };
 		B7D7764421F4887800C2F709 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D7764321F4887800C2F709 /* AppDelegate.swift */; };
 		B7D7764621F4887800C2F709 /* MoviesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D7764521F4887800C2F709 /* MoviesListViewController.swift */; };
 		B7D7764821F4887800C2F709 /* AddMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D7764721F4887800C2F709 /* AddMovieViewController.swift */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		B724B15F21F79C690038D617 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		B724B16321F79CF80038D617 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		B724B16621F8ECC40038D617 /* PickerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDataSource.swift; sourceTree = "<group>"; };
 		B7D7764021F4887800C2F709 /* SuperCinema.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperCinema.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7D7764321F4887800C2F709 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7D7764521F4887800C2F709 /* MoviesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListViewController.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 			children = (
 				B7D7764721F4887800C2F709 /* AddMovieViewController.swift */,
 				B7D7767A21F49B9D00C2F709 /* AddMovie.storyboard */,
+				B724B16621F8ECC40038D617 /* PickerDataSource.swift */,
 			);
 			path = AddMovie;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				B7D7764421F4887800C2F709 /* AppDelegate.swift in Sources */,
 				B7D7764621F4887800C2F709 /* MoviesListViewController.swift in Sources */,
 				B724B16421F79CF80038D617 /* Result.swift in Sources */,
+				B724B16721F8ECC40038D617 /* PickerDataSource.swift in Sources */,
 				B7D7767F21F4B81200C2F709 /* Api.swift in Sources */,
 				B7D7767D21F4B6F400C2F709 /* Models.swift in Sources */,
 			);
