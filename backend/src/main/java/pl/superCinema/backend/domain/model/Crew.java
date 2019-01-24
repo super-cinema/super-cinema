@@ -27,10 +27,10 @@ public class Crew {
 
 
     @ManyToMany(mappedBy = "directors")
-    List<Movie> directedMovies;
+    private List<Movie> directedMovies;
 
     @ManyToMany(mappedBy = "cast")
-    List<Movie> starredMovies;
+    private List<Movie> starredMovies;
 
     @Override
     public String toString() {

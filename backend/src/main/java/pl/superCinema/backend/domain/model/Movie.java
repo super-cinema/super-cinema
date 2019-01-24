@@ -58,8 +58,8 @@ public class Movie {
                 ", duration=" + duration +
                 ", productionCountry='" + productionCountry + '\'' +
                 ", productionYear=" + productionYear +
-                ", movieShow=" + movieShow +
-                ", types=" + types +
+                ", movieShow=" + "movie show" +
+                ", types=" + "types" +
                 ", directors=" + directorsToString +
                 ", cast=" + castToString +
                 '}';
