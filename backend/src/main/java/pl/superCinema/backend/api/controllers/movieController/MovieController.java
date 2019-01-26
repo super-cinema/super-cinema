@@ -46,7 +46,7 @@ public class MovieController {
     public ResponseEntity findMovieById(@RequestParam Long movieId){
         MovieDto movieById;
         try{
-            movieById = movieFacade.getMovieById(movieId);
+            movieById = movieFacade.getMovieDtoById(movieId);
         } catch (EntityCouldNotBeFoundException e){
             ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, e.getMessage(), e.getClass().getSimpleName());
             return new ResponseEntity(apiError, HttpStatus.NOT_FOUND);

@@ -50,9 +50,6 @@ public class MovieBuilderTest {
     List<Crew> directors;
     List<Crew> cast;
 
-
-
-
     @MockBean
     CrewBuilder crewBuilder;
 

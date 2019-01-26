@@ -23,7 +23,7 @@ public class MovieFacade {
     private CrewFacade crewFacade;
 
 
-    MovieDto saveMovie(MovieDto movieDto) {
+    protected MovieDto saveMovie(MovieDto movieDto) {
         Movie movie = movieBuilder.dtoToBasicEntity(movieDto);
         Movie movieSaved = movieRepository.save(movie);
         List<CrewDto> directorsDto = movieDto.getDirectors();
@@ -38,13 +38,13 @@ public class MovieFacade {
         }
         return movieBuilder.entityToDto(movieSaved);
     }
-
+    //TODO not used?
     MovieDto getMovieByTitle(String title) {
         Movie movie = findMovieEntity(title);
         return  movieBuilder.entityToDto(movie);
     }
 
-    MovieDto getMovieById(Long id) {
+    MovieDto getMovieDtoById(Long id) {
         Movie movie = getMovieEntityById(id);
         return movieBuilder.entityToDto(movie);
     }
