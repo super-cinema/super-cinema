@@ -18,7 +18,7 @@ public class CrewController {
     private CrewFacade crewFacade;
 
     @GetMapping(params = "id")
-    public ResponseEntity getMovies(@RequestParam Long id) {
+    public ResponseEntity getCrew(@RequestParam Long id) {
         CrewDto result = crewFacade.getCrew(id);
         return new ResponseEntity(result, HttpStatus.OK);
     }
@@ -48,7 +48,7 @@ public class CrewController {
 
     @PutMapping
     @RequestMapping(params = "id")
-    public ResponseEntity editMovie(@RequestParam Long id, @RequestBody CrewDto crewDto) {
+    public ResponseEntity editCrew(@RequestParam Long id, @RequestBody CrewDto crewDto) {
          crewFacade.updateCrew(id, crewDto);
         return new ResponseEntity(crewDto, HttpStatus.OK);
     }
