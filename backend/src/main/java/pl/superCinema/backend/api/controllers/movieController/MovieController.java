@@ -70,8 +70,14 @@ public class MovieController {
 
     @DeleteMapping
     @RequestMapping(params = "titleToDelete")
-    public MovieDto deleteMovie(@RequestParam String titleToDelete) {
-        return movieFacade.deleteMovieByTitle(titleToDelete);
+    public ResponseEntity deleteMovie(@RequestParam String titleToDelete) {
+        try {
+           movieFacade.deleteMovieByTitle(titleToDelete);
+        } catch (Exception e){
+            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
+            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping
@@ -81,8 +87,8 @@ public class MovieController {
             movieFacade.deleteMovie(idToDelete);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
-            ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, e.getMessage(), e.getClass().getSimpleName());
-            return new ResponseEntity(apiError, HttpStatus.NOT_FOUND);
+            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
+            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
         }
 
 
