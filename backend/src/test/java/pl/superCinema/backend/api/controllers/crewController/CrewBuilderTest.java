@@ -21,36 +21,40 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class)
 public class CrewBuilderTest {
 
+    private final Long id = 1L;
+    private final String name = "Andrzej";
+    private final String surname = "Bonk";
+
 
     @Autowired
     CrewBuilder crewBuilder;
 
-    Crew createCrew() {
+    private Crew createCrew() {
         Crew crew = new Crew();
-        crew.setId(1L);
-        crew.setName("Andrzej");
-        crew.setSurname("Bonk");
+        crew.setId(id);
+        crew.setName(name);
+        crew.setSurname(surname);
         crew.setCrewRoles(Arrays.asList(CrewRole.ACTOR, CrewRole.DIRECTOR));
         return crew;
     }
 
-    CrewDto createCrewDto(){
+    private CrewDto createCrewDto(){
         CrewDto crewDto = new CrewDto();
-        crewDto.setId(1L);
-        crewDto.setName("Andrzej");
-        crewDto.setSurname("Bonk");
+        crewDto.setId(id);
+        crewDto.setName(name);
+        crewDto.setSurname(surname);
         crewDto.setCrewRoles(Arrays.asList(CrewRoleDto.ACTOR, CrewRoleDto.DIRECTOR));
         return crewDto;
     }
 
 
     @Test
-    public void entityToDto() {
+    public void shouldReturnCrewDtoFromEntity() {
         //given
         CrewDto expectedDto = new CrewDto();
-        expectedDto.setId(1L);
-        expectedDto.setName("Andrzej");
-        expectedDto.setSurname("Bonk");
+        expectedDto.setId(id);
+        expectedDto.setName(name);
+        expectedDto.setSurname(surname);
         expectedDto.setCrewRoles(Arrays.asList(CrewRoleDto.ACTOR, CrewRoleDto.DIRECTOR));
         //when
         CrewDto crewDtoToCheck = crewBuilder.entityToDto(createCrew());
@@ -59,12 +63,12 @@ public class CrewBuilderTest {
     }
 
     @Test
-    public void dtoToEntity() {
+    public void shouldReturnEntityFromCrewDto() {
         // given
         Crew expectedCrewDto = new Crew();
-        expectedCrewDto.setId(1L);
-        expectedCrewDto.setName("Andrzej");
-        expectedCrewDto.setSurname("Bonk");
+        expectedCrewDto.setId(id);
+        expectedCrewDto.setName(name);
+        expectedCrewDto.setSurname(surname);
         expectedCrewDto.setCrewRoles(Arrays.asList(CrewRole.ACTOR, CrewRole.DIRECTOR));
         //when
         Crew crewDtoToCheck = crewBuilder.dtoToEntity(createCrewDto());

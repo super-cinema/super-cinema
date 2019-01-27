@@ -1,20 +1,21 @@
 package pl.superCinema.backend.api.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Objects;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CrewDto {
     private Long id;
     private String name;
     private String surname;
 
     private List<CrewRoleDto> crewRoles;
-
 
     @Override
     public boolean equals(Object o) {
