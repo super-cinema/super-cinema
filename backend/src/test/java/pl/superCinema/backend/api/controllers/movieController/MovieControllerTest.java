@@ -32,6 +32,9 @@ import pl.superCinema.backend.domain.repository.MovieRepository;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
@@ -187,10 +190,31 @@ public class MovieControllerTest {
     @Test
     public void shouldReturnStatusCodeOkWhenGettingAllMovies() {
         //given
-
+        MovieDto movieDto = new MovieDto();
+        movieDto.setTitle("Wonder woman");
+        ArrayList<MovieDto> movieDtoList = new ArrayList<>();
+        movieDtoList.add(movieDtoMock);
+        movieDtoList.add(movieDto);
+        when(movieFacade.getAllMovies())
+                .thenReturn(movieDtoList);
         //when
 
+        ResponseEntity<List> responseEntity =
+                testRestTemplate.getForEntity("http://localhost:" + localPort + "/movie", List.class);
         //then
+        List<MovieDto> allMoviesList = (List<MovieDto>)responseEntity.getBody().stream()
+                .map(movieDtoMap -> mapToMovieDto((Map<String, Object>) movieDtoMap))
+                .collect(Collectors.toList());
+        List<String> titlesList = allMoviesList.stream()
+                .map(movieDto1 -> movieDto1.getTitle())
+                .collect(Collectors.toList());
+        Assert.assertEquals(2, allMoviesList.size());
+        Assert.assertEquals(Arrays.asList("Aquaman", "Wonder woman"), titlesList);
+    }
 
+    private MovieDto mapToMovieDto(Map<String, Object> map){
+        MovieDto movieDto = new MovieDto();
+        movieDto.setTitle(map.get("title").toString());
+        return movieDto;
     }
 }
