@@ -20,7 +20,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.superCinema.backend.BackendApplication;
 import pl.superCinema.backend.api.dto.CrewDto;
 import pl.superCinema.backend.api.dto.MovieDto;

@@ -55,12 +55,11 @@ public class MovieFacade {
     }
 
     MovieDto saveEditedMovie(Long id, MovieDto movieDto) {
-
-
         Movie movie = getMovieEntityById(id);
         editMovie(movie, movieDto);
         movieRepository.save(movie);
-        return movieBuilder.entityToDto(movie);
+        MovieDto movieDto1 = movieBuilder.entityToDto(movie);
+        return movieDto1;
     }
 
     private void editMovie(Movie movie, MovieDto movieDto) {
@@ -69,11 +68,13 @@ public class MovieFacade {
         movie.setProductionCountry(movieDto.getProductionCountry());
         movie.setProductionYear(movieDto.getProductionYear());
         //set types
-        List<Type> typeList = movieDto.getTypes()
-                .stream()
-                .map(type -> Type.valueOf(type.name()))
-                .collect(Collectors.toList());
-        movie.setTypes(typeList);
+        if(movieDto.getTypes() != null) {
+            List<Type> typeList = movieDto.getTypes()
+                    .stream()
+                    .map(type -> Type.valueOf(type.name()))
+                    .collect(Collectors.toList());
+            movie.setTypes(typeList);
+        }
         //update actors
         updateCrewListInMovie(movie, movieDto, CrewRole.ACTOR);
         //update directors
