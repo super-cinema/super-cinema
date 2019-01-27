@@ -10,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pl.superCinema.backend.BackendApplication;
+import pl.superCinema.backend.api.controllers.AbstractTest;
 import pl.superCinema.backend.api.controllers.crewController.CrewBuilder;
 import pl.superCinema.backend.api.dto.CrewDto;
 import pl.superCinema.backend.api.dto.MovieDto;
@@ -25,10 +26,8 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class)
-@ActiveProfiles(profiles = "test")
-public class MovieBuilderTest {
+
+public class MovieBuilderTest extends AbstractTest {
 
     @Autowired
     MovieBuilder movieBuilder;
@@ -54,7 +53,7 @@ public class MovieBuilderTest {
     CrewBuilder crewBuilder;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         //dtos
         movieDto = new MovieDto();
         directorDto1 = new CrewDto();
@@ -127,7 +126,7 @@ public class MovieBuilderTest {
         movie.setTypes(Arrays.asList(Type.HORROR, Type.HISTORICAL));
         movie.setDirectors(directors);
         movie.setCast(cast);
-         //when
+        //when
         MovieDto movieDtoFromMovie = movieBuilder.entityToDto(movie);
         //then
         Assert.assertEquals(movie.getId(), movieDtoFromMovie.getId());
@@ -136,10 +135,8 @@ public class MovieBuilderTest {
         Assert.assertEquals(movie.getProductionYear(), movieDtoFromMovie.getProductionYear());
         Assert.assertEquals(movie.getProductionCountry(), movieDtoFromMovie.getProductionCountry());
         Assert.assertEquals(Arrays.asList(actorDto1, actorDto2), movieDtoFromMovie.getCast());
-        Assert.assertEquals(Arrays.asList(directorDto1, directorDto2), movieDtoFromMovie.getDirectors());   }
-
-
-
+        Assert.assertEquals(Arrays.asList(directorDto1, directorDto2), movieDtoFromMovie.getDirectors());
+    }
 
 
 }

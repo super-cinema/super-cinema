@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Data
@@ -51,5 +52,23 @@ public class Crew {
                 ", directedMovies:" + directedMoviesString +
                 ", starredMovies" + starredMoviesString +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Crew crew = (Crew) o;
+        return Objects.equals(id, crew.id) &&
+                Objects.equals(name, crew.name) &&
+                Objects.equals(surname, crew.surname) &&
+                Objects.equals(crewRoles, crew.crewRoles) &&
+                Objects.equals(directedMovies, crew.directedMovies) &&
+                Objects.equals(starredMovies, crew.starredMovies);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, surname, crewRoles, directedMovies, starredMovies);
     }
 }

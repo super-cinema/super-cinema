@@ -47,12 +47,12 @@ public class CrewFacade {
         return crewBuilder.entityToDto(crew.get());
     }
 
-    CrewDto deleteCrew(Long id) {
+    void deleteCrew(Long id) {
         if (crewRepository.existsById(id)) {
             Optional<Crew> crew = crewRepository.findById(id);
             crewRepository.deleteById(id);
-            return crewBuilder.entityToDto(crew.get());
-        } else return null;
+            crewBuilder.entityToDto(crew.get());
+        }
     }
 
     void deleteAllCrew() {
