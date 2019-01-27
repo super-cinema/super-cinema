@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.superCinema.backend.BackendApplication;
+import pl.superCinema.backend.api.controllers.AbstractTest;
 import pl.superCinema.backend.api.dto.CrewDto;
 import pl.superCinema.backend.api.dto.MovieDto;
 import pl.superCinema.backend.api.dto.TypeDto;
@@ -39,11 +40,9 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class)
-@ActiveProfiles(profiles = "test")
 @AutoConfigureMockMvc
-public class MovieControllerTest {
+public class MovieControllerTest extends AbstractTest {
+    public static final String URL = "http://localhost:";
     @LocalServerPort
     int localPort;
 
@@ -71,7 +70,7 @@ public class MovieControllerTest {
     private MovieDto movieDtoMock;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         actor.setName("actor");
         director.setName("director");
         actors.add(actor);
@@ -106,7 +105,7 @@ public class MovieControllerTest {
                 .thenReturn(movieDtoMock);
         //when
         ResponseEntity<MovieDto> movieDtoResponseEntity =
-                this.testRestTemplate.postForEntity("http://localhost:" + localPort + "/movie", movieDto, MovieDto.class);
+                this.testRestTemplate.postForEntity(URL + localPort + "/movie", movieDto, MovieDto.class);
         MovieDto savedMovieDto = movieDtoResponseEntity.getBody();
         HttpStatus statusCode = movieDtoResponseEntity.getStatusCode();
         //then
@@ -127,7 +126,7 @@ public class MovieControllerTest {
                 .thenReturn(movieDtoMock);
         //when
         ResponseEntity<MovieDto> responseEntity =
-                testRestTemplate.getForEntity("http://localhost:" + localPort + "/movie?movieId=10", MovieDto.class);
+                testRestTemplate.getForEntity(URL + localPort + "/movie?movieId=10", MovieDto.class);
 
         //then
         HttpStatus statusCode = responseEntity.getStatusCode();
@@ -135,14 +134,13 @@ public class MovieControllerTest {
     }
 
     @Test
-    @Transactional
     public void shouldReturnStatusCodeOkWhenDeletingMovie() {
         //given
 
         //when
         ResponseEntity<ResponseEntity> responseEntity =
-                testRestTemplate.exchange("http://localhost:" + localPort + "/movie?idToDelete=" + movieSavedId,
-                HttpMethod.DELETE, null, ResponseEntity.class, movieSavedId);
+                testRestTemplate.exchange(URL + localPort + "/movie?idToDelete=" + movieSavedId,
+                        HttpMethod.DELETE, null, ResponseEntity.class, movieSavedId);
         //then
         Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
@@ -155,15 +153,15 @@ public class MovieControllerTest {
                 .deleteMovie(any(Long.class));
         //when
         this.mockMvc.perform(MockMvcRequestBuilders
-                .delete("http://localhost:" + localPort + "/movie?idToDelete=100")
+                .delete(URL + localPort + "/movie?idToDelete=100")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-        //then
+                //then
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    public void shouldReturnStatusCodeOkWhenEditingMovie() throws Exception{
+    public void shouldReturnStatusCodeOkWhenEditingMovie() throws Exception {
         //given
         when(movieFacade.saveEditedMovie(any(Long.class), any(MovieDto.class)))
                 .thenReturn(movieDtoMock);
@@ -171,7 +169,7 @@ public class MovieControllerTest {
         movieDto.setTitle("title");
         movieDto.setDuration(120);
         ObjectMapper objectMapper = new ObjectMapper();
-        String string = "http://localhost:" + localPort + "/movie?id=" + movieSavedId;
+        String string = URL + localPort + "/movie?id=" + movieSavedId;
         //when
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put("/movie?id=" + movieSavedId)
@@ -179,14 +177,9 @@ public class MovieControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .accept(MediaType.APPLICATION_JSON))
+
                 //then
                 .andExpect(status().isOk());
-        //then
-
-
-
-
-
     }
 
 

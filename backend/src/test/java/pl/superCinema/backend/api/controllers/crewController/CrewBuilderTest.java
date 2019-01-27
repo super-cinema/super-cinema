@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.superCinema.backend.BackendApplication;
+import pl.superCinema.backend.api.controllers.AbstractTest;
 import pl.superCinema.backend.api.dto.CrewDto;
 import pl.superCinema.backend.api.dto.CrewRoleDto;
 import pl.superCinema.backend.domain.model.Crew;
@@ -16,10 +17,8 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-@ActiveProfiles(profiles = "test")
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class)
-public class CrewBuilderTest {
+
+public class CrewBuilderTest extends AbstractTest {
 
     private final Long id = 1L;
     private final String name = "Andrzej";
