@@ -1,32 +1,31 @@
 package pl.superCinema.backend.api.controllers.movieController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.*;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.client.ResponseExtractor;
 import pl.superCinema.backend.BackendApplication;
 import pl.superCinema.backend.api.dto.CrewDto;
 import pl.superCinema.backend.api.dto.MovieDto;
 import pl.superCinema.backend.api.dto.TypeDto;
-import pl.superCinema.backend.domain.errors.ApiError;
 import pl.superCinema.backend.domain.exceptions.EntityCouldNotBeFoundException;
-import pl.superCinema.backend.domain.model.Crew;
 import pl.superCinema.backend.domain.model.Movie;
 import pl.superCinema.backend.domain.model.Type;
 import pl.superCinema.backend.domain.repository.MovieRepository;
@@ -34,16 +33,16 @@ import pl.superCinema.backend.domain.repository.MovieRepository;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class)
 @ActiveProfiles(profiles = "test")
+@AutoConfigureMockMvc
 public class MovieControllerTest {
     @LocalServerPort
     int localPort;
@@ -62,6 +61,7 @@ public class MovieControllerTest {
 
     private Movie movie;
     private Long movieSavedId;
+    @Autowired
     private MockMvc mockMvc;
 
     private CrewDto actor = new CrewDto();
@@ -94,7 +94,7 @@ public class MovieControllerTest {
         Movie movieSaved = movieRepository.save(movie);
         movieSavedId = movieSaved.getId();
 
-        mockMvc = MockMvcBuilders.standaloneSetup(movieController).build();
+        //mockMvc = MockMvcBuilders.standaloneSetup(movieController).build();
     }
 
 
@@ -158,8 +158,35 @@ public class MovieControllerTest {
                 .delete("http://localhost:" + localPort + "/movie?idToDelete=100")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                //then
+        //then
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void shouldReturnStatusCodeOkWhenEditingMovie() throws Exception{
+        //given
+        when(movieFacade.saveEditedMovie(any(Long.class), any(MovieDto.class)))
+                .thenReturn(movieDtoMock);
+        MovieDto movieDto = new MovieDto();
+        movieDto.setTitle("title");
+        movieDto.setDuration(120);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String string = "http://localhost:" + localPort + "/movie?id=" + movieSavedId;
+        //when
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .put("/movie?id=" + movieSavedId)
+                .content(objectMapper.writeValueAsString(movieDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .accept(MediaType.APPLICATION_JSON))
+                //then
+                .andExpect(status().isOk());
+        //then
+
+
+
+
+
     }
 
 
