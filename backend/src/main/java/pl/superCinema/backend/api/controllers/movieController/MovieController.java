@@ -31,8 +31,15 @@ public class MovieController {
     }
 
     @GetMapping
-    public List<MovieDto> getAllMovies() {
-        return movieFacade.getAllMovies();
+    public ResponseEntity getAllMovies() {
+        List<MovieDto> allMoviesDto;
+        try{
+            allMoviesDto = movieFacade.getAllMovies();
+        } catch (Exception e) {
+            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
+            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(allMoviesDto, HttpStatus.OK);
     }
 
     @GetMapping

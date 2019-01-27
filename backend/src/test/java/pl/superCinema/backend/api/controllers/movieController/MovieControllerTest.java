@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -135,15 +136,16 @@ public class MovieControllerTest {
 
     @Test
     @Transactional
-    public void shouldReturnStatusCodeOkWhenDeletingMovie() {
+    public void shouldReturnStatusCodeOkWhenDeletingMovie() throws Exception{
         //given
-
+       doNothing().when(movieFacade).deleteMovie(any(Long.class));
         //when
-        ResponseEntity<ResponseEntity> responseEntity =
-                testRestTemplate.exchange("http://localhost:" + localPort + "/movie?idToDelete=" + movieSavedId,
-                HttpMethod.DELETE, null, ResponseEntity.class, movieSavedId);
-        //then
-        Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .delete("http://localhost:" + localPort + "/movie?idToDelete=100")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                //then
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -180,13 +182,15 @@ public class MovieControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 //then
                 .andExpect(status().isOk());
-        //then
-
-
-
-
-
     }
 
+    @Test
+    public void shouldReturnStatusCodeOkWhenGettingAllMovies() {
+        //given
 
+        //when
+
+        //then
+
+    }
 }
