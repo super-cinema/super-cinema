@@ -6,33 +6,28 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 import pl.superCinema.backend.BackendApplication;
-import pl.superCinema.backend.api.controllers.crewController.CrewFacade;
+import pl.superCinema.backend.api.controllers.crewController.AbstractTest;
 import pl.superCinema.backend.api.dto.CrewDto;
 import pl.superCinema.backend.api.dto.MovieDto;
 import pl.superCinema.backend.api.dto.TypeDto;
 import pl.superCinema.backend.domain.model.Crew;
-import pl.superCinema.backend.domain.model.CrewRole;
 import pl.superCinema.backend.domain.model.Movie;
 import pl.superCinema.backend.domain.repository.CrewRepository;
 import pl.superCinema.backend.domain.repository.MovieRepository;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.when;
-
+@Transactional
+@ActiveProfiles(profiles = "test")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class)
-@ActiveProfiles(profiles = "test")
-@Transactional
 public class MovieFacadeTest {
     @Autowired
     private MovieFacade movieFacade;
@@ -42,11 +37,11 @@ public class MovieFacadeTest {
     private CrewRepository crewRepository;
 
     private Movie movieSavedBeforeTests;
-    private  Long savedMovieId;
-    private  List<CrewDto> directorsDto;
+    private Long savedMovieId;
+    private List<CrewDto> directorsDto;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         movieSavedBeforeTests = new Movie();
         movieSavedBeforeTests.setTitle("Iron Man");
         movieSavedBeforeTests.setDuration(100);
@@ -84,10 +79,11 @@ public class MovieFacadeTest {
         Assert.assertNotNull(foundMovie);
         Assert.assertEquals("title", foundMovie.getTitle());
         Assert.assertEquals(120, foundMovie.getDuration().intValue());
-        Assert.assertEquals(movieDto.getTypes(),foundMovie.getTypes());
+        Assert.assertEquals(movieDto.getTypes(), foundMovie.getTypes());
         Assert.assertNull(foundMovie.getCast());
         Assert.assertEquals(movieDto.getDirectors(), foundMovie.getDirectors());
-}
+
+    }
 
     @Test
     public void shouldGetMovieById() {

@@ -1,8 +1,8 @@
 package pl.superCinema.backend.api.controllers.crewController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,16 +14,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import pl.superCinema.backend.api.controllers.AbstractTest;
 import pl.superCinema.backend.api.dto.CrewDto;
 import pl.superCinema.backend.api.dto.CrewRoleDto;
 import pl.superCinema.backend.domain.errors.ApiError;
 import pl.superCinema.backend.domain.exceptions.EntityCouldNotBeFoundException;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -58,17 +55,10 @@ public class CrewControllerTest extends AbstractTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-    @Override
-    @Before
-    public void setUp() {
-        super.setUp();
-    }
-
-
     @Test
     public void shouldAddCrewAndReturnCreatedStatusCode() {
         //given
-        CrewDto crewDto = createCrewDto1();
+        CrewDto crewDto = createCrewDto();
         when(crewFacade.addCrew(any(CrewDto.class))).thenReturn(crewDto);
         //when
         ResponseEntity<CrewDto> responseEntity = testRestTemplate
@@ -87,7 +77,7 @@ public class CrewControllerTest extends AbstractTest {
     @Test
     public void shouldNotAddCrewAndReturnBadRequestStatusCode() throws Exception {
         //given
-        CrewDto crewDtoToAdd = createCrewDto1();
+        CrewDto crewDtoToAdd = createCrewDto();
         doThrow(new EntityCouldNotBeFoundException("entity couldn't be added"))
                 .when(crewFacade)
                 .addCrew(crewDtoToAdd);
@@ -103,7 +93,7 @@ public class CrewControllerTest extends AbstractTest {
     @Test
     public void shouldGetSelectedCrewAndReturnOkStatusCode() {
         //given
-        CrewDto crewToGet = createCrewDto1();
+        CrewDto crewToGet = createCrewDto();
         when(crewFacade.getCrew(any(Long.class))).thenReturn(crewToGet);
 
         //when
@@ -138,12 +128,9 @@ public class CrewControllerTest extends AbstractTest {
     @Test
     public void shouldGetAllCrewAndReturnOkStatusCode() {
         //given
-        CrewDto crewToGet1 = createCrewDto1();
-        CrewDto crewToGet2 = createCrewDto2();
-        List<CrewDto> expectedList = new ArrayList<>();
-        expectedList.add(crewToGet1);
-        expectedList.add(crewToGet2);
-
+        CrewDto crewToGet1 = createCrewDto();
+        CrewDto crewToGet2 = createSecondCrewDto();
+        List<CrewDto> expectedList = Arrays.asList(crewToGet1, crewToGet2);
         when(crewFacade.getAllCrew()).thenReturn(expectedList);
 
         //when
@@ -178,30 +165,29 @@ public class CrewControllerTest extends AbstractTest {
     @Test
     public void shouldUpdateSelectedCrewAndReturnOkStatusCode() throws Exception {
         //given
-        CrewDto crewDto = createCrewDto1();
-        String expectedResult = "{\"id\":1,\"name\":\"Andrzej\",\"surname\":\"Bonk\",\"crewRoles\":[\"ACTOR\",\"DIRECTOR\"]}";
-        String inputJson = super.mapToJson(crewDto);
+        CrewDto crewDto = createCrewDto();
+        String inputJson = mapToJson(crewDto);
         //when
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(CREW_PARAM + expectedId)
+        mockMvc.perform(MockMvcRequestBuilders
+                .put(CREW_PARAM + expectedId)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson)).andReturn();
-        //then
-        int status = mvcResult.getResponse().getStatus();
-        assertEquals(200, status);
-        String content = mvcResult.getResponse().getContentAsString();
-        assertEquals(expectedResult, content);
+                .content(inputJson))
+                //then
+                .andExpect(status().isOk());
+
     }
 
     @Test
     public void shouldReturnedBadRequestStatusCodeWhenUpdatingSelectedCrew() throws Exception {
         //given
-        CrewDto crewDto = createCrewDto1();
-        String inputJson = super.mapToJson(crewDto);
+        CrewDto crewDto = createCrewDto();
+        String inputJson = mapToJson(crewDto);
         doThrow(new EntityCouldNotBeFoundException("entities couldn't be found"))
                 .when(crewFacade)
                 .updateCrew(expectedId, crewDto);
         //when
-        mvc.perform(MockMvcRequestBuilders.put(CREW_PARAM + expectedId)
+        mockMvc.perform(MockMvcRequestBuilders
+                .put(CREW_PARAM + expectedId)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 //then
@@ -214,7 +200,7 @@ public class CrewControllerTest extends AbstractTest {
         //given
         doNothing().when(crewFacade).deleteCrew(any(Long.class));
         //when
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .delete(URL + localServerPort + CREW_PARAM + expectedId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -264,7 +250,7 @@ public class CrewControllerTest extends AbstractTest {
                 .accept(MediaType.APPLICATION_JSON))
 
 
-        //then
+                //then
                 .andExpect(status().isBadRequest());
     }
 
@@ -280,22 +266,17 @@ public class CrewControllerTest extends AbstractTest {
         return crewDto;
     }
 
-    private CrewDto createCrewDto1() {
-        CrewDto crewDto = new CrewDto();
-        crewDto.setId(expectedId);
-        crewDto.setName(expectedName);
-        crewDto.setSurname(expectedSurname);
-        crewDto.setCrewRoles(expectedCrewRoles);
-        return crewDto;
-
+    private CrewDto createCrewDto() {
+        return super.prepareCrewDto();
     }
 
-    private CrewDto createCrewDto2() {
-        CrewDto crewDto = new CrewDto();
-        crewDto.setId(2L);
-        crewDto.setName(expectedName);
-        crewDto.setSurname(expectedSurname);
-        crewDto.setCrewRoles(expectedCrewRoles);
-        return crewDto;
+    private CrewDto createSecondCrewDto() {
+        return super.prepareSecondCrewDto();
     }
+
+    private String mapToJson(Object obj) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(obj);
+    }
+
 }

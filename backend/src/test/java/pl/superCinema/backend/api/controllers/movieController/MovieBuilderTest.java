@@ -10,7 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pl.superCinema.backend.BackendApplication;
-import pl.superCinema.backend.api.controllers.AbstractTest;
+import pl.superCinema.backend.api.controllers.crewController.AbstractTest;
 import pl.superCinema.backend.api.controllers.crewController.CrewBuilder;
 import pl.superCinema.backend.api.dto.CrewDto;
 import pl.superCinema.backend.api.dto.MovieDto;
@@ -26,8 +26,10 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-
-public class MovieBuilderTest extends AbstractTest {
+@ActiveProfiles(profiles = "test")
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class)
+public class MovieBuilderTest {
 
     @Autowired
     MovieBuilder movieBuilder;
