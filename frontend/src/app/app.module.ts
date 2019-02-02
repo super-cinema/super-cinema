@@ -77,7 +77,7 @@ import {CrewInMovieService} from './services/crew-in-movie-service/crew-in-movie
     MatSnackBarModule,
     TransformPipe,
   ],
-  providers: [CrewService, MovieService,CrewInMovieService ],
+  providers: [CrewService, MovieService, CrewInMovieService ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialogComponent, CrewInMovieComponent]
 })

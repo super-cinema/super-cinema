@@ -6,7 +6,6 @@ import {AllCrewViewComponent} from '../all-crew-view/all-crew-view.component';
 import {HttpClient} from '@angular/common/http';
 import {CrewService} from '../../services/crew-service/crew-service';
 import {Crew} from '../model/crew';
-import {MovieService} from '../../services/service-movie/movie-service';
 
 @Component({
   selector: 'app-crew-in-movie',

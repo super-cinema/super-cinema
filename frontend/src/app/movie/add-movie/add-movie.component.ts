@@ -64,7 +64,7 @@ export class AddMovieComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.isPopupOpened = false;
       this.actorsList = this.crewInMovieService.getAllActors();
-      let ifActorsListIsEmpty = this.actorsList.length === 0;
+      const ifActorsListIsEmpty = this.actorsList.length === 0;
       this.actorsListVisible = !ifActorsListIsEmpty;
       this.directorsList = this.crewInMovieService.getAllDirectors();
       const ifDirectorsListIsEmpty = this.directorsList.length === 0;

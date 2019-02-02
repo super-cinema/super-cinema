@@ -18,9 +18,8 @@
     </form>
   </div>
   <div *ngFor="let crew of crewList">
-    <div class="display-one-movie-container" *ngIf="displaySearchedCrew(crew, findCrewForm)">
+    <div  *ngIf="displaySearchedCrew(crew, findCrewForm)">
 
-      <div class="crew-container">
         <div class="display-one-movie-container">
           <input type="checkbox" (change)="checkCrew(crew, $event)">
 
@@ -28,10 +27,11 @@
             <span>{{crew.name}} {{crew.surname}} {{crew.crewRoles}} </span>
           </mat-list-item>
         </div>
-      </div>
     </div>
   </div>
+  <div class="button-container">
   <button>submit</button>
+  </div>
 </form>
 
 

@@ -9,7 +9,7 @@ import {CrewService} from '../../services/crew-service/crew-service';
 import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.component';
 import {MatDialog} from '@angular/material';
 import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-movie.service';
-import {Crew} from "../../crew/model/crew";
+import {Crew} from '../../crew/model/crew';
 
 @Component({
   selector: 'app-edit-movie',

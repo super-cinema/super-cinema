@@ -80,3 +80,22 @@
 }
 
 
+.button-container {
+  display: flex;
+  height: 100px;
+
+  button {
+    background-color: #85CDBC;
+    width: 25%;
+    height: 60%;
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-left: auto;
+    text-align: center;
+    padding: 2px 2px 2px 2px;
+    border: none;
+    color: black;
+  }
+}
+
+
