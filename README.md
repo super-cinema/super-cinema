@@ -1,4 +1,4 @@
-#SuperCinema
+# SuperCinema
 Application for managing movies screenings in cinema.
 #### Stack
 * Backend: Java, Spring Boot, JPA, REST, Lombok, Maven, MySQL, H2 DB
