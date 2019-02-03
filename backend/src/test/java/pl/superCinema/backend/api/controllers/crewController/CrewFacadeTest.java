@@ -14,7 +14,6 @@ import static org.junit.Assert.*;
 
 @Transactional
 @DirtiesContext(classMode= DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-
 public class CrewFacadeTest extends AbstractTest {
 
     @Autowired

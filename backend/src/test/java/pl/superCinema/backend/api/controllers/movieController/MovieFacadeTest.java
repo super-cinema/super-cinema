@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,19 +17,18 @@ import pl.superCinema.backend.api.dto.MovieDto;
 import pl.superCinema.backend.api.dto.TypeDto;
 import pl.superCinema.backend.domain.model.Crew;
 import pl.superCinema.backend.domain.model.Movie;
+import pl.superCinema.backend.domain.model.Type;
 import pl.superCinema.backend.domain.repository.CrewRepository;
 import pl.superCinema.backend.domain.repository.MovieRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Transactional
-@ActiveProfiles(profiles = "test")
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class)
-public class MovieFacadeTest {
+public class MovieFacadeTest extends AbstractMovieTest {
     @Autowired
     private MovieFacade movieFacade;
     @Autowired
@@ -42,47 +42,44 @@ public class MovieFacadeTest {
 
     @Before
     public void setUp() {
-        movieSavedBeforeTests = new Movie();
-        movieSavedBeforeTests.setTitle("Iron Man");
-        movieSavedBeforeTests.setDuration(100);
+        movieSavedBeforeTests = super.prepareMovie();
         movieRepository.save(movieSavedBeforeTests);
         savedMovieId = movieSavedBeforeTests.getId();
         Movie movieSavedBeforeTests2 = new Movie();
         movieSavedBeforeTests2.setTitle("Wonder Woman");
         movieSavedBeforeTests2.setDuration(99);
         movieRepository.save(movieSavedBeforeTests2);
-        CrewDto directorDto1 = new CrewDto();
-        CrewDto directorDto2 = new CrewDto();
-        Crew director1 = new Crew();
-        Crew director2 = new Crew();
-        crewRepository.save(director1);
-        crewRepository.save(director2);
-        directorDto1.setId(director1.getId());
-        directorDto2.setId(director2.getId());
-        directorsDto = new ArrayList<>();
-        directorsDto.addAll(Arrays.asList(directorDto1, directorDto2));
+        List<Crew> directors = super.prepareCrewList();
+        List<CrewDto> directorsDto = super.prepareCrewDtoList();
+        crewRepository.save(directors.get(0));
+        crewRepository.save(directors.get(1));
+        directorsDto.get(0).setId(directors.get(0).getId());
+        directorsDto.get(1).setId(directors.get(1).getId());
+        this.directorsDto = new ArrayList<>();
+        this.directorsDto.addAll(directorsDto);
 
     }
 
     @Test
     public void shouldSaveMovie() {
         //given
-        MovieDto movieDto = new MovieDto();
-        movieDto.setTitle("title");
-        movieDto.setDuration(120);
-        movieDto.setTypes(Arrays.asList(TypeDto.ACTION));
-        movieDto.setDirectors(directorsDto);
+        MovieDto expectedMovieDto = new MovieDto();
+        expectedMovieDto.setTitle("title");
+        expectedMovieDto.setDuration(120);
+        expectedMovieDto.setTypes(Arrays.asList(TypeDto.ACTION));
+        expectedMovieDto.setDirectors(directorsDto);
         //when
-        MovieDto movieDtoSaved = movieFacade.saveMovie(movieDto);
+        MovieDto movieDtoSaved = movieFacade.saveMovie(expectedMovieDto);
         //then
         MovieDto foundMovie = movieFacade.getMovieDtoById(movieDtoSaved.getId());
         Assert.assertNotNull(foundMovie);
+        expectedMovieDto.setId(foundMovie.getId());
+        Assert.assertEquals(expectedMovieDto, foundMovie);
         Assert.assertEquals("title", foundMovie.getTitle());
         Assert.assertEquals(120, foundMovie.getDuration().intValue());
-        Assert.assertEquals(movieDto.getTypes(), foundMovie.getTypes());
+        Assert.assertEquals(expectedMovieDto.getTypes(), foundMovie.getTypes());
         Assert.assertNull(foundMovie.getCast());
-        Assert.assertEquals(movieDto.getDirectors(), foundMovie.getDirectors());
-
+        Assert.assertEquals(expectedMovieDto.getDirectors(), foundMovie.getDirectors());
     }
 
     @Test
@@ -116,7 +113,7 @@ public class MovieFacadeTest {
     }
 
     @Test
-    public void getAllMovies() {
+    public void shouldGetAllMovies() {
         //given
 
         //when
@@ -126,7 +123,7 @@ public class MovieFacadeTest {
                 .map(movieDto -> movieDto.getTitle())
                 .collect(Collectors.toList());
         Assert.assertEquals(2, allMovies.size());
-        Assert.assertEquals(Arrays.asList("Iron Man", "Wonder Woman"), moviesTitleList);
+        Assert.assertEquals(Arrays.asList("title", "Wonder Woman"), moviesTitleList);
     }
 
     @Test

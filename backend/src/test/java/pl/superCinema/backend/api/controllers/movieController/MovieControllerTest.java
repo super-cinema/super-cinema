@@ -41,68 +41,40 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-@ActiveProfiles(profiles = "test")
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class)
 @AutoConfigureMockMvc
-public class MovieControllerTest {
+public class MovieControllerTest  extends AbstractMovieTest {
     public static final String URL = "http://localhost:";
     @LocalServerPort
     int localPort;
-
     @Autowired
     TestRestTemplate testRestTemplate;
-
     @Autowired
     private MovieRepository movieRepository;
-
     @MockBean
     private MovieFacade movieFacade;
-
-    @InjectMocks
-    private MovieController movieController;
-
     private Movie movie;
     private Long movieSavedId;
     @Autowired
     private MockMvc mockMvc;
 
-    private CrewDto actor = new CrewDto();
-    private CrewDto director = new CrewDto();
-    private ArrayList<CrewDto> actors = new ArrayList<>();
-    private ArrayList<CrewDto> directors = new ArrayList<>();
+    private List<CrewDto> actors;
+    private List<CrewDto> directors;
     private MovieDto movieDtoMock;
 
     @Before
     public void setUp() {
-        actor.setName("actor");
-        director.setName("director");
-        actors.add(actor);
-        directors.add(director);
-        movieDtoMock = new MovieDto();
-        movieDtoMock.setTitle("Aquaman");
-        movieDtoMock.setDuration(120);
-        movieDtoMock.setProductionCountry("USA");
-        movieDtoMock.setProductionYear(2008);
-        movieDtoMock.setTypes(Arrays.asList(TypeDto.COMEDY, TypeDto.ACTION));
-        movieDtoMock.setCast(actors);
-        movieDtoMock.setDirectors(directors);
-        //movie entity
-        movie = new Movie();
-        movie.setTitle("another");
-        movie.setDuration(100);
-        movie.setProductionCountry("PL");
-        movie.setProductionYear(2010);
-        movie.setTypes(Arrays.asList(Type.HORROR, Type.HISTORICAL));
+        this.actors = super.prepareCrewDtoList();
+        this.directors = super.prepareCrewDtoList();
+        this.movieDtoMock = super.prepareMovieDto();
+        this.movie = super.prepareMovie();
         Movie movieSaved = movieRepository.save(movie);
         movieSavedId = movieSaved.getId();
 
-        //mockMvc = MockMvcBuilders.standaloneSetup(movieController).build();
     }
 
 
     @Test
-    public void shouldReturnStatusOkAndSavedMovieDtoWhenSavingMovie() {
+    public void shouldReturnStatusCreatedWhenSavingMovie() {
         //given
         MovieDto movieDto = new MovieDto();
         when(movieFacade.saveMovie(any(MovieDto.class)))
@@ -113,14 +85,9 @@ public class MovieControllerTest {
         MovieDto savedMovieDto = movieDtoResponseEntity.getBody();
         HttpStatus statusCode = movieDtoResponseEntity.getStatusCode();
         //then
+        movieDtoMock.setId(savedMovieDto.getId());
+        Assert.assertEquals(movieDtoMock, savedMovieDto);
         Assert.assertEquals(HttpStatus.CREATED, statusCode);
-        Assert.assertEquals(movieDtoMock.getTitle(), savedMovieDto.getTitle());
-        Assert.assertEquals(movieDtoMock.getDuration(), savedMovieDto.getDuration());
-        Assert.assertEquals(movieDtoMock.getProductionYear(), savedMovieDto.getProductionYear());
-        Assert.assertEquals(movieDtoMock.getProductionCountry(), savedMovieDto.getProductionCountry());
-        Assert.assertEquals(movieDtoMock.getTypes(), savedMovieDto.getTypes());
-        Assert.assertEquals(movieDtoMock.getCast(), savedMovieDto.getCast());
-        Assert.assertEquals(movieDtoMock.getDirectors(), savedMovieDto.getDirectors());
     }
 
     @Test
@@ -171,9 +138,7 @@ public class MovieControllerTest {
         //given
         when(movieFacade.saveEditedMovie(any(Long.class), any(MovieDto.class)))
                 .thenReturn(movieDtoMock);
-        MovieDto movieDto = new MovieDto();
-        movieDto.setTitle("title");
-        movieDto.setDuration(120);
+        MovieDto movieDto = super.prepareMovieDto();
         ObjectMapper objectMapper = new ObjectMapper();
         String string = URL + localPort + "/movie?id=" + movieSavedId;
         //when
@@ -189,13 +154,11 @@ public class MovieControllerTest {
 
 
     @Test
-    public void shouldReturnStatusCodeOkWhenGettingAllMovies() {
+    public void shouldReturnStatusCodeOkAndReturnMovieListWhenGettingAllMovies() {
         //given
-        MovieDto movieDto = new MovieDto();
-        movieDto.setTitle("Wonder woman");
         ArrayList<MovieDto> movieDtoList = new ArrayList<>();
         movieDtoList.add(movieDtoMock);
-        movieDtoList.add(movieDto);
+        movieDtoList.add(super.prepareMovieDto());
         when(movieFacade.getAllMovies())
                 .thenReturn(movieDtoList);
         //when
@@ -206,11 +169,9 @@ public class MovieControllerTest {
         List<MovieDto> allMoviesList = (List<MovieDto>)responseEntity.getBody().stream()
                 .map(movieDtoMap -> mapToMovieDto((Map<String, Object>) movieDtoMap))
                 .collect(Collectors.toList());
-        List<String> titlesList = allMoviesList.stream()
-                .map(movieDto1 -> movieDto1.getTitle())
-                .collect(Collectors.toList());
+        HttpStatus statusCode = responseEntity.getStatusCode();
         Assert.assertEquals(2, allMoviesList.size());
-        Assert.assertEquals(Arrays.asList("Aquaman", "Wonder woman"), titlesList);
+        Assert.assertEquals(HttpStatus.OK, statusCode);
     }
 
     private MovieDto mapToMovieDto(Map<String, Object> map){
