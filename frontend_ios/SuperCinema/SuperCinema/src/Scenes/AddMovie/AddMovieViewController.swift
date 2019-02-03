@@ -3,7 +3,7 @@
 //  Copyright © 2019 SuperCinemaSpZoo. All rights reserved.
 //
 
-enum MovieType: String {
+enum MovieType: String, CaseIterable {
     case COMEDY = "comedy"
     case HORROR = "horror"
     case SF = "sf"
@@ -26,9 +26,11 @@ final class AddMovieViewController: UIViewController {
     @IBOutlet weak private var durationTextField: UITextField!
     @IBOutlet weak private var yearTextField: UITextField!
     @IBOutlet weak private var countryTextField: UITextField!
+    @IBOutlet weak private var typeTextField: UITextField!
 
     private var task: URLSessionTask?
     private var yearPickerDataSource: PickerDataSource?
+    private var typePickerDataSource: PickerDataSource?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,11 +44,20 @@ final class AddMovieViewController: UIViewController {
         let years = Array(1900...2019).map { String($0) }
         yearPickerDataSource = PickerDataSource(values: years, textField: yearTextField)
 
-        let pickerView = UIPickerView()
-        pickerView.dataSource = yearPickerDataSource
-        pickerView.delegate = yearPickerDataSource
-        yearTextField.inputView = pickerView
-        pickerView.selectRow(100, inComponent: 0, animated: false)
+        let yearPickerView = UIPickerView()
+        yearPickerView.dataSource = yearPickerDataSource
+        yearPickerView.delegate = yearPickerDataSource
+        yearTextField.inputView = yearPickerView
+        yearPickerView.selectRow(100, inComponent: 0, animated: false)
+
+        let types = MovieType.allCases.map { $0.rawValue }
+        typePickerDataSource = PickerDataSource(values: types, textField: typeTextField)
+
+        let typePickerView = UIPickerView()
+        typePickerView.dataSource = typePickerDataSource
+        typePickerView.delegate = typePickerDataSource
+        typeTextField.inputView = typePickerView
+        typePickerView.selectRow(100, inComponent: 0, animated: false)
 
         let toolbar = toolbarPiker(mySelect: #selector(dismissPicker))
         yearTextField.inputAccessoryView = toolbar
@@ -74,14 +85,18 @@ final class AddMovieViewController: UIViewController {
     }
 
     @objc private func addMovie() {
-        guard let title = titleTextField.text, let duration = durationTextField.text else { return }
+        guard let title = titleTextField.text, title.count > 0,
+            let duration = durationTextField.text, duration.count > 0 else {
+                return
+        }
         let year = yearTextField.text != nil ? Int(yearTextField.text!) : nil
+        let types = typeTextField.text != nil ? [typeTextField.text!.uppercased()] : []
         let movie = Movie(title: title,
                           duration: Int(duration)!,
                           productionCountry: countryTextField.text,
                           productionYear: year,
                           directors: [],
-                          types: [])
+                          types: types)
         Current.dataProvider.postMovie(movie) { [weak self] result in
             self?.handleResult(result)
         }
