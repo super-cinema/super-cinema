@@ -1,45 +1,37 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form ngForm="crewListForm" (ngSubmit)="onSubmit()">
   <mat-card-header>
-  <mat-toolbar class="toolbar">
-    <mat-card-title>Add actors to movie</mat-card-title>
-  </mat-toolbar>
+    <mat-toolbar class="toolbar">
+      <mat-card-title>Add {{crewRole.crewRole.toLowerCase()}} to movie</mat-card-title>
+    </mat-toolbar>
   </mat-card-header>
 
   <div class="form-container">
-
-    <div class="input-group">
-      <!--<input type="text" class="form-control" formControlName="searchBar" placeholder="search crew" name="search" id="search">-->
-      <!--<input type="text" [ngModel]="query" class="form-control" placeholder="search crew" name="search" id="search" >-->
-
-      <div class="input-group-btn">
-        <button class="btn btn-default btn-lg">
-          <i class="fa fa-search"></i>
-        </button>
+    <form #findCrewForm = "ngForm">
+      <div class="input-group">
+        <input ngModel type="text" class="form-control" placeholder="insert surname" name="search" id="search">
+        <div class="input-group-btn">
+          <button class="btn btn-default btn-lg">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
       </div>
-    </div>
-
+    </form>
   </div>
+  <div *ngFor="let crew of crewList">
+    <div  *ngIf="displaySearchedCrew(crew, findCrewForm)">
 
+        <div class="display-one-movie-container">
+          <input type="checkbox" (change)="checkCrew(crew, $event)">
 
-  <!--<mat-list -->
-            <!--class="list-group">-->
-    <div formArrayName="crewList" *ngFor="let crew of crewList;  let i = index" formGroupName="crewList" >
-    <!--<div *ngIf="displaySearchedCrew(query, form)">-->
-    <div class="crew-container">
-      <div class="display-one-movie-container">
-        <input type="checkbox" [formControlName]="i">
-        <mat-list-item class="list-group-item list-group-item-secondary">
-          <span>{{crewList[i].name}} {{crewList[i].surname}} {{crewList[i].crewRoles}} </span>
-          <!--<span>{{crew.name}} {{crew.surname}} {{crew.crewRoles}} </span>-->
-        </mat-list-item>
-      </div>
+          <mat-list-item class="list-group-item list-group-item-secondary">
+            <span>{{crew.name}} {{crew.surname}} {{crew.crewRoles}} </span>
+          </mat-list-item>
+        </div>
     </div>
-    <!--</div>-->
-    </div>
-  <!--</mat-list>-->
-
-
+  </div>
+  <div class="button-container">
   <button>submit</button>
+  </div>
 </form>
 
 

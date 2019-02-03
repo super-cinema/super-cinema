@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.superCinema.backend.api.dto.CrewDto;
+import pl.superCinema.backend.domain.errors.ApiError;
 
 import java.util.List;
 
@@ -18,35 +19,73 @@ public class CrewController {
     private CrewFacade crewFacade;
 
     @GetMapping(params = "id")
-    public ResponseEntity getMovies(@RequestParam Long id) {
-        CrewDto result = crewFacade.getCrew(id);
+    public ResponseEntity getCrew(@RequestParam Long id) {
+        CrewDto result;
+        try {
+            result = crewFacade.getCrew(id);
+        } catch (Exception e) {
+            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
+            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
     @GetMapping
-    public List<CrewDto> getAllCrew() {
-        return crewFacade.getAllCrew();
+    public ResponseEntity getAllCrew() {
+        List<CrewDto> crewDtoList;
+        try {
+            crewDtoList = crewFacade.getAllCrew();
+        } catch (Exception e) {
+            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
+            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(crewDtoList, HttpStatus.OK);
     }
 
     @PostMapping
-    public CrewDto addCrew(@RequestBody CrewDto crewDto) {
-     return crewFacade.addCrew(crewDto);
+    public ResponseEntity addCrew(@RequestBody CrewDto crewDto) {
+        CrewDto crewDtoSaved;
+        try {
+            crewDtoSaved = crewFacade.addCrew(crewDto);
+        } catch (Exception e) {
+            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
+            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(crewDtoSaved, HttpStatus.CREATED);
     }
 
     @DeleteMapping(params = "id")
-    public CrewDto deleteCrew(@RequestParam Long id) {
-       return crewFacade.deleteCrew(id);
+    public ResponseEntity deleteCrew(@RequestParam Long id) {
+        try {
+            crewFacade.deleteCrew(id);
+        } catch (Exception e) {
+            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
+            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(HttpStatus.OK);
     }
+
     @DeleteMapping("/delete")
-    public ResponseEntity deleteAllCrew(){
-        crewFacade.deleteAllCrew();
+    public ResponseEntity deleteAllCrew() {
+        try {
+            crewFacade.deleteAllCrew();
+        } catch (Exception e) {
+            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
+            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PutMapping
     @RequestMapping(params = "id")
-    public CrewDto editMovie(@RequestParam Long id, @RequestBody CrewDto crewDto) {
-        return crewFacade.updateCrew(id, crewDto);
+    public ResponseEntity editCrew(@RequestParam Long id, @RequestBody CrewDto crewDto) {
+        try {
+            crewFacade.updateCrew(id, crewDto);
+        } catch (Exception e) {
+            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
+            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(crewDto, HttpStatus.OK);
     }
 
 }

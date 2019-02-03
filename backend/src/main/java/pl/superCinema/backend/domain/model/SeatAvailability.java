@@ -16,7 +16,7 @@ public class SeatAvailability {
     boolean isSeatTaken;
 
     @ManyToOne
-    MovieShow movieShow;
+    private MovieShow movieShow;
 
 
 }

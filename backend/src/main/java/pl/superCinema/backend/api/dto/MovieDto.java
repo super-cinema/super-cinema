@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.superCinema.backend.domain.model.Crew;
 import pl.superCinema.backend.domain.model.MovieShow;
+import pl.superCinema.backend.domain.model.Type;
 
 import java.util.List;
 
@@ -20,9 +21,9 @@ public class MovieDto {
     @JsonProperty("types")
     private List<TypeDto> types;
 
-    //TODO change into DTO classes when implementation will be ready
     private List<CrewDto> directors;
     private List<CrewDto> cast;
     private MovieShow movieShow;
+
 
 }

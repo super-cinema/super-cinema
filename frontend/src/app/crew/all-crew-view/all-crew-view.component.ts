@@ -1,10 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
 import {DialogService} from '../../share/dialog.service';
 import {Crew} from '../model/crew';
-import {CrewService} from '../../services/crew-servic/crew-service';
+import {CrewService} from '../../services/crew-service/crew-service';
 import {Observable} from 'rxjs';
+import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-movie.service';
 
 @Component({
   selector: 'app-all-crew-view',
@@ -18,13 +19,15 @@ export class AllCrewViewComponent implements OnInit {
   constructor(private httpClient: HttpClient,
               private dialogService: DialogService,
               private notificationService: NotificationService,
-              private crewService: CrewService) {
+              private crewService: CrewService,
+              private crewInMovieService: CrewInMovieService) {
   }
 
   ngOnInit() {
     this.crewService.getCrewList().subscribe((data: any) => {
       this.crewList = data;
     });
+    this.crewInMovieService.clearAllList();
   }
 
   displaySearchedCrew(crew: any, findCrewForm: HTMLFormElement) {

@@ -4,10 +4,12 @@ import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
 import {AllCrewViewComponent} from '../../crew/all-crew-view/all-crew-view.component';
 import {Crew} from '../../crew/model/crew';
-import {CrewService} from '../../services/crew-servic/crew-service';
+import {CrewService} from '../../services/crew-service/crew-service';
 import {MatDialog} from '@angular/material';
 import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-movie.service';
 import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.component';
+import {MovieService} from '../../services/service-movie/movie-service';
+import {Movie} from '../model/movie';
 
 @Component({
   selector: 'app-add-movie',
@@ -17,97 +19,134 @@ import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.compo
 })
 export class AddMovieComponent implements OnInit {
 
+
   constructor(private httpClient: HttpClient,
+              private movieService: MovieService,
               private notification: NotificationService,
               private crewService: CrewService,
               private dialog?: MatDialog,
               private crewInMovieService?: CrewInMovieService) {
   }
 
-  get ActorList() {
-    return this.crewInMovieService.getAllCrew();
-    // this is list with crew from pop up - which show crew list
-  }
-  actorsFromCrew = [Crew];
+  private actorsList: Crew[] = [];
+  private actorsListVisible = false;
+  private directorsList: Crew[] = [];
+  private directorsListVisible = false;
+  private isPopupOpened = false;
+  private movie: Movie = new Movie();
 
-  isPopupOpened = true;
-
-
+// TODO data from database, service and model to do
   movieTypes = [
-    {value: 'COMEDY', name: 'comedy', 'checked': false},
-    {value: 'HORROR', name: 'horror', 'checked': false},
-    {value: 'SF', name: 'science - fiction', 'checked': false},
-    {value: 'ACTION', name: 'action', 'checked': false},
-    {value: 'THRILLER', name: 'thriller', 'checked': false},
-    {value: 'DRAMA', name: 'drama', 'checked': false},
-    {value: 'CRIME', name: 'crime', 'checked': false},
-    {value: 'FANTASY', name: 'fantasy', 'checked': false},
-    {value: 'MUSICAL', name: 'musical', 'checked': false},
-    {value: 'ANIMATION', name: 'animation', 'checked': false},
-    {value: 'WESTERNS', name: 'western', 'checked': false}
-  ];
-
-  directors = [
-    {name: 'name'},
-    {name: 'name'},
-    {name: 'name'}
+    {value: 'COMEDY', name: 'comedy', checked: false},
+    {value: 'HORROR', name: 'horror', checked: false},
+    {value: 'SF', name: 'science - fiction', checked: false},
+    {value: 'ACTION', name: 'action', checked: false},
+    {value: 'THRILLER', name: 'thriller', checked: false},
+    {value: 'DRAMA', name: 'drama', checked: false},
+    {value: 'CRIME', name: 'crime', checked: false},
+    {value: 'FANTASY', name: 'fantasy', checked: false},
+    {value: 'MUSICAL', name: 'musical', checked: false},
+    {value: 'ANIMATION', name: 'animation', checked: false},
+    {value: 'WESTERNS', name: 'western', checked: false}
   ];
 
   ngOnInit() {
+    this.crewInMovieService.clearAllList();
   }
 
-  addActor() {
+  addCrewList(crewRole: string) {
     this.isPopupOpened = true;
     const dialogRef = this.dialog.open(CrewInMovieComponent, {
       width: '700px',
       height: '500px',
-      data: {}
+      data: {crewRole}
     });
-
-
     dialogRef.afterClosed().subscribe(result => {
       this.isPopupOpened = false;
-    });
+      this.actorsList = this.crewInMovieService.getAllActors();
+      const ifActorsListIsEmpty = this.actorsList.length === 0;
+      this.actorsListVisible = !ifActorsListIsEmpty;
+      this.directorsList = this.crewInMovieService.getAllDirectors();
+      const ifDirectorsListIsEmpty = this.directorsList.length === 0;
+      this.directorsListVisible = !ifDirectorsListIsEmpty;
+      });
   }
 
   checkMovieType(movieType, event) {
     movieType.checked = !movieType.checked;
-
   }
 
   addMovie(addMovieForm: NgForm) {
-    const checkedMovieTypes = this.movieTypes.filter(type => type.checked == true).map(type => type.value);
-    if (addMovieForm.value.title == '' || addMovieForm.value.title == null) {
-      this.notification.warn('Please give title.');
-      return;
+    const checkedMovieTypes = this.movieTypes.filter(type => type.checked === true).map(type => type.value);
+    if (this.isDataSufficient(addMovieForm)) {
+      this.makeMovieObject(addMovieForm, checkedMovieTypes);
+      this.movieService.save(this.movie)
+        .subscribe(
+          (data: any) => {
+            this.notification.success('Added ' + addMovieForm.value.title + ' movie successfully ');
+            addMovieForm.reset();
+          }, (error) => {
+            this.notification.warn(error);
+          }
+        );
     }
-    if (addMovieForm.value.duration == '' || addMovieForm.value.duration == null) {
-      this.notification.warn('Please give movie duration.');
-      return;
-    }
-    if (Number.isNaN(Number(addMovieForm.value.duration))) {
-      this.notification.warn('Duration must be given as a number');
-      return;
-    }
-    this.httpClient.post('http://localhost:8080/movie', {
-      'title': addMovieForm.value.title,
-      'duration': addMovieForm.value.duration,
-      'productionCountry': addMovieForm.value.productionCountry,
-      'productionYear': addMovieForm.value.productionYear,
-      'types': checkedMovieTypes,
-      'directors': null,
-      'cast': null,
-      'movieShow': null
-    })
-      .subscribe(
-        (data: any) => {
-          this.notification.success('Added ' + addMovieForm.value.title + ' movie successfully ');
-          addMovieForm.reset();
-        }, (error1) => {
-          this.notification.warn('bad request');
-          this.notification.warn(error1.error.message);
-        }
-      );
+    this.clearCrewList();
+
   }
 
+  private makeMovieObject(addMovieForm: NgForm, checkedMovieTypes) {
+    this.movie.title = addMovieForm.value.title;
+    this.movie.duration = addMovieForm.value.duration;
+    this.movie.productionCountry = addMovieForm.value.productionCountry;
+    this.movie.productionYear = addMovieForm.value.productionYear;
+    this.movie.directors = this.directorsList;
+    this.movie.types = checkedMovieTypes;
+    this.movie.cast = this.actorsList;
+    this.movie.movieShow = null;
+  }
+
+  showOrHideActors() {
+    this.actorsListVisible = !this.actorsListVisible;
+  }
+
+  showOrHideDirectors() {
+    this.directorsListVisible = !this.directorsListVisible;
+  }
+
+  private isDataSufficient(form: NgForm): boolean {
+    if (form.value.title === '' || form.value.title == null) {
+      this.notification.warn('Please give title.');
+      return false;
+    }
+    if (form.value.duration === '' || form.value.duration == null) {
+      this.notification.warn('Please give movie duration.');
+      return false;
+    }
+    if (Number.isNaN(Number(form.value.duration))) {
+      this.notification.warn('Duration must be given as a number');
+      return false;
+    }
+    return true;
+  }
+
+  deleteDirectorFromDirectorsList(director: Crew) {
+    const index = this.directorsList.indexOf(director);
+    this.directorsList.splice(index, 1);
+  }
+
+  deleteActorFormActorsList(actor: Crew) {
+    const index = this.actorsList.indexOf(actor);
+    this.actorsList.splice(index, 1);
+  }
+
+  clearCrewList(){
+    this.crewInMovieService.clearAllList();
+    this.actorsList = [];
+    this.directorsList = [];
+  }
+
+  clearCrewListAndResetForm(addMovieForm: NgForm){
+    addMovieForm.reset();
+    this.clearCrewList();
+  }
 }

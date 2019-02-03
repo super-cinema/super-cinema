@@ -25,11 +25,11 @@ public class MovieShow {
     @JoinTable(name = "FILM_SHOWS_AND_CINEMA_HALLS",
             joinColumns = {@JoinColumn(name = "MOVIE_ID")},
             inverseJoinColumns = {@JoinColumn(name = "CINEMA_HALL_ID")})
-    List<CinemaHall> cinemaHalls;
+    private List<CinemaHall> cinemaHalls;
 
 
 
     @OneToMany(mappedBy = "movieShow")
-    List<SeatAvailability> seatsAvailability;
+    private List<SeatAvailability> seatsAvailability;
 
 }

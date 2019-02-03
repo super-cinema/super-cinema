@@ -28,12 +28,11 @@ import {EditCrewComponent} from './crew/edit-crew/edit-crew.component';
 import {ConfirmDialogComponent} from './share/confirm-dialog/confirm-dialog.component';
 import {EditMovieComponent} from './movie/edit-movie/edit-movie.component';
 import {TransformPipe} from './share/transform.pipe';
-import {CrewService} from './services/crew-servic/crew-service';
+import {CrewService} from './services/crew-service/crew-service';
 import {CrewDetailComponent} from './crew/crew-detail/crew-detail.component';
-import { CrewDetailInMovieComponent } from './crew/crew-detail-in-movie/crew-detail-in-movie.component';
-import {MovieService} from './movie/servic-movie/movie-service';
+import {MovieService} from './services/service-movie/movie-service';
 import { CrewInMovieComponent } from './crew/crew-in-movie/crew-in-movie.component';
-import {SearchPipe} from './share/search-pipe';
+import {CrewInMovieService} from './services/crew-in-movie-service/crew-in-movie.service';
 
 @NgModule({
   declarations: [
@@ -49,9 +48,7 @@ import {SearchPipe} from './share/search-pipe';
     AllCrewViewComponent,
     EditCrewComponent,
     TransformPipe,
-    SearchPipe,
     CrewDetailComponent,
-    CrewDetailInMovieComponent,
     CrewInMovieComponent,
   ],
   imports: [
@@ -79,9 +76,8 @@ import {SearchPipe} from './share/search-pipe';
     MatDialogModule,
     MatSnackBarModule,
     TransformPipe,
-    SearchPipe
   ],
-  providers: [CrewService, MovieService],
+  providers: [CrewService, MovieService, CrewInMovieService ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialogComponent, CrewInMovieComponent]
 })

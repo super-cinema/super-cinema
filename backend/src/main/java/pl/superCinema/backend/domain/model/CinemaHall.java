@@ -20,7 +20,7 @@ public class CinemaHall {
     private List<Seat> seats;
 
     @ManyToMany(mappedBy = "cinemaHalls")
-    List<MovieShow> movieShows;
+    private List<MovieShow> movieShows;
 
 
 

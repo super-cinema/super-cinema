@@ -12,13 +12,13 @@ import pl.superCinema.backend.domain.repository.MovieShowRepository;
 public class MovieShowConfiguration {
 
     @Bean
-    MovieShowBuilder movieShowBuilder(@Lazy MovieBuilder movieBuilder, @Lazy CinemaHallBuilder cinemaHallBuilder,
-                                      @Lazy SeatAvailabilityBuilder seatAvailabilityBuilder) {
+    MovieShowBuilder movieShowBuilder(MovieBuilder movieBuilder, CinemaHallBuilder cinemaHallBuilder,
+                                       SeatAvailabilityBuilder seatAvailabilityBuilder) {
         return new MovieShowBuilder(movieBuilder, cinemaHallBuilder, seatAvailabilityBuilder);
     }
 
     @Bean
-    MovieShowFacade movieShowFacade(@Lazy MovieShowRepository movieShowRepository,@Lazy MovieShowBuilder movieShowBuilder) {
+    MovieShowFacade movieShowFacade(MovieShowRepository movieShowRepository, MovieShowBuilder movieShowBuilder) {
         return new MovieShowFacade(movieShowRepository, movieShowBuilder);
     }
 

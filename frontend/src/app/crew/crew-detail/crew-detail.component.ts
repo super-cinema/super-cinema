@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Crew} from '../model/crew';
-import {CrewService} from '../../services/crew-servic/crew-service';
+import {CrewService} from '../../services/crew-service/crew-service';
 import {AllCrewViewComponent} from '../all-crew-view/all-crew-view.component';
 import {NotificationService} from '../../share/notification.service';
 import {DialogService} from '../../share/dialog.service';
