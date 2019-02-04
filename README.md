@@ -1,8 +1,9 @@
 # SuperCinema
 Application for managing movies screenings in cinema.
+Project developed with Scrum methodology and Gitflow Workflow.
 #### Stack
-* Backend: Java, Spring Boot, JPA, REST, Lombok, Maven, MySQL, H2 DB
-* Frontend: Angular 7
+* Backend: Java 8, Spring Boot, JPA, REST, MySQL, H2 DB, Mockito, JUnit4, Lombok, Maven, 
+* Frontend: Angular 7, TypeScript, HTML, Scss
 
 #### Prerequisites
 Application requires running MySQL database on localhost:3306 with an user specified in *\backend\src\main\resources\application-remote.properties*
