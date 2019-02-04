@@ -1,5 +1,5 @@
 # SuperCinema
-Application for managing movies screenings in cinema.
+Application for managing movies screenings in cinema. <br/>
 Project developed with Scrum methodology and Gitflow Workflow.
 #### Stack
 * Backend: Java 8, Spring Boot, JPA, REST, MySQL, H2 DB, Mockito, JUnit4, Lombok, Maven, 
