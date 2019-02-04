@@ -3,7 +3,7 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
-// TODO: Replace this with your own data model type
+// TODO: Replace this with your own data models type
 export interface ScheduleScreeningViewTableItem {
   name: string;
   id: number;

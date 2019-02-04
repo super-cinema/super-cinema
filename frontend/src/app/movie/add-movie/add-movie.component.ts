@@ -8,7 +8,7 @@ import {CrewService} from '../../services/crew-service/crew-service';
 import {MatDialog} from '@angular/material';
 import {CrewInMovieService} from '../../services/crew-in-movie-service/crew-in-movie.service';
 import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.component';
-import {MovieService} from '../../services/service-movie/movie-service';
+import {MovieService} from '../../services/movie-service/movie-service';
 import {Movie} from '../model/movie';
 
 @Component({
@@ -35,7 +35,7 @@ export class AddMovieComponent implements OnInit {
   private isPopupOpened = false;
   private movie: Movie = new Movie();
 
-// TODO data from database, service and model to do
+// TODO data from database, service and models to do
   movieTypes = [
     {value: 'COMEDY', name: 'comedy', checked: false},
     {value: 'HORROR', name: 'horror', checked: false},

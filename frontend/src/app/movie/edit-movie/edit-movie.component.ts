@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../share/notification.service';
 import {Movie} from '../model/movie';
 import {NgForm} from '@angular/forms';
-import {MovieService} from '../../services/service-movie/movie-service';
+import {MovieService} from '../../services/movie-service/movie-service';
 import {CrewService} from '../../services/crew-service/crew-service';
 import {CrewInMovieComponent} from '../../crew/crew-in-movie/crew-in-movie.component';
 import {MatDialog} from '@angular/material';

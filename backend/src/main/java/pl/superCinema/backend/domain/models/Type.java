@@ -1,0 +1,8 @@
+package pl.superCinema.backend.domain.models;
+
+public enum Type {
+    SF, COMEDY, HORROR, ROMANCE, ACTION, THRILLER, DRAMA, MYSTERY, CRIME,
+    ANIMATION, ADVENTURE, FANTASY, SUPERHERO,
+    HISTORICAL, MUSICAL, WESTERNS, POLITICAL,
+
+}

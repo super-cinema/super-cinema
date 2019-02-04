@@ -30,7 +30,7 @@ import {EditMovieComponent} from './movie/edit-movie/edit-movie.component';
 import {TransformPipe} from './share/transform.pipe';
 import {CrewService} from './services/crew-service/crew-service';
 import {CrewDetailComponent} from './crew/crew-detail/crew-detail.component';
-import {MovieService} from './services/service-movie/movie-service';
+import {MovieService} from './services/movie-service/movie-service';
 import { CrewInMovieComponent } from './crew/crew-in-movie/crew-in-movie.component';
 import {CrewInMovieService} from './services/crew-in-movie-service/crew-in-movie.service';
 

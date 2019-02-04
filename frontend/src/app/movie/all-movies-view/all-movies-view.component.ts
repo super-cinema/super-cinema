@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {DialogService} from '../../share/dialog.service';
 import {NotificationService} from '../../share/notification.service';
-import {MovieService} from '../../services/service-movie/movie-service';
+import {MovieService} from '../../services/movie-service/movie-service';
 
 
 @Component({
