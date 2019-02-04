@@ -10,7 +10,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pl.superCinema.backend.BackendApplication;
-import pl.superCinema.backend.api.controllers.crewController.AbstractTest;
 import pl.superCinema.backend.api.controllers.crewController.CrewBuilder;
 import pl.superCinema.backend.api.dto.CrewDto;
 import pl.superCinema.backend.api.dto.MovieDto;

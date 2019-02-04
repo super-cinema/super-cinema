@@ -12,7 +12,7 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 
 
-public class CrewBuilderTest extends AbstractTest {
+public class CrewBuilderCrewTest extends AbstractCrewTest {
 
     @Autowired
     CrewBuilder crewBuilder;

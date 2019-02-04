@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
-public class CrewControllerTest extends AbstractTest {
+public class CrewControllerCrewTest extends AbstractCrewTest {
 
     private static final String URL = "http://localhost:";
     private static final String CREW_PARAM = "/crew?id=";

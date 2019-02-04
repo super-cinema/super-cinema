@@ -17,7 +17,7 @@ import java.util.List;
 @ActiveProfiles(profiles = "test")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class)
-public abstract class AbstractTest {
+public abstract class AbstractCrewTest {
 
     private static final Long id = 1L;
     private final String name = "Andrzej";
