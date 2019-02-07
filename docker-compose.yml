@@ -11,8 +11,8 @@ services:
            MYSQL_DATABASE: super_cinema
            MYSQL_USER: backend
            MYSQL_PASSWORD: password
-           networks:
-            - lan
+ #          networks:
+ #          - lan
     
     backend:
         build: ./backend
@@ -21,8 +21,8 @@ services:
             - "8080:8080"
         depends_on:
             - mysql
-        networks:
-            - lan
+#        networks:
+ #           - lan
         volumes:      
         - ./backend/target:/home/super-cinema/backend
         command: java -jar -Dspring.profiles.active=remote backend-0.0.1-SNAPSHOT.jar
@@ -40,8 +40,8 @@ services:
       #  - backend_data:/home/chat/backend
        # command: npm start    
     
-networks:
-    lan:
+#networks:
+#   lan:
 
 #volumes:
  #   mysqlChat_data:
