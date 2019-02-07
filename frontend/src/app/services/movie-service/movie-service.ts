@@ -7,7 +7,7 @@ import {Movie} from "../../movie/model/movie";
 @Injectable()
 export class MovieService {
 
-  readonly baseUrl = 'http://localhost:8080/movie';
+  readonly baseUrl = 'http://51.68.137.192:8080/movie';
 
   constructor(private httpClient: HttpClient) {
   }
