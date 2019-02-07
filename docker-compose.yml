@@ -1,0 +1,49 @@
+version: "3.3"
+
+services:
+    mysql:
+        image: mysql:8.0.11
+        container_name: mysql
+       ports:
+        - "3306:3306"
+        environment:
+           MYSQL_ROOT_PASSWORD: password
+           MYSQL_DATABASE: super_cinema
+           MYSQL_USER: backend
+           MYSQL_PASSWORD: password
+           networks:
+            - lan
+    
+    backend:
+        build: ./backend
+        container_name: backend
+        ports:
+            - "8080:8080"
+        depends_on:
+            - mysql
+        networks:
+            - lan
+        volumes:      
+        - ./backend/target:/home/super-cinema/backend
+        command: java -jar -Dspring.profiles.active=remote backend-0.0.1-SNAPSHOT.jar
+    
+#    web:
+ #       build: ./web
+  #      container_name: web
+   #     ports:
+    #        - 4200:4200
+     #   depends_on:
+    #        - backend
+    #    networks:
+    #        - lan
+     #   volumes: 
+      #  - backend_data:/home/chat/backend
+       # command: npm start    
+    
+networks:
+    lan:
+
+#volumes:
+ #   mysqlChat_data:
+#    backend_data:
+#    web_data:
