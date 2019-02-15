@@ -1,9 +1,6 @@
 import {Injectable, OnInit} from '@angular/core';
 import {Crew} from '../../crew/model/crew';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
 @Injectable()
 export class CrewInMovieService implements OnInit {
 

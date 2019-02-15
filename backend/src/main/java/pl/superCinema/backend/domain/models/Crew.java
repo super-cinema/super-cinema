@@ -15,21 +15,16 @@ import java.util.stream.Collectors;
 @JsonIgnoreProperties(value = {"directedMovies"})
 public class Crew {
 
-
-
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
     private String name;
     private String surname;
 
-
-    @ElementCollection(targetClass = CrewRole.class)
+    @ElementCollection(targetClass = CrewRole.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @JoinTable(name = "crew_and_roles")
     private List<CrewRole> crewRoles;
-
 
     @ManyToMany(mappedBy = "directors")
     private List<Movie> directedMovies;

@@ -32,9 +32,9 @@ export class AddCrewComponent implements OnInit {
   }
 
   save() {
-    const fieldsAreEmpty = this.areFieldsEmpty();
+    const checkedCrewRole = this.crewRoles.filter(role => role.checked === true).map(role => role.value);
+    const fieldsAreEmpty = this.areFieldsEmpty(checkedCrewRole);
     if (fieldsAreEmpty !== true) {
-      const checkedCrewRole = this.crewRoles.filter(role => role.checked === true).map(role => role.value);
       this.crew.name = this.addCrewForm.value.name;
       this.crew.surname = this.addCrewForm.value.surname;
       this.crew.crewRoles = checkedCrewRole;
@@ -46,7 +46,7 @@ export class AddCrewComponent implements OnInit {
     }
   }
 
-  areFieldsEmpty() {
+  areFieldsEmpty(checkedCrewRole) {
     if (this.addCrewForm.value.name === '' || this.addCrewForm.value.name == null) {
       this.notification.warn('Please give name.');
       return true;
@@ -55,13 +55,10 @@ export class AddCrewComponent implements OnInit {
       this.notification.warn('Please give surname.');
       return true;
     }
-
-    // if (this.crewRoles.filter(role => role.checked === false)) {
-    //   this.notification.warn('Please choice role.');
-    //   return true;
-    // }
-// todo validate checkbox using notificationService
-
+    if (checkedCrewRole == false) {
+      this.notification.warn('Please choice role.');
+      return true;
+    }
   }
 
   checkCrewRole(crewRole, event) {

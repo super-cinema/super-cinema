@@ -42,7 +42,6 @@ export class CrewInMovieComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.crewInMovieService.passActorsList(this.actorsListToPass);
     if (this.crewRole.crewRole === 'ACTOR') {
       this.crewInMovieService.passActorsList(this.actorsListToPass);
     } else {
