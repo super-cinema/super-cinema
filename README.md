@@ -15,10 +15,11 @@ Project developed with Scrum methodology and Gitflow Workflow.
 ![delete crew](img/superCinema-allCrew-delete.png)
 ![add movie](img/superCinema-addMovie1.png)
 ![add directorToMovie](img/superCinema-addDirectorToMovie.png)
-![add movie validation1](img/superCinema-addMovie1.png)
+![add movie validation1](img/superCinema-addMovie-validation.png)
 ![add movie success](img/superCinema-addMovie-success.png)
-![all movies](img/superCinema-allMovies.png)
-![all movies delete](img/superCinema-allMovied-delete.png)
+![delete movie succes](img/superCinema-allMovies.png)
+![all movies delete](img/superCinema-movie-deleting-succes.png)
+![edit movie](img/superCinema-editMovie.png)
 
 #### Prerequisites
 Application requires running MySQL database on localhost:3306 with an user specified in *\backend\src\main\resources\application-remote.properties*
