@@ -33,6 +33,7 @@ import {CrewDetailComponent} from './crew/crew-detail/crew-detail.component';
 import {MovieService} from './services/movie-service/movie-service';
 import { CrewInMovieComponent } from './crew/crew-in-movie/crew-in-movie.component';
 import {CrewInMovieService} from './services/crew-in-movie-service/crew-in-movie.service';
+import {SortNamePipe} from './share/sort-name.pipe';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {CrewInMovieService} from './services/crew-in-movie-service/crew-in-movie
     TransformPipe,
     CrewDetailComponent,
     CrewInMovieComponent,
+    SortNamePipe
   ],
   imports: [
     BrowserModule,
