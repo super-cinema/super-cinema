@@ -27,17 +27,17 @@ services:
         - ./backend/target:/home/super-cinema/backend
         command: java -jar -Dspring.profiles.active=remote backend-0.0.1-SNAPSHOT.jar
 
-    frontend:
-      container_name: frontend
-      image: nginx
-      build:
-        context: .
-        dockerfile: ./frontend/Dockerfile
-      volumes:
-        - ./frontend/dist:/usr/share/nginx/html
-      ports:
-        - "80:80"
-        - "443:443"
+#    frontend:
+#      container_name: frontend
+#      image: nginx
+#      build:
+#        context: .
+#        dockerfile: ./frontend/Dockerfile
+#      volumes:
+#        - ./frontend/dist:/usr/share/nginx/html
+#      ports:
+#        - "80:80"
+#        - "443:443"
 
 
 #    web:
