@@ -1,6 +1,7 @@
 FROM nginx:1.13.3-alpine
 ## Remove default nginx website
 RUN rm -rf /usr/share/nginx/html/*
+RUN npm run build
 ## From 'builder' stage copy over the artifacts in dist folder to default nginx public folder
 COPY /frontend /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
