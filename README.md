@@ -15,10 +15,10 @@ Project developed with Scrum methodology and Gitflow Workflow.
 ![delete crew](img/superCinema-allCrew-delete.png)
 ![add movie](img/superCinema-addMovie1.png)
 ![add directorToMovie](img/superCinema-addDirectorToMovie.png)
-![add movie validation1](img/superCinema-addMovie-validation.png)
+![add movie validation](img/superCinema-addMovie-validation.png)
 ![add movie success](img/superCinema-addMovie-success.png)
-![delete movie success](img/superCinema-movie-deleting-succes.png)
-![all movies delete](img/superCinema-allMovied-delete.png)
+![delete movie success](img/superCinema-allMovies-delete-succes.png)
+![all movies delete](img/superCinema-allMovies-delete.png)
 ![edit movie](img/superCinema-editMovie.png)
 
 #### Prerequisites
