@@ -33,14 +33,14 @@ export class EditMovieComponent implements OnInit {
     {value: 'WESTERNS', name: 'western', checked: false}
   ];
 
-  private movie: Movie;
-  private existingActorsList;
-  private actorsListToAdd;
-  private existingDirectorsList;
-  private directorsListToAdd;
-  private isPopupOpened = false;
-  private directorsListVisible: boolean = true;
-  private actorsListVisible: boolean = true;
+  public movie: Movie;
+  public existingActorsList;
+  public actorsListToAdd;
+  public existingDirectorsList;
+  public directorsListToAdd;
+  public isPopupOpened = false;
+  public directorsListVisible: boolean = true;
+  public actorsListVisible: boolean = true;
 
   constructor(private httpClient: HttpClient,
               private crewService: CrewService,

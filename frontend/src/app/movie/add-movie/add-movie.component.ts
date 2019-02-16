@@ -27,12 +27,12 @@ export class AddMovieComponent implements OnInit {
               private crewInMovieService?: CrewInMovieService) {
   }
 
-  private actorsList: Crew[] = [];
-  private actorsListVisible = false;
-  private directorsList: Crew[] = [];
-  private directorsListVisible = false;
-  private isPopupOpened = false;
-  private movie: Movie = new Movie();
+  public actorsList: Crew[] = [];
+  public actorsListVisible = false;
+  public directorsList: Crew[] = [];
+  public directorsListVisible = false;
+  public isPopupOpened = false;
+  public movie: Movie = new Movie();
 
 // TODO data from database, service and models to do
   movieTypes = [
