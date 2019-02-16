@@ -17,8 +17,8 @@ Project developed with Scrum methodology and Gitflow Workflow.
 ![add directorToMovie](img/superCinema-addDirectorToMovie.png)
 ![add movie validation1](img/superCinema-addMovie-validation.png)
 ![add movie success](img/superCinema-addMovie-success.png)
-![delete movie succes](img/superCinema-allMovies.png)
-![all movies delete](img/superCinema-movie-deleting-succes.png)
+![delete movie success](img/superCinema-movie-deleting-succes.png)
+![all movies delete](img/superCinema-allMovied-delete.png)
 ![edit movie](img/superCinema-editMovie.png)
 
 #### Prerequisites
