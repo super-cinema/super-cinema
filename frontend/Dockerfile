@@ -1,12 +1,6 @@
-FROM node:alpine AS builder
-
-WORKDIR /home/chat/frontend/
-
-COPY . .
-
-RUN npm install && \
-    npm run build
-
-FROM nginx:alpine
-
-COPY --from=builder /home/chat/frontend/* /usr/share/nginx/html/
+FROM nginx:1.13.3-alpine
+## Remove default nginx website
+RUN rm -rf /usr/share/nginx/html/*
+## From 'builder' stage copy over the artifacts in dist folder to default nginx public folder
+COPY /frontend /usr/share/nginx/html
+CMD ["nginx", "-g", "daemon off;"]
