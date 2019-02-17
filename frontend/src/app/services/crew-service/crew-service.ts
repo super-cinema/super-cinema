@@ -24,11 +24,11 @@ export class CrewService {
   }
 
   updateCrew(id: number, value: any): Observable<Object> {
-    return this.http.put(this.baseUrl + '?id=' + id, value);
+    return this.http.put(this.baseUrl + '?idToEdit=' + id, value);
   }
 
   deleteCrew(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + '?id=' + id);
+    return this.http.delete(this.baseUrl + '?"idToDel=' + id);
   }
 
   getCrewList(): Observable<Array<Crew>> {
