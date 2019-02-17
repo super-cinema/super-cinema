@@ -13,6 +13,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import pl.superCinema.backend.infrastructure.dto.CrewDto;
@@ -170,7 +171,7 @@ public class CrewControllerTest extends AbstractTest {
         String inputJson = mapToJson(crewDto);
         //when
         mockMvc.perform(MockMvcRequestBuilders
-                .put(CREW_PARAM + expectedId)
+                .put("/crew?idToEdit=" + expectedId)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 //then
@@ -202,7 +203,7 @@ public class CrewControllerTest extends AbstractTest {
         doNothing().when(crewFacade).deleteCrew(any(Long.class));
         //when
         mockMvc.perform(MockMvcRequestBuilders
-                .delete(URL + localServerPort + CREW_PARAM + expectedId)
+                .delete(URL + localServerPort + "/crew?idToDel="+ expectedId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 //then
@@ -233,7 +234,7 @@ public class CrewControllerTest extends AbstractTest {
 
         //when
         ResponseEntity responseEntity = testRestTemplate
-                .exchange(URL + localServerPort + CREW_PARAM,
+                .exchange(URL + localServerPort + "crew/delete",
                         HttpMethod.DELETE, null, ResponseEntity.class, expectedId);
         //then
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());

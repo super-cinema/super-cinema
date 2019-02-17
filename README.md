@@ -63,3 +63,14 @@ $ cd backend && mvn test
 - [ ] Managing display of movies in screening rooms
 - [ ] Dockerizing frontend
 
+### Deploy to remote server
+
+1. Inside folder: /backend:
+```mvn clean install```
+2. Inside folder: /frontend:
+```npm run build```
+3. Upload to remote server: 
+- file: ```docker-compose.yml```
+- folder structure with file: ```/backend/target/backend-0.0.1-SNAPSHOT.jar```
+- folder with files: ```/frontend/dist```
+4. Run from / folder ```docker-compose up```
