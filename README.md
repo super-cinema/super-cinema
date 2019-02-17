@@ -3,12 +3,12 @@ REST application for managing movies screenings in cinema. <br/>
 Project developed with Gitflow Workflow.
 
 #### Stack
-* Backend: Java 8, Spring Boot, JPA, REST, MySQL, H2 DB, Mockito, JUnit4, Lombok, Maven 
+* Backend: Java 8, Spring Boot, Hibernate, REST, MySQL, H2 DB, Mockito, JUnit4, Lombok, Maven 
 * Frontend: Angular 7, TypeScript, HTML, Scss
 * Tools: Docker, MySql Workbench 
 
-####Check our progress
-[super-cinema](http://super-cinema.pl/)<br/>
+#### Check our progress <br/>
+* [super-cinema](http://super-cinema.pl/)<br/>
 All the time the work is underway, keep in mind please, that not everything must work at the moment ;)
 
 
