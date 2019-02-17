@@ -5,9 +5,6 @@ RUN rm -rf /usr/share/nginx/html/*
 
 ## From 'builder' stage copy over the artifacts in dist folder to default nginx public folder
 
-##COPY .nginx/nginx.conf /etc/nginx/nginx.conf
-##COPY /dist /usr/share/nginx/html
-
 COPY ./frontend/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./frontend/dist /usr/share/nginx/html
 

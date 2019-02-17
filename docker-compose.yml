@@ -11,8 +11,7 @@ services:
            MYSQL_DATABASE: super_cinema
            MYSQL_USER: backend
            MYSQL_PASSWORD: password
-#           networks:
- #          - lan
+
     
     backend:
         build: ./backend
@@ -21,9 +20,7 @@ services:
             - "8080:8080"
         depends_on:
             - mysql
- #       networks:
- #           - lan
-        volumes:      
+         volumes:
         - ./backend/target:/home/super-cinema/backend
         command: java -jar -Dspring.profiles.active=remote backend-0.0.1-SNAPSHOT.jar
 
@@ -38,25 +35,3 @@ services:
       ports:
         - "80:80"
         - "443:443"
-
-
-#    web:
- #       build: ./web
-  #      container_name: web
-   #     ports:
-    #        - 4200:4200
-     #   depends_on:
-    #        - backend
-    #    networks:
-    #        - lan
-     #   volumes: 
-      #  - backend_data:/home/chat/backend
-       # command: npm start    
-    
-#networks:
-#   lan:
-
-#volumes:
- #   mysqlChat_data:
-#    backend_data:
-#    web_data:
