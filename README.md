@@ -1,9 +1,42 @@
 # SuperCinema
-Application for managing movies screenings in cinema. <br/>
-Project developed with Scrum methodology and Gitflow Workflow.
+REST application for managing movies screenings in cinema. <br/>
+Project developed with Gitflow Workflow.
+
 #### Stack
-* Backend: Java 8, Spring Boot, JPA, REST, MySQL, H2 DB, Mockito, JUnit4, Lombok, Maven, 
+* Backend: Java 8, Spring Boot, Hibernate, REST, MySQL, H2 DB, Mockito, JUnit4, Lombok, Maven 
 * Frontend: Angular 7, TypeScript, HTML, Scss
+* Tools: Docker, MySql Workbench 
+
+#### Check our progress <br/>
+* [super-cinema](http://super-cinema.pl/)<br/>
+All the time the work is underway, keep in mind please, that not everything must work at the moment ;)
+
+
+#### Features
+
+- [x] Adding, editing and deleting actors/directors 
+- [x] Adding, editing and deleting movies with actors/directors
+- [x] Validation of incorrect addition and editing actors/directors or movie
+- [x] Notification for correct or incorrect addition/removal actors/directors or movie
+- [x] Searching movie by title, searching actors/directors by surname
+- [x] H2 database for testing only
+- [x] Dockerizing MySql
+- [x] Dockerizing backend
+- [x] Dockerizing frontend
+
+#### Examples of some features
+
+![add crew](img/superCinema-addCrew.png)
+![all crew](img/superCinema-allCrew.png)
+![sort crew](img/superCinema-crew-sort.png)
+![delete crew](img/superCinema-allCrew-delete.png)
+![add movie](img/superCinema-addMovie1.png)
+![add directorToMovie](img/superCinema-addDirectorToMovie.png)
+![add movie validation](img/superCinema-addMovie-validation.png)
+![add movie success](img/superCinema-addMovie-success.png)
+![delete movie success](img/superCinema-allMovies-delete-succes.png)
+![all movies delete](img/superCinema-allMovies-delete.png)
+![edit movie](img/superCinema-editMovie.png)
 
 #### Prerequisites
 Application requires running MySQL database on localhost:3306 with an user specified in *\backend\src\main\resources\application-remote.properties*
@@ -30,16 +63,13 @@ $ cd ..\frontend && ng serve --open
 ```sh
 $ cd backend && mvn test
 ```
-#### Features
-
-- [x] Adding, editing and deleting actors/directors 
-- [x] Adding, editing and deleting movies with actors/directors
 
 #### To do
 
-- [x] User authentication
-- [x] Parsing CSV file with screening rooms configuration (rows and seats number in rooms)
-- [x] Managing display of movies in screening rooms
+- [ ] User authentication
+- [ ] Parsing CSV file with screening rooms configuration (rows and seats number in rooms)
+- [ ] Managing display of movies in screening rooms
+
 
 ### Deploy to remote server
 
