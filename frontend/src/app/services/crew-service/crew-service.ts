@@ -28,7 +28,7 @@ export class CrewService {
   }
 
   deleteCrew(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + '?"idToDel=' + id);
+    return this.http.delete(this.baseUrl + '?idToDel=' + id);
   }
 
   getCrewList(): Observable<Array<Crew>> {
