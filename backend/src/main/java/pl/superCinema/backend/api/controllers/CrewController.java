@@ -55,7 +55,8 @@ public class CrewController {
         return new ResponseEntity(crewDtoSaved, HttpStatus.CREATED);
     }
 
-    @DeleteMapping(params = "id")
+    @DeleteMapping
+    @RequestMapping(params = "id")
     public ResponseEntity deleteCrew(@RequestParam Long id) {
         try {
             crewFacade.deleteCrew(id);
