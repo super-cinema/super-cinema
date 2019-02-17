@@ -14,9 +14,9 @@ import {Crew} from '../model/crew';
 
 })
 export class CrewInMovieComponent implements OnInit {
-  private crewList = [];
+  public crewList = [];
   private actorsListToPass: Crew[] = [];
-  private readonly crewRole;
+  public readonly crewRole;
   private directorsListToPass: Crew[] = [];
 
   constructor(private formBuilder: FormBuilder,
@@ -42,7 +42,6 @@ export class CrewInMovieComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.crewInMovieService.passActorsList(this.actorsListToPass);
     if (this.crewRole.crewRole === 'ACTOR') {
       this.crewInMovieService.passActorsList(this.actorsListToPass);
     } else {

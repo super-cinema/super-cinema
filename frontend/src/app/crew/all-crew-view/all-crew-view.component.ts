@@ -47,7 +47,6 @@ export class AllCrewViewComponent implements OnInit {
                 this.ngOnInit();
               },
               error => console.log('ERROR: ' + error));
-
         }
       });
   }

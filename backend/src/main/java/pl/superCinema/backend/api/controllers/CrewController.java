@@ -55,10 +55,11 @@ public class CrewController {
         return new ResponseEntity(crewDtoSaved, HttpStatus.CREATED);
     }
 
-    @DeleteMapping(params = "id")
-    public ResponseEntity deleteCrew(@RequestParam Long id) {
+    @DeleteMapping
+    @RequestMapping(params = "idToDel")
+    public ResponseEntity deleteCrew(@RequestParam Long idToDel) {
         try {
-            crewFacade.deleteCrew(id);
+            crewFacade.deleteCrew(idToDel);
         } catch (Exception e) {
             ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
             return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
@@ -78,10 +79,10 @@ public class CrewController {
     }
 
     @PutMapping
-    @RequestMapping(params = "id")
-    public ResponseEntity editCrew(@RequestParam Long id, @RequestBody CrewDto crewDto) {
+    @RequestMapping(params = "idToEdit")
+    public ResponseEntity editCrew(@RequestParam Long idToEdit, @RequestBody CrewDto crewDto) {
         try {
-            crewFacade.updateCrew(id, crewDto);
+            crewFacade.updateCrew(idToEdit, crewDto);
         } catch (Exception e) {
             ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
             return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);

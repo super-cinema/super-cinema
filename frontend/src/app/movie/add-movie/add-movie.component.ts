@@ -19,7 +19,6 @@ import {Movie} from '../model/movie';
 })
 export class AddMovieComponent implements OnInit {
 
-
   constructor(private httpClient: HttpClient,
               private movieService: MovieService,
               private notification: NotificationService,
@@ -28,12 +27,12 @@ export class AddMovieComponent implements OnInit {
               private crewInMovieService?: CrewInMovieService) {
   }
 
-  private actorsList: Crew[] = [];
-  private actorsListVisible = false;
-  private directorsList: Crew[] = [];
-  private directorsListVisible = false;
-  private isPopupOpened = false;
-  private movie: Movie = new Movie();
+  public actorsList: Crew[] = [];
+  public actorsListVisible = false;
+  public directorsList: Crew[] = [];
+  public directorsListVisible = false;
+  public isPopupOpened = false;
+  public movie: Movie = new Movie();
 
 // TODO data from database, service and models to do
   movieTypes = [
@@ -69,7 +68,7 @@ export class AddMovieComponent implements OnInit {
       this.directorsList = this.crewInMovieService.getAllDirectors();
       const ifDirectorsListIsEmpty = this.directorsList.length === 0;
       this.directorsListVisible = !ifDirectorsListIsEmpty;
-      });
+    });
   }
 
   checkMovieType(movieType, event) {
@@ -78,7 +77,7 @@ export class AddMovieComponent implements OnInit {
 
   addMovie(addMovieForm: NgForm) {
     const checkedMovieTypes = this.movieTypes.filter(type => type.checked === true).map(type => type.value);
-    if (this.isDataSufficient(addMovieForm)) {
+    if (this.isDataSufficient(addMovieForm, checkedMovieTypes)) {
       this.makeMovieObject(addMovieForm, checkedMovieTypes);
       this.movieService.save(this.movie)
         .subscribe(
@@ -89,19 +88,18 @@ export class AddMovieComponent implements OnInit {
             this.notification.warn(error);
           }
         );
+      this.clearCrewList();
     }
-    this.clearCrewList();
-
   }
 
   private makeMovieObject(addMovieForm: NgForm, checkedMovieTypes) {
     this.movie.title = addMovieForm.value.title;
+    this.movie.directors = this.directorsList;
+    this.movie.cast = this.actorsList;
+    this.movie.types = checkedMovieTypes;
     this.movie.duration = addMovieForm.value.duration;
     this.movie.productionCountry = addMovieForm.value.productionCountry;
     this.movie.productionYear = addMovieForm.value.productionYear;
-    this.movie.directors = this.directorsList;
-    this.movie.types = checkedMovieTypes;
-    this.movie.cast = this.actorsList;
     this.movie.movieShow = null;
   }
 
@@ -113,9 +111,29 @@ export class AddMovieComponent implements OnInit {
     this.directorsListVisible = !this.directorsListVisible;
   }
 
-  private isDataSufficient(form: NgForm): boolean {
+  private isDataSufficient(form: NgForm, checkedMovieTypes): boolean {
     if (form.value.title === '' || form.value.title == null) {
       this.notification.warn('Please give title.');
+      return false;
+    }
+    if (this.directorsList.length === 0) {
+      this.notification.warn('Please add director.');
+      return false;
+    }
+    if (this.actorsList.length === 0) {
+      this.notification.warn('Please add actors.');
+      return false;
+    }
+    if (checkedMovieTypes == false) {
+      this.notification.warn('Please give movie type.');
+      return false;
+    }
+    if (form.value.productionCountry === '' || form.value.productionCountry == null) {
+      this.notification.warn('Please give production country.');
+      return false;
+    }
+    if (form.value.productionYear === '' || form.value.productionYear == null || Number.isNaN(Number(form.value.productionYear))) {
+      this.notification.warn('Please give production year.');
       return false;
     }
     if (form.value.duration === '' || form.value.duration == null) {
@@ -139,13 +157,13 @@ export class AddMovieComponent implements OnInit {
     this.actorsList.splice(index, 1);
   }
 
-  clearCrewList(){
+  clearCrewList() {
     this.crewInMovieService.clearAllList();
     this.actorsList = [];
     this.directorsList = [];
   }
 
-  clearCrewListAndResetForm(addMovieForm: NgForm){
+  clearCrewListAndResetForm(addMovieForm: NgForm) {
     addMovieForm.reset();
     this.clearCrewList();
   }
