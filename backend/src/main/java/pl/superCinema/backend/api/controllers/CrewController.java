@@ -56,7 +56,7 @@ public class CrewController {
     }
 
     @DeleteMapping
-    @RequestMapping(params = "id")
+    @RequestMapping(params = "idToDel")
     public ResponseEntity deleteCrew(@RequestParam Long id) {
         try {
             crewFacade.deleteCrew(id);
@@ -79,7 +79,7 @@ public class CrewController {
     }
 
     @PutMapping
-    @RequestMapping(params = "id")
+    @RequestMapping(params = "idToEdit")
     public ResponseEntity editCrew(@RequestParam Long id, @RequestBody CrewDto crewDto) {
         try {
             crewFacade.updateCrew(id, crewDto);
