@@ -7,6 +7,23 @@ Project developed with Gitflow Workflow.
 * Frontend: Angular 7, TypeScript, HTML, Scss
 * Tools: Docker, MySql Workbench 
 
+####Check our progress
+[super-cinema](http://super-cinema.pl/)<br/>
+All the time the work is underway, keep in mind please, that not everything must work at the moment ;)
+
+
+#### Features
+
+- [x] Adding, editing and deleting actors/directors 
+- [x] Adding, editing and deleting movies with actors/directors
+- [x] Validation of incorrect addition and editing actors/directors or movie
+- [x] Notification for correct or incorrect addition/removal actors/directors or movie
+- [x] Searching movie by title, searching actors/directors by surname
+- [x] H2 database for testing only
+- [x] Dockerizing MySql
+- [x] Dockerizing backend
+- [x] Dockerizing frontend
+
 #### Examples of some features
 
 ![add crew](img/superCinema-addCrew.png)
@@ -46,22 +63,13 @@ $ cd ..\frontend && ng serve --open
 ```sh
 $ cd backend && mvn test
 ```
-#### Features
-
-- [x] Adding, editing and deleting actors/directors 
-- [x] Adding, editing and deleting movies with actors/directors
-- [x] Validation of incorrect addition and editing actors/directors or movie
-- [x] Notification for correct or incorrect addition/removal actors/directors or movie
-- [x] Searching movie by title, searching actors/directors by surname
-- [x] H2 database for testing only
-- [x] Dockerizing backend
 
 #### To do
 
 - [ ] User authentication
 - [ ] Parsing CSV file with screening rooms configuration (rows and seats number in rooms)
 - [ ] Managing display of movies in screening rooms
-- [ ] Dockerizing frontend
+
 
 ### Deploy to remote server
 
