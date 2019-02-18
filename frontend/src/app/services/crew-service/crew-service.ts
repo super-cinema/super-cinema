@@ -9,7 +9,7 @@ import {Crew} from '../../crew/model/crew';
 export class CrewService {
 
   // readonly baseUrl = 'http://localhost:8080/crew';
-  readonly baseUrl = 'http://51.68.137.192:8080/crew';
+  readonly baseUrl = 'http://51.68.143.98:8080/crew';
 
 
   constructor(private http: HttpClient) {
