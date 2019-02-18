@@ -20,7 +20,7 @@ services:
             - "8080:8080"
         depends_on:
             - mysql
-         volumes:
+        volumes:
         - ./backend/target:/home/super-cinema/backend
         command: java -jar -Dspring.profiles.active=remote backend-0.0.1-SNAPSHOT.jar
 
