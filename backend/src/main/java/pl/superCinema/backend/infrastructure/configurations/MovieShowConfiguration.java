@@ -7,7 +7,7 @@ import pl.superCinema.backend.infrastructure.builders.MovieBuilder;
 import pl.superCinema.backend.infrastructure.builders.MovieShowBuilder;
 import pl.superCinema.backend.infrastructure.builders.SeatAvailabilityBuilder;
 import pl.superCinema.backend.domain.facades.MovieShowFacade;
-import pl.superCinema.backend.domain.ports.MovieShowRepository;
+import pl.superCinema.backend.domain.repository.MovieShowRepository;
 
 @Configuration
 public class MovieShowConfiguration {

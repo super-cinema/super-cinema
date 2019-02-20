@@ -45,11 +45,11 @@ public class Movie {
     public String toString() {
         String directorsToString = "[]";
         if (directors != null) {
-            directorsToString = directors.stream().map(Crew::getName).collect(Collectors.joining(",", "{", "}"));
+            directorsToString = flatCrewListToString(directors);
         }
         String castToString = "[]";
         if (cast != null) {
-            castToString = cast.stream().map(Crew::getName).collect(Collectors.joining(",", "{", "}"));
+            castToString = flatCrewListToString(cast);
         }
         return "Movie{" +
                 "id=" + id +
@@ -62,5 +62,9 @@ public class Movie {
                 ", directors=" + directorsToString +
                 ", cast=" + castToString +
                 '}';
+    }
+
+    private String flatCrewListToString(List<Crew> directors) {
+        return directors.stream().map(Crew::getName).collect(Collectors.joining(",", "{", "}"));
     }
 }

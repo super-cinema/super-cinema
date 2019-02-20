@@ -1,4 +1,4 @@
-package pl.superCinema.backend.api.controllers;
+package pl.superCinema.backend.api.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/movie")
+@RequestMapping("/movies")
 @CrossOrigin(origins = "*")
 public class MovieController {
 

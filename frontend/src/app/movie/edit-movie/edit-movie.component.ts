@@ -88,7 +88,7 @@ export class EditMovieComponent implements OnInit {
           this.notification.success('Edited ' + this.movie.title + ' movie succesfully' );
         },
         (error) => {
-          this.notification.warn(error);
+          this.notification.warn(error.error);
         }
         );
   }

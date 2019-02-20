@@ -5,7 +5,7 @@ import pl.superCinema.backend.infrastructure.builders.SeatBuilder;
 import pl.superCinema.backend.infrastructure.dto.SeatDto;
 import pl.superCinema.backend.domain.exceptions.EntityCouldNotBeFoundException;
 import pl.superCinema.backend.domain.models.Seat;
-import pl.superCinema.backend.domain.ports.SeatRepository;
+import pl.superCinema.backend.domain.repository.SeatRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

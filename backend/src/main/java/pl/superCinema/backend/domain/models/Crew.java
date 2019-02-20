@@ -36,11 +36,11 @@ public class Crew {
     public String toString() {
         String directedMoviesString = "[]";
         if (directedMovies != null) {
-            directedMoviesString = directedMovies.stream().map(Movie::getTitle).collect(Collectors.joining(",", "{", "}"));
+            directedMoviesString = flatMovieListToString(directedMovies);
         }
         String starredMoviesString = "[]";
         if (starredMovies != null) {
-            starredMoviesString = starredMovies.stream().map(Movie::getTitle).collect(Collectors.joining(",", "{", "}"));
+            starredMoviesString = flatMovieListToString(starredMovies);
 
         }
         return "Crew{" +
@@ -51,6 +51,10 @@ public class Crew {
                 ", directedMovies:" + directedMoviesString +
                 ", starredMovies" + starredMoviesString +
                 '}';
+    }
+
+    private String flatMovieListToString(List<Movie> directedMovies) {
+        return directedMovies.stream().map(Movie::getTitle).collect(Collectors.joining(",", "{", "}"));
     }
 
     @Override

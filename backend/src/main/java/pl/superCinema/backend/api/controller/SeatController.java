@@ -1,4 +1,4 @@
-package pl.superCinema.backend.api.controllers;
+package pl.superCinema.backend.api.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,7 +10,7 @@ import pl.superCinema.backend.domain.facades.SeatFacade;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/seat")
+@RequestMapping("/seats")
 public class SeatController {
 
     private SeatFacade seatFacade;

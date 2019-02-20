@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.superCinema.backend.infrastructure.builders.SeatBuilder;
 import pl.superCinema.backend.domain.facades.SeatFacade;
-import pl.superCinema.backend.domain.ports.SeatRepository;
+import pl.superCinema.backend.domain.repository.SeatRepository;
 
 @Configuration
 public class SeatConfiguration {

@@ -1,4 +1,4 @@
-package pl.superCinema.backend.api.controllers;
+package pl.superCinema.backend.api.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,7 +10,7 @@ import pl.superCinema.backend.domain.facades.CinemaHallFacade;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/cinemaHall")
+@RequestMapping("/cinemaHalls")
 public class CinemaHallController {
 
     CinemaHallFacade cinemaHallFacade;

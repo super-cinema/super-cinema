@@ -85,7 +85,7 @@ export class AddMovieComponent implements OnInit {
             this.notification.success('Added ' + addMovieForm.value.title + ' movie successfully ');
             addMovieForm.reset();
           }, (error) => {
-            this.notification.warn(error);
+            this.notification.warn(error.error);
           }
         );
       this.clearCrewList();
