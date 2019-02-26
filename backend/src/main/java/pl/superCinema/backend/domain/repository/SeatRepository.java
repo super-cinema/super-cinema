@@ -1,4 +1,4 @@
-package pl.superCinema.backend.domain.ports;
+package pl.superCinema.backend.domain.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import pl.superCinema.backend.domain.models.Seat;

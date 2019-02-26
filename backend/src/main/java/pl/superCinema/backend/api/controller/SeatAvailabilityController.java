@@ -1,9 +1,9 @@
-package pl.superCinema.backend.api.controllers;
+package pl.superCinema.backend.api.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-public class MovieShowController {
+public class SeatAvailabilityController {
 }

@@ -2,7 +2,7 @@ package pl.superCinema.backend.domain.facades;
 
 import lombok.AllArgsConstructor;
 import pl.superCinema.backend.infrastructure.builders.MovieShowBuilder;
-import pl.superCinema.backend.domain.ports.MovieShowRepository;
+import pl.superCinema.backend.domain.repository.MovieShowRepository;
 
 @AllArgsConstructor
 public class MovieShowFacade {
