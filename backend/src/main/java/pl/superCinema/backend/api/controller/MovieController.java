@@ -21,14 +21,7 @@ public class MovieController {
 
     @PostMapping
     public ResponseEntity saveMovie(@RequestBody MovieDto movieDto) {
-        MovieDto movieDtoAdded;
-        try {
-            movieDtoAdded = movieFacade.saveMovie(movieDto);
-        } catch (Exception e) {
-            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
-            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity(movieDtoAdded, HttpStatus.CREATED);
+        return new ResponseEntity(movieFacade.saveMovie(movieDto), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -52,15 +45,7 @@ public class MovieController {
     @GetMapping
     @RequestMapping(params = "movieId")
     public ResponseEntity findMovieById(@RequestParam Long movieId) {
-        MovieDto movieById;
-        try {
-            movieById = movieFacade.getMovieDtoById(movieId);
-        } catch (EntityCouldNotBeFoundException e) {
-            ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, e.getMessage(), e.getClass().getSimpleName());
-            return new ResponseEntity(apiError, HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(movieById, HttpStatus.OK);
+        return new ResponseEntity<>(movieFacade.getMovieDtoById(movieId), HttpStatus.OK);
     }
 
     @PutMapping
@@ -98,8 +83,6 @@ public class MovieController {
             ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
             return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
         }
-
-
     }
 
 }

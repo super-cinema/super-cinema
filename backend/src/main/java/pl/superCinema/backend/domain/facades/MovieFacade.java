@@ -1,6 +1,7 @@
 package pl.superCinema.backend.domain.facades;
 
 import lombok.AllArgsConstructor;
+import pl.superCinema.backend.domain.exceptions.EntityNotCreatedException;
 import pl.superCinema.backend.infrastructure.builders.MovieBuilder;
 import pl.superCinema.backend.infrastructure.dto.CrewDto;
 import pl.superCinema.backend.infrastructure.dto.MovieDto;
@@ -25,7 +26,12 @@ public class MovieFacade {
 
     public MovieDto saveMovie(MovieDto movieDto) {
         Movie movie = movieBuilder.dtoToBasicEntity(movieDto);
-        Movie movieSaved = movieRepository.save(movie);
+        Movie movieSaved;
+        try {
+            movieSaved = movieRepository.save(movie);
+        }catch (Exception e){
+            throw new EntityNotCreatedException("Movie not created.");
+        }
         List<CrewDto> directorsDto = movieDto.getDirectors();
         if (directorsDto != null) {
             crewFacade.setCrewListInMovie(directorsDto, movieSaved, CrewRole.DIRECTOR);
