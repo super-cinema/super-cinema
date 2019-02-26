@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.superCinema.backend.infrastructure.builders.SeatAvailabilityBuilder;
 import pl.superCinema.backend.domain.facades.SeatAvailabilityFacade;
-import pl.superCinema.backend.domain.ports.SeatAvailabilityRepository;
+import pl.superCinema.backend.domain.repository.SeatAvailabilityRepository;
 
 @Configuration
 public class SeatAvailabilityConfiguration {

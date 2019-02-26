@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.superCinema.backend.infrastructure.dto.CrewDto;
 import pl.superCinema.backend.infrastructure.builders.CrewBuilder;
 import pl.superCinema.backend.domain.facades.CrewFacade;
-import pl.superCinema.backend.domain.ports.CrewRepository;
+import pl.superCinema.backend.domain.repository.CrewRepository;
 
 import java.util.Arrays;
 import java.util.List;

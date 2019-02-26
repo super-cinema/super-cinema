@@ -6,7 +6,7 @@ import pl.superCinema.backend.infrastructure.builders.CrewBuilder;
 import pl.superCinema.backend.infrastructure.builders.MovieBuilder;
 import pl.superCinema.backend.domain.facades.CrewFacade;
 import pl.superCinema.backend.domain.facades.MovieFacade;
-import pl.superCinema.backend.domain.ports.MovieRepository;
+import pl.superCinema.backend.domain.repository.MovieRepository;
 
 @Configuration
 public class MovieConfiguration {

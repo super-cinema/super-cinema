@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.superCinema.backend.infrastructure.builders.CrewBuilder;
 import pl.superCinema.backend.domain.facades.CrewFacade;
-import pl.superCinema.backend.domain.ports.CrewRepository;
+import pl.superCinema.backend.domain.repository.CrewRepository;
 
 @Configuration
 public class CrewConfiguration {

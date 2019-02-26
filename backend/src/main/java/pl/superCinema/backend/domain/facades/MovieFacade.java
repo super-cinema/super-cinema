@@ -9,7 +9,7 @@ import pl.superCinema.backend.domain.models.Crew;
 import pl.superCinema.backend.domain.models.CrewRole;
 import pl.superCinema.backend.domain.models.Movie;
 import pl.superCinema.backend.domain.models.Type;
-import pl.superCinema.backend.domain.ports.MovieRepository;
+import pl.superCinema.backend.domain.repository.MovieRepository;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,7 +6,7 @@ import pl.superCinema.backend.infrastructure.dto.CrewDto;
 import pl.superCinema.backend.domain.models.Crew;
 import pl.superCinema.backend.domain.models.CrewRole;
 import pl.superCinema.backend.domain.models.Movie;
-import pl.superCinema.backend.domain.ports.CrewRepository;
+import pl.superCinema.backend.domain.repository.CrewRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;

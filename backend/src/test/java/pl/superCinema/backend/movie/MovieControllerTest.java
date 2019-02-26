@@ -19,7 +19,7 @@ import pl.superCinema.backend.infrastructure.dto.MovieDto;
 import pl.superCinema.backend.domain.exceptions.EntityCouldNotBeFoundException;
 import pl.superCinema.backend.domain.facades.MovieFacade;
 import pl.superCinema.backend.domain.models.Movie;
-import pl.superCinema.backend.domain.ports.MovieRepository;
+import pl.superCinema.backend.domain.repository.MovieRepository;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;

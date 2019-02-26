@@ -11,8 +11,8 @@ import pl.superCinema.backend.infrastructure.dto.TypeDto;
 import pl.superCinema.backend.domain.facades.MovieFacade;
 import pl.superCinema.backend.domain.models.Crew;
 import pl.superCinema.backend.domain.models.Movie;
-import pl.superCinema.backend.domain.ports.CrewRepository;
-import pl.superCinema.backend.domain.ports.MovieRepository;
+import pl.superCinema.backend.domain.repository.CrewRepository;
+import pl.superCinema.backend.domain.repository.MovieRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import pl.superCinema.backend.infrastructure.builders.CinemaHallBuilder;
 import pl.superCinema.backend.infrastructure.builders.SeatBuilder;
 import pl.superCinema.backend.domain.facades.CinemaHallFacade;
-import pl.superCinema.backend.domain.ports.CinemaHallRepository;
-import pl.superCinema.backend.domain.ports.SeatRepository;
+import pl.superCinema.backend.domain.repository.CinemaHallRepository;
+import pl.superCinema.backend.domain.repository.SeatRepository;
 
 @Configuration
 public class CinemaHallConfiguration {
