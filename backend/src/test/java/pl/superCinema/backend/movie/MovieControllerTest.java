@@ -72,7 +72,7 @@ public class MovieControllerTest  extends AbstractMovieTest {
                 .thenReturn(movieDtoMock);
         //when
         ResponseEntity<MovieDto> movieDtoResponseEntity =
-                this.testRestTemplate.postForEntity(URL + localPort + "/movie", movieDto, MovieDto.class);
+                this.testRestTemplate.postForEntity(URL + localPort + "/movies", movieDto, MovieDto.class);
         MovieDto savedMovieDto = movieDtoResponseEntity.getBody();
         HttpStatus statusCode = movieDtoResponseEntity.getStatusCode();
         //then
@@ -88,7 +88,7 @@ public class MovieControllerTest  extends AbstractMovieTest {
                 .thenReturn(movieDtoMock);
         //when
         ResponseEntity<MovieDto> responseEntity =
-                testRestTemplate.getForEntity(URL + localPort + "/movie?movieId=10", MovieDto.class);
+                testRestTemplate.getForEntity(URL + localPort + "/movies?movieId=10", MovieDto.class);
 
         //then
         HttpStatus statusCode = responseEntity.getStatusCode();
@@ -102,7 +102,7 @@ public class MovieControllerTest  extends AbstractMovieTest {
        doNothing().when(movieFacade).deleteMovie(any(Long.class));
         //when
         this.mockMvc.perform(MockMvcRequestBuilders
-                .delete("http://localhost:" + localPort + "/movie?idToDelete=100")
+                .delete("http://localhost:" + localPort + "/movies?idToDelete=100")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 //then
@@ -117,7 +117,7 @@ public class MovieControllerTest  extends AbstractMovieTest {
                 .deleteMovie(any(Long.class));
         //when
         this.mockMvc.perform(MockMvcRequestBuilders
-                .delete(URL + localPort + "/movie?idToDelete=100")
+                .delete(URL + localPort + "/movies?idToDelete=100")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
         //then
@@ -131,10 +131,10 @@ public class MovieControllerTest  extends AbstractMovieTest {
                 .thenReturn(movieDtoMock);
         MovieDto movieDto = super.prepareMovieDto();
         ObjectMapper objectMapper = new ObjectMapper();
-        String string = URL + localPort + "/movie?id=" + movieSavedId;
+        String string = URL + localPort + "/movies?id=" + movieSavedId;
         //when
         this.mockMvc.perform(MockMvcRequestBuilders
-                .put("/movie?id=" + movieSavedId)
+                .put("/movies?id=" + movieSavedId)
                 .content(objectMapper.writeValueAsString(movieDto))
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
@@ -155,7 +155,7 @@ public class MovieControllerTest  extends AbstractMovieTest {
         //when
 
         ResponseEntity<List> responseEntity =
-                testRestTemplate.getForEntity("http://localhost:" + localPort + "/movie", List.class);
+                testRestTemplate.getForEntity("http://localhost:" + localPort + "/movies", List.class);
         //then
         List<MovieDto> allMoviesList = (List<MovieDto>)responseEntity.getBody().stream()
                 .map(movieDtoMap -> mapToMovieDto((Map<String, Object>) movieDtoMap))

@@ -2,6 +2,7 @@ package pl.superCinema.backend.domain.facades;
 
 import lombok.AllArgsConstructor;
 import pl.superCinema.backend.domain.exceptions.EntityNotCreatedException;
+import pl.superCinema.backend.domain.exceptions.EntityNotDeleted;
 import pl.superCinema.backend.infrastructure.builders.MovieBuilder;
 import pl.superCinema.backend.infrastructure.dto.CrewDto;
 import pl.superCinema.backend.infrastructure.dto.MovieDto;
@@ -12,6 +13,7 @@ import pl.superCinema.backend.domain.models.Movie;
 import pl.superCinema.backend.domain.models.Type;
 import pl.superCinema.backend.domain.repository.MovieRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,9 +66,12 @@ public class MovieFacade {
     public MovieDto saveEditedMovie(Long id, MovieDto movieDto) {
         Movie movie = getMovieEntityById(id);
         editMovie(movie, movieDto);
-        movieRepository.save(movie);
-        MovieDto movieDto1 = movieBuilder.entityToDto(movie);
-        return movieDto1;
+        try {
+            movieRepository.save(movie);
+        }catch (Exception e){
+            throw new EntityNotCreatedException("Movie not updated");
+        }
+        return movieBuilder.entityToDto(movie);
     }
 
     private void editMovie(Movie movie, MovieDto movieDto) {
@@ -113,9 +118,12 @@ public class MovieFacade {
     public MovieDto deleteMovieByTitle(String title) {
         Movie movie = findMovieEntity(title);
         MovieDto movieDto = movieBuilder.entityToDto(movie);
-        movieRepository.delete(movie);
+        try {
+            movieRepository.delete(movie);
+        }catch (Exception e){
+            throw new EntityNotDeleted("Movie not deleted");
+        }
         return movieDto;
-
     }
 
     private Movie findMovieEntity(String title) {
@@ -124,7 +132,12 @@ public class MovieFacade {
     }
 
     public List<MovieDto> getAllMovies() {
-        List<Movie> allMovies = movieRepository.findAll();
+        List<Movie> allMovies = new ArrayList<>();
+        try {
+            allMovies = movieRepository.findAll();
+        }catch(Exception e){
+            throw new EntityNotFoundException();
+        }
         List<MovieDto> allMoviesDto = new ArrayList<>();
         if (!allMovies.isEmpty()) {
             for (Movie movie : allMovies) {

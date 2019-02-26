@@ -26,14 +26,7 @@ public class MovieController {
 
     @GetMapping
     public ResponseEntity getAllMovies() {
-        List<MovieDto> allMoviesDto;
-        try {
-            allMoviesDto = movieFacade.getAllMovies();
-        } catch (Exception e) {
-            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
-            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity(allMoviesDto, HttpStatus.OK);
+        return new ResponseEntity(movieFacade.getAllMovies(), HttpStatus.OK);
     }
 
     @GetMapping
@@ -51,38 +44,21 @@ public class MovieController {
     @PutMapping
     @RequestMapping(params = "id")
     public ResponseEntity editMovie(@RequestParam Long id, @RequestBody MovieDto movieDto) {
-        MovieDto updatedMovie;
-        try {
-            updatedMovie = movieFacade.saveEditedMovie(id, movieDto);
-        } catch (Exception e) {
-            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
-            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity(updatedMovie, HttpStatus.OK);
+        return new ResponseEntity(movieFacade.saveEditedMovie(id, movieDto), HttpStatus.OK);
     }
 
     @DeleteMapping
     @RequestMapping(params = "titleToDelete")
     public ResponseEntity deleteMovie(@RequestParam String titleToDelete) {
-        try {
-            movieFacade.deleteMovieByTitle(titleToDelete);
-        } catch (Exception e) {
-            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
-            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
-        }
+        movieFacade.deleteMovieByTitle(titleToDelete);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping
     @RequestMapping(params = "idToDelete")
     public ResponseEntity deleteMovie(@RequestParam Long idToDelete) {
-        try {
-            movieFacade.deleteMovie(idToDelete);
-            return new ResponseEntity(HttpStatus.OK);
-        } catch (Exception e) {
-            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getMessage(), e.getClass().getSimpleName());
-            return new ResponseEntity(apiError, HttpStatus.BAD_REQUEST);
-        }
+        movieFacade.deleteMovie(idToDelete);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }
