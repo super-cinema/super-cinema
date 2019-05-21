@@ -7,11 +7,6 @@ Project developed with Gitflow Workflow.
 * Frontend: Angular 7, TypeScript, HTML, Scss
 * Tools: Docker, MySql Workbench 
 
-#### Check our progress <br/>
-* [super-cinema](http://super-cinema.pl/)<br/>
-All the time the work is underway, keep in mind please, that not everything must work at the moment ;)
-
-
 #### Features
 
 - [x] Adding, editing and deleting actors/directors 
